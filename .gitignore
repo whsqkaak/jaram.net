@@ -92,4 +92,4 @@ ENV/
 .idea/
 */migrations/
 
-#jaram/settings/local.py
+jaram/settings/local.py
