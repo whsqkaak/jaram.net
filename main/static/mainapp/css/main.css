@@ -1,0 +1,108 @@
+@import "font/NanumBarunGothicLight/nanum-barun-gothic-light.css";
+
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family: nanum-barun-gothic-light, sans-serif !important;
+}
+
+nav {
+    position: fixed;
+    width: 100%;
+    height: 72px;
+    z-index: 9999;
+    padding: 12px;
+    color: white;
+}
+
+header {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    color: white;
+}
+
+div.overlay-dark {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: -99;
+}
+
+.title-container {
+    width: 100%;
+    height: 100%;
+    display: table;
+    text-align: center;
+}
+
+.title {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    color: white;
+    font-weight: 100;
+    font-size: 48px;
+}
+
+#schedule {
+    width: 320px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    color: white;
+}
+
+#schedule > h5 {
+    margin-left: 24px;
+}
+
+.main-icon {
+    font-size: 100px;
+    color: #0E6EB8;
+}
+
+.main-icon.small {
+    font-size: 64px;
+}
+
+section {
+    padding: 96px 0;
+    text-align: center;
+}
+
+section.accent {
+    background: #0E6EB8;
+    color: white;
+}
+
+section.accent .main-icon {
+    color: white;
+}
+
+section p {
+    letter-spacing: 1px;
+}
+
+#hello {
+    padding: 64px 0;
+}
+
+#hello > h1 {
+    font-size: 36px;
+}
+
+.push-top3 {
+    margin-top: 36px !important;
+}
+
+section.gallery .row, section.gallery .row div.image {
+    padding: 0 !important;
+}
+
+footer {
+    background: #303030;
+}

@@ -16,8 +16,6 @@ MANAGERS = (
 
 ALLOWED_HOSTS = ["*"]
 
-# Application definition
-
 DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -30,6 +28,10 @@ DJANGO_APPS = [
 
 JARAM_APPS = [
     'main',
+    'board',
+    'gallery',
+    'schedule',
+    'workshop',
 ]
 
 THIRD_PARTY_APPS = []
@@ -122,5 +124,7 @@ STATICFILES_DIRS = (
     'gallery/static',
 )
 
-MEDIA_ROOT = join(BASE_DIR, 'media')
+STATIC_ROOT = '/tmp/jaram/static_root/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
