@@ -34,7 +34,9 @@ JARAM_APPS = [
     'workshop',
 ]
 
-THIRD_PARTY_APPS = []
+THIRD_PARTY_APPS = [
+    'semanticuiform'
+]
 
 INSTALLED_APPS = DJANGO_APPS + JARAM_APPS + THIRD_PARTY_APPS
 

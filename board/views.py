@@ -3,7 +3,8 @@ from django.views.generic import TemplateView
 
 
 class PlayStormingView(TemplateView):
-    pass
+    def get(self, request, *args, **kwargs):
+        return render(request, 'board/postList.html', {})
 
 
 class SeminarView(TemplateView):
