@@ -20,26 +20,30 @@
   </script>
 </head>
 <body>
-<nav>Jaram
-  <a href="{% url 'login' %}" style="float: right;">로그인</a>
+<nav>
+  <a id="login" href="{% url 'login' %}" style="float: right;"><i class="fa fa-sign-in" aria-hidden="true"></i></a>
 </nav>
 <header>
   <div class="overlay-dark"></div>
   <div class="title-container">
-    <h1 class="title">Jaram</h1>
+    <div class="title">
+      <h1>JARAM</h1>
+      <p>안녕하세요. 한양대학교 ERICA 캠퍼스 컴퓨터공학과 전공학회 자람입니다.</p>
+      <a href="#hello" type="button" class="ui inverted olive button push-top">더 알아보기</a>
+    </div>
   </div>
-  <div id="schedule">
-    <h5>
-      schedule list
-    </h5>
-    <hr>
-    <ul>
-      <li>schedule 1</li>
-      <li>schedule 2</li>
-      <li>schedule 3</li>
-      <li>schedule 4</li>
-    </ul>
-  </div>
+  {#  <div id="schedule">#}
+  {#    <h5>#}
+  {#      schedule list#}
+  {#    </h5>#}
+  {#    <hr>#}
+  {#    <ul>#}
+  {#      <li>schedule 1</li>#}
+  {#      <li>schedule 2</li>#}
+  {#      <li>schedule 3</li>#}
+  {#      <li>schedule 4</li>#}
+  {#    </ul>#}
+  {#  </div>#}
 </header>
 <section id="hello">
   <div class="main-icon">
@@ -133,7 +137,8 @@
     <br>
     when an unknown printer took a galley of type and scrambled it to make a type specimen book.
     <br>
-    It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+    It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially
+    unchanged.
     <br>
     It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
     <br>
@@ -142,28 +147,28 @@
   <div class="ui container four column grid push-top3">
     <div class="column">
       <div class="main-icon">
-        <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+        <i class="fa fa-comments" aria-hidden="true"></i>
       </div>
       <h3>신년회</h3>
       <p>매년 1학기 개강 전에 진행</p>
     </div>
     <div class="column">
       <div class="main-icon">
-        <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+        <i class="fa fa-trophy" aria-hidden="true"></i>
       </div>
       <h3>체육대회</h3>
       <p>여름 또는 가을에 진행</p>
     </div>
     <div class="column">
       <div class="main-icon">
-        <i class="fa fa-television" aria-hidden="true"></i>
+        <i class="fa fa-child" aria-hidden="true"></i>
       </div>
       <h3>엠티</h3>
       <p>연 2회 진행</p>
     </div>
     <div class="column">
       <div class="main-icon">
-        <i class="fa fa-code" aria-hidden="true"></i>
+        <i class="icon lightning" aria-hidden="true"></i>
       </div>
       <h3>어느날 갑자기 웹실에서</h3>
       <p>갑자기 진행</p>
@@ -212,7 +217,7 @@
     </div>
     <div class="column">
       <div class="main-icon small">
-        <i class="fa fa-university" aria-hidden="true"></i>
+        <i class="icon marker"></i>
       </div>
       <h3>학회방</h3>
       <p>한양대학교 ERICA캠퍼스 제3공학관 지하107호</p>

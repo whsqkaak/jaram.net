@@ -20,7 +20,8 @@
   </script>
 </head>
 <body>
-<nav>Jaram
+<nav>
+  <a id="back" href="{% url 'homepage_main' %}" style="float: right;"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
 </nav>
 <header class="blur-background">
   <div class="overlay"></div>
@@ -37,7 +38,7 @@
             <label for="login_pw">비밀번호</label>
             <input type="password" name="login_pw" title="password">
           </div>
-          <button type="submit" class="ui button">로그인</button>
+          <button type="submit" class="ui inverted button">로그인</button>
         </form>
       </div>
     </div>
