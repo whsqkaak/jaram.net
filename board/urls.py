@@ -1,7 +1,7 @@
 from board.views import PlayStormingView, SeminarView, EventReportView
 from django.conf.urls import url
 
-from main.views import MainView
+from main.views import IntroView
 
 urlpatterns = [
     url(r'^playstorming$', PlayStormingView.as_view(), name='playstorming'),

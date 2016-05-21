@@ -1,7 +1,6 @@
 from django.conf.urls import url
-
-from main.views import MainView
+from gallery.views import GalleryView
 
 urlpatterns = [
-    url(r'^$', MainView.as_view(), name='homepage_main'),
+    url(r'^$', GalleryView.as_view(), name='gallery'),
 ]

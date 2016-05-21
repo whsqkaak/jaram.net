@@ -1,7 +1,6 @@
 from django.conf.urls import url
-
-from main.views import MainView
+from schedule.views import ScheduleView
 
 urlpatterns = [
-    url(r'^$', MainView.as_view(), name='homepage_main'),
+    url(r'^$', ScheduleView.as_view(), name='schedule'),
 ]
