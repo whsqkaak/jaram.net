@@ -21,7 +21,7 @@
 </head>
 <body>
 <nav>
-  <a id="login" href="{% url 'login' %}" style="float: right;"><i class="fa fa-sign-in" aria-hidden="true"></i></a>
+  <a id="login" href="{% url 'login' %}"><img src="{% static 'mainapp/img/icon/login.svg' %}"></a>
 </nav>
 <header>
   <div class="overlay-dark"></div>
@@ -29,28 +29,17 @@
     <div class="title">
       <h1>JARAM</h1>
       <p>안녕하세요. 한양대학교 ERICA 캠퍼스 컴퓨터공학과 전공학회 자람입니다.</p>
-      <a href="#hello" type="button" class="ui inverted olive button push-top">더 알아보기</a>
+      <a href="#introduce" class="ui inverted olive button push-top">더 알아보기</a>
     </div>
   </div>
-  {#  <div id="schedule">#}
-  {#    <h5>#}
-  {#      schedule list#}
-  {#    </h5>#}
-  {#    <hr>#}
-  {#    <ul>#}
-  {#      <li>schedule 1</li>#}
-  {#      <li>schedule 2</li>#}
-  {#      <li>schedule 3</li>#}
-  {#      <li>schedule 4</li>#}
-  {#    </ul>#}
-  {#  </div>#}
+  <a href="#introduce"><img id="about-icon" src="{% static 'mainapp/img/icon/hello.svg' %}"></a>
 </header>
-<section id="hello">
-  <div class="main-icon">
-    <i class="fa fa-exclamation" aria-hidden="true"></i>
-  </div>
-  <h1>안녕하세요!</h1>
-</section>
+{#<section id="hello">#}
+{#  <div class="main-icon">#}
+{#    <i class="fa fa-exclamation" aria-hidden="true"></i>#}
+{#  </div>#}
+{#  <h1>안녕하세요!</h1>#}
+{#</section>#}
 <section id="introduce" class="accent">
   <div class="ui container">
     <h1>안녕하세요!</h1>
@@ -77,21 +66,21 @@
   <div class="ui container three column grid push-top3">
     <div class="column">
       <div class="main-icon">
-        <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+        <img src="{% static 'mainapp/img/icon/science.svg' %}">
       </div>
       <h3>스터디</h3>
       <p>개별 진행</p>
     </div>
     <div class="column">
       <div class="main-icon">
-        <i class="fa fa-television" aria-hidden="true"></i>
+        <img src="{% static 'mainapp/img/icon/presentation.svg' %}">
       </div>
       <h3>세미나</h3>
       <p>주 1회 진행</p>
     </div>
     <div class="column">
       <div class="main-icon">
-        <i class="fa fa-code" aria-hidden="true"></i>
+        <img src="{% static 'mainapp/img/icon/pacman.svg' %}">
       </div>
       <h3>플레이스토밍</h3>
       <p>주 1회 진행</p>
@@ -144,34 +133,27 @@
     <br>
     and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
   </p>
-  <div class="ui container four column grid push-top3">
+  <div class="ui container three column grid push-top3">
     <div class="column">
       <div class="main-icon">
-        <i class="fa fa-comments" aria-hidden="true"></i>
+        <img src="{% static 'mainapp/img/icon/fireworks.svg' %}">
       </div>
       <h3>신년회</h3>
       <p>매년 1학기 개강 전에 진행</p>
     </div>
     <div class="column">
       <div class="main-icon">
-        <i class="fa fa-trophy" aria-hidden="true"></i>
+        <img src="{% static 'mainapp/img/icon/olympic-games.svg' %}">
       </div>
       <h3>체육대회</h3>
       <p>여름 또는 가을에 진행</p>
     </div>
     <div class="column">
       <div class="main-icon">
-        <i class="fa fa-child" aria-hidden="true"></i>
+        <img src="{% static 'mainapp/img/icon/campfire.svg' %}">
       </div>
       <h3>엠티</h3>
       <p>연 2회 진행</p>
-    </div>
-    <div class="column">
-      <div class="main-icon">
-        <i class="icon lightning" aria-hidden="true"></i>
-      </div>
-      <h3>어느날 갑자기 웹실에서</h3>
-      <p>갑자기 진행</p>
     </div>
   </div>
 </section>
@@ -210,14 +192,14 @@
   <div class="ui container two column grid push-top3">
     <div class="column">
       <div class="main-icon small">
-        <i class="fa fa-phone" aria-hidden="true"></i>
+        <img src="{% static 'mainapp/img/icon/smartphone.svg' %}">
       </div>
       <h3>회장 최순영</h3>
       <p>010-0000-0000</p>
     </div>
     <div class="column">
       <div class="main-icon small">
-        <i class="icon marker"></i>
+        <img src="{% static 'mainapp/img/icon/placeholder.svg' %}">
       </div>
       <h3>학회방</h3>
       <p>한양대학교 ERICA캠퍼스 제3공학관 지하107호</p>
