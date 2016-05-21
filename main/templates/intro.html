@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  {% load staticfiles %}
+  <title>Jaram</title>
+  {% include 'head_default.html' %}
+
+  <link rel="stylesheet" href="{% static 'mainapp/css/intro.css' %}"/>
+  <style>
+    header {
+      background: url("{% static 'mainapp/img/background.jpg'%}") center;
+      background-size: cover;
+    }
+  </style>
+
+  <script>
+    $(function () {
+    })
+  </script>
+</head>
+<body>
+<nav>
+  <a id="login" href="{% url 'login' %}"><img src="{% static 'mainapp/img/icon/login.svg' %}"></a>
+</nav>
+<header>
+  <div class="overlay-dark"></div>
+  <div class="title-container">
+    <div class="title">
+      <h1>JARAM</h1>
+      <p>안녕하세요. 한양대학교 ERICA 캠퍼스 컴퓨터공학과 전공학회 자람입니다.</p>
+      <a href="#introduce" class="ui inverted olive button push-top">더 알아보기</a>
+    </div>
+  </div>
+  <a href="#introduce"><img id="about-icon" src="{% static 'mainapp/img/icon/hello.svg' %}"></a>
+</header>
+{#<section id="hello">#}
+{#  <div class="main-icon">#}
+{#    <i class="fa fa-exclamation" aria-hidden="true"></i>#}
+{#  </div>#}
+{#  <h1>안녕하세요!</h1>#}
+{#</section>#}
+<section id="introduce" class="accent">
+  <div class="ui container">
+    <h1>안녕하세요!</h1>
+    <p>
+      안녕하세요. 자람은 한양대학교 ERICA 캠퍼스 컴퓨터공학과 전공동아리로 1984년부터 시작해서 현재까지 30년이 넘게 운영되고 있는 학회입니다.
+      <br>
+
+    </p>
+  </div>
+</section>
+<section id="activity">
+  <h1>자람은 기초부터 전문 능력까지 기를 수 있는 학회입니다.</h1>
+  <p>
+    컴퓨터공학과에 들어올 때부터 관심분야를 정확히 정하고 잘하는 사람은 많지 않습니다.
+    <br>
+    자람은 세미나를 통해 다양한 분야를 접할 수 있도록 해서 관심분야를 정하는데 도움을 주고,
+    <br>
+    관심분야가 정해진 친구들은 스터디를 꾸려 관심분야를 더 깊게 공부할 수 있도록 체계가 이루어져 있습니다.
+    <br>
+    또한 이제 막 컴퓨터 공학에 입문한 신입생 후배들을 위해
+    <br>
+    매주 플레이스토밍을 통해 컴퓨터 공학에 필요한 기초 지식을 알려줍니다.
+  </p>
+  <div class="ui container three column grid icon-group">
+    <div class="column">
+      <div class="main-icon">
+        <img src="{% static 'mainapp/img/icon/science.svg' %}">
+      </div>
+      <h3>그룹 스터디</h3>
+      <p>그룹별로 진행</p>
+    </div>
+    <div class="column">
+      <div class="main-icon">
+        <img src="{% static 'mainapp/img/icon/presentation.svg' %}">
+      </div>
+      <h3>세미나</h3>
+      <p>주 1회 진행</p>
+    </div>
+    <div class="column">
+      <div class="main-icon">
+        <img src="{% static 'mainapp/img/icon/pacman.svg' %}">
+      </div>
+      <h3>플레이스토밍</h3>
+      <p>주 1회 진행</p>
+    </div>
+  </div>
+</section>
+<section id="study-gallery" class="ui four column grid gallery">
+  <div class="row">
+    <div class="ui column image">
+      <img src="{% static 'mainapp/img/test_image/image12.jpeg' %}">
+    </div>
+    <div class="ui column image">
+      <img src="{% static 'mainapp/img/test_image/image13.jpeg' %}">
+    </div>
+    <div class="ui column image">
+      <img src="{% static 'mainapp/img/test_image/image14.jpeg' %}">
+    </div>
+    <div class="ui column image">
+      <img src="{% static 'mainapp/img/test_image/image15.jpeg' %}">
+    </div>
+  </div>
+  <div class="row">
+    <div class="ui column image">
+      <img src="{% static 'mainapp/img/test_image/image16.jpeg' %}">
+    </div>
+    <div class="ui column image">
+      <img src="{% static 'mainapp/img/test_image/image17.jpeg' %}">
+    </div>
+    <div class="ui column image">
+      <img src="{% static 'mainapp/img/test_image/image18.jpeg' %}">
+    </div>
+    <div class="ui column image">
+      <img src="{% static 'mainapp/img/test_image/image20.jpeg' %}">
+    </div>
+  </div>
+</section>
+<section id="play">
+  <h1>자람은 관계를 중요시하는 학회입니다.</h1>
+  <p>
+    자람은 선배와 후배 구분 없이 모든 학회원들이 가깝게 지낼 수 있도록 하기 위해 여러가지 활동을 하고 있습니다.
+    <br>
+    학기 초에는 새로 가입한 학회원들을 위해 엠티를 가서 어색함을 없애고
+    <br>
+    학기 중반에는 체육대회를 통해서 학회원들이 같이 땀을 흘리면서 모두가 친해질 수 있도록 노력하고 있습니다.
+    <br>
+    또한 매년 신년회를 통해서 이미 졸업한 선배와 후배가 소통할 수 있는 공간을 마련하여
+    <br>
+    이미 졸업한 선배와의 관계가 끊어지지 않도록 하고 있습니다
+  </p>
+  <div class="ui container three column grid push-top3">
+    <div class="column">
+      <div class="main-icon">
+        <img src="{% static 'mainapp/img/icon/fireworks.svg' %}">
+      </div>
+      <h3>신년회</h3>
+      <p>매년 1학기 개강 전에 진행</p>
+    </div>
+    <div class="column">
+      <div class="main-icon">
+        <img src="{% static 'mainapp/img/icon/olympic-games.svg' %}">
+      </div>
+      <h3>체육대회</h3>
+      <p>여름 또는 가을에 진행</p>
+    </div>
+    <div class="column">
+      <div class="main-icon">
+        <img src="{% static 'mainapp/img/icon/campfire.svg' %}">
+      </div>
+      <h3>엠티</h3>
+      <p>연 2회 진행</p>
+    </div>
+  </div>
+</section>
+<section id="play-gallery" class="ui four column grid gallery">
+  <div class="row">
+    <div class="ui column image">
+      <img src="{% static 'mainapp/img/test_image/image1.jpeg' %}">
+    </div>
+    <div class="ui column image">
+      <img src="{% static 'mainapp/img/test_image/image2.jpeg' %}">
+    </div>
+    <div class="ui column image">
+      <img src="{% static 'mainapp/img/test_image/image3.jpeg' %}">
+    </div>
+    <div class="ui column image">
+      <img src="{% static 'mainapp/img/test_image/image4.jpeg' %}">
+    </div>
+  </div>
+  <div class="row">
+    <div class="ui column image">
+      <img src="{% static 'mainapp/img/test_image/image5.jpeg' %}">
+    </div>
+    <div class="ui column image">
+      <img src="{% static 'mainapp/img/test_image/image6.jpeg' %}">
+    </div>
+    <div class="ui column image">
+      <img src="{% static 'mainapp/img/test_image/image7.jpeg' %}">
+    </div>
+    <div class="ui column image">
+      <img src="{% static 'mainapp/img/test_image/image8.jpeg' %}">
+    </div>
+  </div>
+</section>
+<section id="contact">
+  <h1>저희와 만나고 싶으시다면</h1>
+  <div class="ui container two column grid push-top3">
+    <div class="column">
+      <div class="main-icon small">
+        <img src="{% static 'mainapp/img/icon/smartphone.svg' %}">
+      </div>
+      <h3>회장 최순영</h3>
+      <p>010-0000-0000</p>
+    </div>
+    <div class="column">
+      <div class="main-icon small">
+        <img src="{% static 'mainapp/img/icon/placeholder.svg' %}">
+      </div>
+      <h3>학회방</h3>
+      <p>한양대학교 ERICA캠퍼스 제3공학관 지하107호</p>
+    </div>
+  </div>
+</section>
+</body>
+</html>

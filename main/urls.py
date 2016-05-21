@@ -1,8 +1,10 @@
 from django.conf.urls import url
 
-from main.views import MainView, LoginView
+from main.views import IntroView, LoginView, MainView, LogoutView
 
 urlpatterns = [
-    url(r'^$', MainView.as_view(), name='homepage_main'),
-    url(r'^login$', LoginView.as_view(), name='login'),
+    url(r'^$|^intro', IntroView.as_view(), name='intro'),
+    url(r'^login', LoginView.as_view(), name='login'),
+    url(r'^logout', LogoutView.as_view(), name='logout'),
+    url(r'^main', MainView.as_view(), name='homepage_main'),
 ]

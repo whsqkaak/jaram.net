@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  {% load staticfiles %}
+  <title>Jaram</title>
+  {% include 'head_default.html' %}
+
+  <link rel="stylesheet" href="{% static 'mainapp/css/layout.css' %}"/>
+
+  <style>
+    header {
+      background: url("{% static 'mainapp/img/background.jpg'%}") center;
+      background-size: cover;
+    }
+  </style>
+
+  {% block head %}
+  {% endblock %}
+</head>
+<body>
+<nav class="ui fixed borderless top menu">
+  <div class="ui container">
+    <a href="{% url 'homepage_main' %}"><h2 id="logo" class="push-right2">JARAM</h2></a>
+    <div class="item ui simple dropdown">
+      <div class="text">게시판</div>
+      <i class="dropdown icon"></i>
+      <div class="menu">
+        <a class="item">공지사항</a>
+        <a class="item">재학생 게시판</a>
+        <a class="item">졸업생 게시판</a>
+      </div>
+    </div>
+    <div class="item ui simple dropdown">
+      <div class="text">활동</div>
+      <i class="dropdown icon"></i>
+      <div class="menu">
+        <a class="item">스터디</a>
+        <a class="item">세미나</a>
+        <a class="item">플레이 스토밍</a>
+        <a class="item">워크샵</a>
+      </div>
+    </div>
+    <a class="item">갤러리</a>
+    <a class="item">일정</a>
+
+    <div class="right-container">
+      <a><img class="icon" src="{% static 'mainapp/img/icon/profile.svg' %}"></a>
+      <a href="{% url 'logout' %}"><img class="icon" src="{% static 'mainapp/img/icon/logout.svg' %}"></a>
+    </div>
+  </div>
+</nav>
+<header>
+  <div class="overlay-dark"></div>
+  <div class="center-container">
+    <div id="title-container" class="center-item">
+      <h1>{% block header_title %}{% endblock %}</h1>
+      <p>{% block header_content %}{% endblock %}</p>
+    </div>
+  </div>
+</header>
+<section id="message-container" class="ui container">
+  {% if message %}
+    <div class="ui message">{{ message }}</div>
+  {% endif %}
+  {% if success %}
+    <div class="ui message blue">{{ success }}</div>
+  {% endif %}
+  {% if warning %}
+    <div class="ui message yellow">{{ warning }}</div>
+  {% endif %}
+  {% if error %}
+    <div class="ui message red">{{ error }}</div>
+  {% endif %}
+</section>
+{% block body %}
+{% endblock %}
+</body>
+</html>

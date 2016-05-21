@@ -1,7 +1,6 @@
 from django.conf.urls import url
-
-from main.views import MainView
+from workshop.views import WorkshopView
 
 urlpatterns = [
-    url(r'^$', MainView.as_view(), name='homepage_main'),
+    url(r'^$', WorkshopView.as_view(), name='workshop'),
 ]
