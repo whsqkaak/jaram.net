@@ -1,3 +1,46 @@
 #test{
     background-color: #5b80b2;
 }
+
+.head{
+    width: 100%;
+    height: 242px;
+    background-color: aquamarine;
+    position: relative;
+}
+
+#content{
+    background-color: #5b80b2;
+    height: 500px;
+}
+
+#submenu{
+    background-color: #79aec8;
+    height: 500px;
+}
+
+#test_div{
+    background-color: #205067;
+}
+
+.body{
+    width: 1000px;
+    height: 1000px;
+    background-color: #ddffdd;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#logo{
+    width:100%;
+    height:200px;
+    position: absolute;
+    bottom: 0px;
+}
+#logo_img{
+    width: 600px;
+    height: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #417690;
+}

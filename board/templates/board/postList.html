@@ -1,48 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    {% load staticfiles %}
+    {% include 'head_default.html' %}
     <link rel="stylesheet" type="text/css" href="../../static/board/css/postList.css">
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css"/>
-
-    <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js"></script>
-
     <title>Title</title>
 </head>
 <body>
+    <!--상단 메뉴바-->
     <div class="ui fixed borderless menu">
         <div class="ui container">
             <a href="#" class="header item">
                 <img class="logo" src="assets/images/logo.png">
-                Project Name
+                Jaram
             </a>
-            <a href="#" class="item">Home</a>
             <div class="ui simple dropdown item">
-                Dropdown <i class="dropdown icon"></i>
+                Menu <i class="dropdown icon"></i>
                 <div class="menu">
-                    <a class="item" href="#">Link Item</a>
-                    <a class="item" href="#">Link Item</a>
+                    <a class="item" href="#">자유게시판</a>
+                    <a class="item" href="#">학술게시판</a>
+                    <a class="item" href="#">갤러리</a>
                     <div class="divider"></div>
-                    <div class="header">Header Item</div>
                     <div class="item">
                         <i class="dropdown icon"></i>
-                        Sub Menu
+                        행사보고
                         <div class="menu">
-                            <a class="item" href="#">Link Item</a>
-                            <a class="item" href="#">Link Item</a>
+                            <a class="item" href="#">세미나</a>
+                            <a class="item" href="#">플레이스토밍</a>
+                            <a class="item" href="#">기타</a>
                         </div>
                     </div>
-                    <a class="item" href="#">Link Item</a>
+                    <a class="item" href="#">워크샵</a>
+                    <a class="item" href="#">일정</a>
                 </div>
             </div>
         </div>
     </div>
+    <!--상단 로고-->
+    <div class="head">
+        <div id="logo">
+            <div id="logo_img">This is the test head.</div>
+        </div>
+    </div>
+    <!--본문-->
+    <br>
+    <div class="ui stackable two column divided grid container">
+        <div class="row">
+            <!--게시글 목록-->
+            <div class="ten wide column">
+                <!--최신 게시글-->
+                <h1 class="ui header">New Posts</h1>
+                <div class="ui divider"></div>
+                <div class="ui items">
+                    <div class="item">
+                        <div class="ui small rounded image">
+                            <img src="/../../static/board/img/IMG_2063.jpg" style="width:150px;height:150px;">
+                        </div>
+                        <div class="content">
+                            <a class="header">Header</a>
+                            <div class="meta">
+                                <span>Domestic dogs inherited complex behaviors, such as bite inhibition, from their wolf ancestors, which would have been pack hunters with complex body language. These sophisticated forms of social cognition and communication may account for their trainability, playfulness, and ability to fit into human households and social situations, and these attributes have given dogs a relationship with humans that has enabled them to become one of the most successful species on the planet today.</span>
+                            </div>
+                            <div class="description">
+                                <p></p>
+                            </div>
+                            <div class="extra">
+                                Additional Details
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="ui small rounded image">
+                            <img src="/../../static/board/img/2016-05-08.jpg" style="width:150px;height:150px;">
+                        </div>
+                        <div class="content">
+                            <a class="header">Header</a>
+                            <div class="meta">
+                                <span>Domestic dogs inherited complex behaviors, such as bite inhibition, from their wolf ancestors, which would have been pack hunters with complex body language. These sophisticated forms of social cognition and communication may account for their trainability, playfulness, and ability to fit into human households and social situations, and these attributes have given dogs a relationship with humans that has enabled them to become one of the most successful species on the planet today.</span>
+                            </div>
+                            <div class="description">
+                                <p></p>
+                            </div>
+                            <div class="extra">
+                                Additional Details
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="ui small rounded image">
+                            <img src="/../../static/board/img/2016-05-24.png" style="width:150px;height:150px;">
+                        </div>
+                        <div class="content">
+                            <a class="header">Header</a>
+                            <div class="meta">
+                                <span>Domestic dogs inherited complex behaviors, such as bite inhibition, from their wolf ancestors, which would have been pack hunters with complex body language. These sophisticated forms of social cognition and communication may account for their trainability, playfulness, and ability to fit into human households and social situations, and these attributes have given dogs a relationship with humans that has enabled them to become one of the most successful species on the planet today.</span>
+                            </div>
+                            <div class="description">
+                                <p></p>
+                            </div>
+                            <div class="extra">
+                                Additional Details
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--공지사항-->
+                <h1 class="ui header">Notices</h1>
+                <div class="ui divider"></div>
+                <div class="ui divided items">
+                    <div class="item">
+                        <div class="ui small rounded image">
+                            <img src="/../../static/board/img/IMG_2063.jpg" style="width:150px;height:150px;">
+                        </div>
+                        <div class="content">
+                            <a class="header">Header</a>
+                            <div class="meta">
+                                <span>Domestic dogs inherited complex behaviors, such as bite inhibition, from their wolf ancestors, which would have been pack hunters with complex body language. These sophisticated forms of social cognition and communication may account for their trainability, playfulness, and ability to fit into human households and social situations, and these attributes have given dogs a relationship with humans that has enabled them to become one of the most successful species on the planet today.</span>
+                            </div>
+                            <div class="description">
+                                <p></p>
+                            </div>
+                            <div class="extra">
+                                Additional Details
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="ui small rounded image">
+                            <img src="/../../static/board/img/2016-05-08.jpg" style="width:150px;height:150px;">
+                        </div>
+                        <div class="content">
+                            <a class="header">Header</a>
+                            <div class="meta">
+                                <span>Domestic dogs inherited complex behaviors, such as bite inhibition, from their wolf ancestors, which would have been pack hunters with complex body language. These sophisticated forms of social cognition and communication may account for their trainability, playfulness, and ability to fit into human households and social situations, and these attributes have given dogs a relationship with humans that has enabled them to become one of the most successful species on the planet today.</span>
+                            </div>
+                            <div class="description">
+                                <p></p>
+                            </div>
+                            <div class="extra">
+                                Additional Details
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="ui small rounded image">
+                            <img src="/../../static/board/img/2016-05-24.png" style="width:150px;height:150px;">
+                        </div>
+                        <div class="content">
+                            <a class="header">Header</a>
+                            <div class="meta">
+                                <span>Domestic dogs inherited complex behaviors, such as bite inhibition, from their wolf ancestors, which would have been pack hunters with complex body language. These sophisticated forms of social cognition and communication may account for their trainability, playfulness, and ability to fit into human households and social situations, and these attributes have given dogs a relationship with humans that has enabled them to become one of the most successful species on the planet today.</span>
+                            </div>
+                            <div class="description">
+                                <p></p>
+                            </div>
+                            <div class="extra">
+                                Additional Details
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--우측 위젯 바-->
+            <div class="six wide column">
+                <div class="ui segment">Content</div>
+            </div>
+        </div>
+    </div>
+    <div class="ui divider"></div>
 
 </body>
 </html>
