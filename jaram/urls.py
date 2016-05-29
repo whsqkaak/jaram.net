@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('main.urls')),
     url(r'^board/', include('board.urls')),
+    url(r'^study/', include('study.urls')),
     url(r'^workshop/', include('workshop.urls')),
     url(r'^schedule/', include('schedule.urls')),
     url(r'^gallery/', include('gallery.urls')),

@@ -29,6 +29,7 @@ DJANGO_APPS = [
 JARAM_APPS = [
     'main',
     'board',
+    'study',
     'gallery',
     'schedule',
     'workshop',
@@ -98,6 +99,7 @@ TEMPLATES = [
         'DIRS': [
             'main/templates',
             'board/templates',
+            'study/templates',
             'workshop/templates',
             'schedule/templates',
             'gallery/templates',
