@@ -1,49 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load staticfiles %}
-    {% include 'head_default.html' %}
-    <link rel="stylesheet" type="text/css" href="../../static/board/css/postList.css">
-    <title>Title</title>
-</head>
-<body>
-    <!--상단 메뉴바-->
-    <div class="ui fixed borderless menu">
-        <div class="ui container">
-            <a href="#" class="header item">
-                <img class="logo" src="assets/images/logo.png">
-                Jaram
-            </a>
-            <div class="ui simple dropdown item">
-                Menu <i class="dropdown icon"></i>
-                <div class="menu">
-                    <a class="item" href="#">자유게시판</a>
-                    <a class="item" href="#">학술게시판</a>
-                    <a class="item" href="#">갤러리</a>
-                    <div class="divider"></div>
-                    <div class="item">
-                        <i class="dropdown icon"></i>
-                        행사보고
-                        <div class="menu">
-                            <a class="item" href="#">세미나</a>
-                            <a class="item" href="#">플레이스토밍</a>
-                            <a class="item" href="#">기타</a>
-                        </div>
-                    </div>
-                    <a class="item" href="#">워크샵</a>
-                    <a class="item" href="#">일정</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--상단 로고-->
-    <div class="head">
-        <div id="logo">
-            <div id="logo_img">This is the test head.</div>
-        </div>
-    </div>
-    <!--본문-->
-    <br>
+{% extends 'layout.html' %}
+
+{% block header_title %}
+    중요 알림
+{% endblock %}
+
+{% block header_content %}
+  알림 내용
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
     <div class="ui stackable two column divided grid container">
         <div class="row">
             <!--게시글 목록-->
@@ -163,11 +131,9 @@
             </div>
             <!--우측 위젯 바-->
             <div class="six wide column">
-                <div class="ui segment">Content</div>
+                <div class="ui segment">Calender</div>
             </div>
         </div>
     </div>
     <div class="ui divider"></div>
-
-</body>
-</html>
+{% endblock %}
