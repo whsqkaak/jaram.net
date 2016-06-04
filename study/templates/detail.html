@@ -1,0 +1,72 @@
+{% extends 'layout.html' %}
+
+{% load staticfiles %}
+
+{% block head %}
+  <style>
+    {% if study.image %}
+      header {
+        background: url("{{ study.image.url }}") center;
+      }
+    {% endif %}
+  </style>
+{% endblock %}
+
+{% block header_title %}
+  {{ study.name }}
+{% endblock %}
+
+{% block header_content %}
+  <p>{{ study.description }}</p>
+  <a href="{% url 'study' %}" class="ui button inverted basic">스터디 목록</a>
+  <a href="{% url 'study_report' id=study.pk %}" class="ui button inverted basic yellow">보고서 작성</a>
+{% endblock %}
+
+{% block body %}
+  <section class="ui container">
+    <div class="ui piled segment">
+      <h4 class="ui header">{{ study.name }}</h4>
+      <div>{{ study.content }}</div>
+    </div>
+  </section>
+  <section class="ui stackable two column grid container">
+    <div class="row push-top3">
+      <div class="twelve wide column">
+        <div class="ui divided items push-right3">
+          {% for report in reports %}
+            <div class="item">
+              <div class="ui segment full-width">
+                <h2 class="ui header">{{ report.title }}</h2>
+                <h4 class="ui header">{{ report.write_date|date:'yyyy년 MM월 dd일' }}</h4>
+                <div>{{ report.content }}</div>
+                {% if report.attachment %}
+                  <div class="ui divider"></div>
+                  <a href="{{ report.attachment.url }}"><i class="icon download"></i> {{ report.attachment.name }}</a>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="four wide column">
+        <h3>구성원</h3>
+        {% for member in members %}
+          <div class="ui feed">
+            <div class="event">
+              <div class="label">
+                {% if member.profile %}
+                  <img src="{{ member.profile.url }}">
+                {% else %}
+                  <img src="{% static 'mainapp/img/profile_default.png' %}">
+                {% endif %}
+              </div>
+              <div class="content">
+                {{ member.name }}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endblock %}
