@@ -25,7 +25,7 @@ class StudyDetailView(TemplateView):
             return redirect('/study?error=존재하지 않는 스터디입니다.')
 
         response['study'] = study
-        response['reports'] = study.studyreport_set.all()
+        response['reports'] = study.studyreport_set.order_by('-write_date').all()
         response['members'] = study.members.all()
 
         return render(request, self.template_name, response)

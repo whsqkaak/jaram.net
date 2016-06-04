@@ -10,6 +10,15 @@
       }
     {% endif %}
   </style>
+
+  <script>
+    $(function () {
+      $('.ui.sticky').sticky({
+        context: '#sticky-container',
+        offset: 96
+      });
+    });
+  </script>
 {% endblock %}
 
 {% block header_title %}
@@ -29,7 +38,7 @@
       <div>{{ study.content }}</div>
     </div>
   </section>
-  <section class="ui stackable two column grid container">
+  <section id="sticky-container" class="ui stackable two column grid container">
     <div class="row push-top3">
       <div class="twelve wide column">
         <div class="ui divided items push-right3">
@@ -49,23 +58,25 @@
         </div>
       </div>
       <div class="four wide column">
-        <h3>구성원</h3>
-        {% for member in members %}
-          <div class="ui feed">
-            <div class="event">
-              <div class="label">
-                {% if member.profile %}
-                  <img src="{{ member.profile.url }}">
-                {% else %}
-                  <img src="{% static 'mainapp/img/profile_default.png' %}">
-                {% endif %}
-              </div>
-              <div class="content">
-                {{ member.name }}
+        <div class="ui sticky">
+          <h3>구성원</h3>
+          {% for member in members %}
+            <div class="ui feed">
+              <div class="event">
+                <div class="label">
+                  {% if member.profile %}
+                    <img src="{{ member.profile.url }}">
+                  {% else %}
+                    <img src="{% static 'mainapp/img/profile_default.png' %}">
+                  {% endif %}
+                </div>
+                <div class="content">
+                  {{ member.name }}
+                </div>
               </div>
             </div>
-          </div>
-        {% endfor %}
+          {% endfor %}
+        </div>
       </div>
     </div>
   </section>
