@@ -46,7 +46,7 @@
             <div class="item">
               <div class="ui segment full-width">
                 <h2 class="ui header">{{ report.title }}</h2>
-                <h4 class="ui header">{{ report.write_date|date:'yyyy년 MM월 dd일' }}</h4>
+                <h4 class="ui header">{{ report.write_date|date:'Y년 m월 d일' }}</h4>
                 <div>{{ report.content }}</div>
                 {% if report.attachment %}
                   <div class="ui divider"></div>
