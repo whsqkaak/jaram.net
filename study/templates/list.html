@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block header_content %}
-  <button class="ui button">스터디 등록</button>
+  <button class="ui button inverted basic yellow">스터디 등록 신청</button>
 {% endblock %}
 
 {% block body %}
@@ -22,7 +22,7 @@
             <img src="{{ item.image.url }}">
           </div>
           <div class="content">
-            <a class="header">{{ item.title }}</a>
+            <a href="{% url 'study_detail' id=item.pk %}" class="header">{{ item.name }}</a>
             <div class="meta">
               <span>{{ item.leader.name }}</span>
             </div>
@@ -32,10 +32,7 @@
             {% if user in item.members %}
               <span class="right floated"><i class="icon star"></i></span>
             {% endif %}
-            <span>
-        <i class="icon user"></i>
-        {{ item.members|length }}명이 함께 스터디 중
-      </span>
+            <span><i class="icon user"></i> {{ item.members|length }}명이 함께 스터디 중 </span>
           </div>
         </div>
       {% endfor %}

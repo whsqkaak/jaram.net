@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% load staticfiles %}
+
+{% block head %}
+  <style>
+    {% if study.image %}
+      header {
+        background: url("{{ study.image.url }}") center;
+      }
+    {% endif %}
+  </style>
+{% endblock %}
+
+{% block header_title %}
+  '{{ study.name }}' 보고서 작성
+{% endblock %}
+
+{% block header_content %}
+  <p>{{ study.description }}</p>
+  <a href="{% url 'study' %}" class="ui button inverted basic">스터디 목록</a>
+  <a href="{% url 'study_detail' id=study.pk %}" class="ui button inverted basic yellow">스터디 페이지</a>
+{% endblock %}
+
+{% block body %}
+  <section class="ui container">
+    <div class="ui piled segment">
+      <h4 class="ui header">{{ study.name }}</h4>
+      <div>{{ study.content }}</div>
+    </div>
+  </section>
+{% endblock %}
