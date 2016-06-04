@@ -1,3 +1,6 @@
 from django.contrib import admin
+from main.admin import admin_register
+from study.models import Study
 
-# Register your models here.
+
+admin_register(Study, admin.ModelAdmin)
