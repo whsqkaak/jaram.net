@@ -12,6 +12,9 @@ class BaseBoardModel(models.Model):
 
     # TODO: 첨부파일, 연관 일정
 
+    def __unicode__(self):
+        return self.title
+
     class Meta:
         abstract = True
 
