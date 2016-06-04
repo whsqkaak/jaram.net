@@ -15,7 +15,7 @@ class Study(models.Model):
     attachment = models.FileField(_('첨부 파일'), upload_to='study/attachment/', null=True, blank=True)
     is_active = models.BooleanField(_('진행 여부'), null=False, blank=False, default=False)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta:
@@ -32,7 +32,7 @@ class StudyReport(models.Model):
     content = models.TextField(_('내용'), null=False, blank=False)
     attachment = models.FileField(_('첨부 파일'), upload_to='study/report/attachment/', null=True, blank=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.study.name + ' - ' + self.title
 
     class Meta:

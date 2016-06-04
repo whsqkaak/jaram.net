@@ -12,7 +12,7 @@ class WorkShop(models.Model):
 
     # TODO: 일정표, 오픈일?
 
-    def __unicode__(self):
+    def __str__(self):
         return self.subject
 
     class Meta:
@@ -28,7 +28,7 @@ class WorkShopTask(models.Model):
     deadline = models.DateTimeField(_('제출 마감일'), null=True, blank=True)
     # TODO: 첨부파일
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     class Meta:
@@ -43,7 +43,7 @@ class WorkShopTaskSubmission(models.Model):
     content = models.TextField(_('내용'), null=True, blank=True, default='')
     date = models.DateTimeField(_('제출일'), null=False, blank=False, default=timezone.now)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.presenter.name + ' - ' + self.presenter.name
 
     class Meta:

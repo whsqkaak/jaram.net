@@ -8,7 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 class Grade(models.Model):
     name = models.CharField(_('등급 이름'), max_length=10, null=False, blank=False)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta:
@@ -78,7 +78,7 @@ class Member(AbstractBaseUser, PermissionsMixin):
 
     objects = UserManager()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def set_password(self, raw_password):

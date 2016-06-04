@@ -7,7 +7,7 @@ class Event(models.Model):
     title = models.CharField(_('제목'), max_length=255, null=False, blank=False)
     link_page = models.CharField(_('연결 페이지'), max_length=255, null=True, blank=True, default='')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     class Meta:
