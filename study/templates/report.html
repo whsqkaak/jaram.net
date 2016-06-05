@@ -10,6 +10,13 @@
       }
     {% endif %}
   </style>
+  <script>
+  $(function () {
+    $("#report-submit").click(function() {
+      $("button[type=submit]").click();
+    });
+  });
+  </script>
 {% endblock %}
 
 {% block header_title %}
@@ -20,13 +27,25 @@
   <p>{{ study.description }}</p>
   <a href="{% url 'study' %}" class="ui button inverted basic">스터디 목록</a>
   <a href="{% url 'study_detail' id=study.pk %}" class="ui button inverted basic yellow">스터디 페이지</a>
+  <button id="report-submit" type="button" class="ui button inverted green">보고서 제출</button>
 {% endblock %}
 
 {% block body %}
   <section class="ui container">
-    <div class="ui piled segment">
-      <h4 class="ui header">{{ study.name }}</h4>
-      <div>{{ study.content }}</div>
-    </div>
+    <form id="report-form" class="ui form">
+      <div class="field">
+        <label>제목</label>
+        <input type="text" name="title" placeholder="진행한 내용에 대해 간략하게 기입" required>
+      </div>
+      <div class="field">
+        <label>내용</label>
+        <textarea name="content" rows="16" placeholder="진행한 내용에 대해 상단에 요약을 하고 아래에 상세하게 정리" required></textarea>
+      </div>
+      <div class="field">
+        <label>첨부 파일</label>
+        <input type="file" name="attachment">
+      </div>
+      <button type="submit" class="hide"></button>
+    </form>
   </section>
 {% endblock %}

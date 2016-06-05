@@ -58,6 +58,10 @@ html, body {
     width: 100% !important;
 }
 
+.hide {
+    display: none !important;
+}
+
 div.overlay-dark {
     position: absolute;
     width: 100%;
