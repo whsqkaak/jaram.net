@@ -81,6 +81,19 @@ class Member(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.name
 
+    def to_dict(self):
+        result = dict()
+
+        result['id'] = self.pk
+        result['name'] = self.name
+        result['period'] = self.period
+        result['grade'] = self.grade.name
+
+        if self.profile:
+            result['profile'] = self.profile.url
+
+        return result
+
     def set_password(self, raw_password):
         from django.contrib.auth.hashers import make_password
         self.password = make_password(raw_password)
@@ -106,6 +119,4 @@ class Member(AbstractBaseUser, PermissionsMixin):
         ordering = ['-id']
         verbose_name = _('자람 회원')
         verbose_name_plural = _('자람 회원')
-
-
 
