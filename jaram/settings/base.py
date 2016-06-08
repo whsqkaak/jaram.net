@@ -35,9 +35,20 @@ JARAM_APPS = [
     'workshop',
 ]
 
-THIRD_PARTY_APPS = []
+THIRD_PARTY_APPS = [
+    'ckeditor',
+    'ckeditor_uploader',
+]
 
 INSTALLED_APPS = DJANGO_APPS + JARAM_APPS + THIRD_PARTY_APPS
+
+CKEDITOR_UPLOAD_PATH = 'ckeditor/files/'
+CKEDITOR_IMAGE_BACKEND = "pillow"
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': None,
+    },
+}
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',

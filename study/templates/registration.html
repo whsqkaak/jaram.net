@@ -8,6 +8,7 @@
       display: inline;
     }
   </style>
+  <script src="//cdn.ckeditor.com/4.5.9/standard/ckeditor.js"></script>
   <script>
     function createUserItemView(result) {
       var container = $("#member-container").find("div.item").first().clone();
@@ -45,6 +46,12 @@
     }
 
     $(function () {
+      CKEDITOR.replace('content', {
+        language: 'ko',
+        toolbar: 'Basic',
+        filebrowserUploadUrl: "{% url 'ckeditor_upload' %}"
+      });
+
       $("#registration-submit").click(function () {
         $("button[type=submit]").click();
       });

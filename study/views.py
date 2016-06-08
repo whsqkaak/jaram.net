@@ -1,8 +1,5 @@
-import json
-
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import Count
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.utils import timezone
