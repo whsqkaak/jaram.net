@@ -10,12 +10,18 @@
       }
     {% endif %}
   </style>
+  <script src="//cdn.ckeditor.com/4.5.9/standard/ckeditor.js"></script>
   <script>
-  $(function () {
-    $("#report-submit").click(function() {
-      $("button[type=submit]").click();
+    $(function () {
+      CKEDITOR.replace('content', {
+        language: 'ko',
+        toolbar: 'Basic',
+        filebrowserUploadUrl: "{% url 'ckeditor_upload' %}"
+      });
+      $("#report-submit").click(function () {
+        $("button[type=submit]").click();
+      });
     });
-  });
   </script>
 {% endblock %}
 
