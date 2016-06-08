@@ -10,7 +10,8 @@
   </style>
   <script>
     function createUserItemView(result) {
-      var container = $("#member-container").find("div.item:first-child").clone();
+      var container = $("#member-container").find("div.item").first().clone();
+      container.addClass("study-member");
       container.attr("item_id", result.id);
       container.find("div.label").text("").append($("<img src='" + result.image + "'>"));
       container.find("div.content").text(result.title);
@@ -28,17 +29,24 @@
       memberContainer.append(createUserItemView(result));
     }
 
-    $(function () {
-      $("#report-submit").click(function () {
-        $("button[type=submit]").click();
+    function registrationSubmit() {
+      var memberList = [];
+      $(".study-member").each(function () {
+        memberList.push($(this).attr("item_id"));
       });
 
-      $("#registration-form").submit(function () {
-        var memberInput = $("input[name=member]");
-        $("#member-container").find("div.item").forEach(function () {
-          memberInput.val(memberInput.val() + $(this).attr("item_id") + ",");
-        });
-        return true;
+      if (memberList.length == 0) {
+        alert("스터디장 외에도 구성원이 있어야합니다.");
+        return false;
+      }
+
+      $("input[name=member]").val(memberList.toString());
+      return true;
+    }
+
+    $(function () {
+      $("#registration-submit").click(function () {
+        $("button[type=submit]").click();
       });
 
       $("#member-search").search({
@@ -64,7 +72,9 @@
 
 {% block body %}
   <section class="ui container">
-    <form id="registration-form" class="ui form" method="post">
+    <form id="registration-form" class="ui form" onsubmit="return registrationSubmit();"
+          method="post" enctype="multipart/form-data">
+      {% csrf_token %}
       <div class="field">
         <label>스터디 이름</label>
         <input type="text" name="name" placeholder="스터디 이름" required>
@@ -75,7 +85,7 @@
       </div>
       <div class="field">
         <label>대표 사진</label>
-        <input type="file" name="image">
+        <input type="file" name="image" required>
       </div>
       <div>
         <label>구성원</label>

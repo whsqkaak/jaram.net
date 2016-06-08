@@ -29,10 +29,10 @@
             <div class="description">{{ item.description }}</div>
           </div>
           <div class="content extra">
-            {% if user in item.members %}
-              <span class="right floated"><i class="icon star"></i></span>
+            {% if user in item.members.all or user == item.leader %}
+              <span class="right floated"><i class="icon star yellow"></i></span>
             {% endif %}
-            <span><i class="icon user"></i> {{ item.members|length }}명이 함께 스터디 중 </span>
+            <span><i class="icon user"></i> {{ item.members.all|length|add:1 }}명이 함께 스터디 중 </span>
           </div>
         </div>
       {% endfor %}

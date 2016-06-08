@@ -60,6 +60,20 @@
       <div class="four wide column">
         <div class="ui sticky">
           <h3>구성원</h3>
+            <div class="ui feed">
+              <div class="event">
+                <div class="label">
+                  {% if study.leader.profile %}
+                    <img src="{{ study.leader.profile.url }}">
+                  {% else %}
+                    <img src="{% static 'mainapp/img/profile_default.png' %}">
+                  {% endif %}
+                </div>
+                <div class="content">
+                  {{ study.leader.name }}
+                </div>
+              </div>
+            </div>
           {% for member in members %}
             <div class="ui feed">
               <div class="event">

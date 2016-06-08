@@ -1,5 +1,8 @@
+import json
+
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Count
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.utils import timezone
@@ -73,6 +76,30 @@ class StudyRegistrationView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name, create_response(request))
+
+    def post(self, request, *args, **kwargs):
+        data = request.POST
+        file = request.FILES
+
+        if not (data.get('name') and data.get('description') and data.get('member')
+                and data.get('content') and file.get('image')):
+            return redirect('/study/registration/?error=스터디 등록 신청에 필요한 정보가 부족합니다.')
+
+        study = Study()
+        study.leader = request.user
+        study.name = data.get('name')
+        study.description = data.get('description')
+        study.content = data.get('content')
+        study.image = file.get('image')
+
+        study.save()
+
+        for member in Member.objects.filter(pk__in=data.get('member').split(',')).all():
+            study.members.add(member)
+
+        study.save()
+
+        return redirect('/study?success=성공적으로 등록되었습니다.')
 
 
 class SearchUserApiView(View):
