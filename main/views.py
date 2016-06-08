@@ -21,7 +21,6 @@ class LoginView(TemplateView):
 
 
 class LogoutView(View):
-
     def get(self, request, *args, **kwargs):
         return redirect('intro')
 

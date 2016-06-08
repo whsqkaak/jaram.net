@@ -93,3 +93,5 @@ ENV/
 */migrations/
 
 jaram/settings/local.py
+
+media/

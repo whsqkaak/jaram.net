@@ -2,7 +2,7 @@ import os
 
 from os.path import join
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '..')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
@@ -29,14 +29,26 @@ DJANGO_APPS = [
 JARAM_APPS = [
     'main',
     'board',
+    'study',
     'gallery',
     'schedule',
     'workshop',
 ]
 
-THIRD_PARTY_APPS = []
+THIRD_PARTY_APPS = [
+    'ckeditor',
+    'ckeditor_uploader',
+]
 
 INSTALLED_APPS = DJANGO_APPS + JARAM_APPS + THIRD_PARTY_APPS
+
+CKEDITOR_UPLOAD_PATH = 'ckeditor/files/'
+CKEDITOR_IMAGE_BACKEND = "pillow"
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': None,
+    },
+}
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -98,6 +110,7 @@ TEMPLATES = [
         'DIRS': [
             'main/templates',
             'board/templates',
+            'study/templates',
             'workshop/templates',
             'schedule/templates',
             'gallery/templates',
