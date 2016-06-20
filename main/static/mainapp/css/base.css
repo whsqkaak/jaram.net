@@ -54,6 +54,14 @@ html, body {
     margin-left: 36px !important;
 }
 
+.full-width {
+    width: 100% !important;
+}
+
+.hide {
+    display: none !important;
+}
+
 div.overlay-dark {
     position: absolute;
     width: 100%;

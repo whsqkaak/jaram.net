@@ -1,4 +1,5 @@
 from django.contrib.auth.base_user import AbstractBaseUser
+from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
@@ -6,6 +7,9 @@ from django.utils.translation import ugettext_lazy as _
 
 class Grade(models.Model):
     name = models.CharField(_('등급 이름'), max_length=10, null=False, blank=False)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name = _('회원 등급')
@@ -31,6 +35,9 @@ class BaseUserManager(models.Manager):
         from django.utils.crypto import get_random_string
         return get_random_string(length, allowed_chars)
 
+    def get_by_natural_key(self, username):
+        return self.get(**{self.model.USERNAME_FIELD: username})
+
 
 class UserManager(BaseUserManager):
     def create_user(self, user_id, password=None, **kwargs):
@@ -47,7 +54,7 @@ class UserManager(BaseUserManager):
         return user
 
 
-class Member(AbstractBaseUser):
+class Member(AbstractBaseUser, PermissionsMixin):
     # 기본 정보
     user_id = models.CharField(_('아이디'), max_length=20, null=False, blank=False, unique=True, db_index=True)
     name = models.CharField(_('이름'), max_length=15, null=False, blank=False)
@@ -60,6 +67,7 @@ class Member(AbstractBaseUser):
     # 부가 정보
     birth = models.DateField(_('생일'), null=True, blank=True)
     sns = models.CharField(_('SNS 주소'), max_length=255, null=True, blank=True)
+    profile = models.ImageField(_('프로필 이미지'), upload_to='member/profile/', null=True, blank=True)
 
     # 서버 운영에 필요한 정보
     date_joined = models.DateTimeField(_('가입 날짜'), default=timezone.now)
@@ -69,6 +77,22 @@ class Member(AbstractBaseUser):
     USERNAME_FIELD = 'user_id'
 
     objects = UserManager()
+
+    def __str__(self):
+        return self.name
+
+    def to_dict(self):
+        result = dict()
+
+        result['id'] = self.pk
+        result['name'] = self.name
+        result['period'] = self.period
+        result['grade'] = self.grade.name
+
+        if self.profile:
+            result['profile'] = self.profile.url
+
+        return result
 
     def set_password(self, raw_password):
         from django.contrib.auth.hashers import make_password
@@ -95,6 +119,4 @@ class Member(AbstractBaseUser):
         ordering = ['-id']
         verbose_name = _('자람 회원')
         verbose_name_plural = _('자람 회원')
-
-
 

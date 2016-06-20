@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+
+{% load staticfiles %}
+
+{% block head %}
+{% endblock %}
+
+{% block header_title %}
+  스터디 목록
+{% endblock %}
+
+{% block header_content %}
+  <a href="{% url 'study_registration' %}" class="ui button inverted basic yellow">스터디 등록 신청</a>
+{% endblock %}
+
+{% block body %}
+  <section class="ui container">
+    <div class="ui three cards">
+      {% for item in page %}
+        <div class="card">
+          <div class="image">
+            <img src="{{ item.image.url }}">
+          </div>
+          <div class="content">
+            <a href="{% url 'study_detail' id=item.pk %}" class="header">{{ item.name }}</a>
+            <div class="meta">
+              <span>{{ item.leader.name }}</span>
+            </div>
+            <div class="description">{{ item.description }}</div>
+          </div>
+          <div class="content extra">
+            {% if user in item.members.all or user == item.leader %}
+              <span class="right floated"><i class="icon star yellow"></i></span>
+            {% endif %}
+            <span><i class="icon user"></i> {{ item.members.all|length|add:1 }}명이 함께 스터디 중 </span>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}

@@ -8,6 +8,9 @@ class Album(models.Model):
 
     # TODO: 이미지들
 
+    def __str__(self):
+        return self.title
+
     class Meta:
         ordering = ['-date']
         verbose_name = _('앨범')

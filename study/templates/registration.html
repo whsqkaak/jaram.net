@@ -1,0 +1,137 @@
+{% extends 'layout.html' %}
+
+{% load staticfiles %}
+
+{% block head %}
+  <style>
+    #member-search {
+      display: inline;
+    }
+  </style>
+  <script src="//cdn.ckeditor.com/4.5.9/standard/ckeditor.js"></script>
+  <script>
+    function createUserItemView(result) {
+      var container = $("#member-container").find("div.item").first().clone();
+      container.addClass("study-member");
+      container.attr("item_id", result.id);
+      container.find("div.label").text("").append($("<img src='" + result.image + "'>"));
+      container.find("div.content").text(result.title);
+      return container;
+    }
+
+    function addMember(result) {
+      var memberContainer = $("#member-container");
+
+      if (memberContainer.find("div[item_id=" + result.id + "]").size() > 0) {
+        alert("이미 추가된 회원입니다.");
+        return;
+      }
+
+      memberContainer.append(createUserItemView(result));
+    }
+
+    function registrationSubmit() {
+      var memberList = [];
+      $(".study-member").each(function () {
+        memberList.push($(this).attr("item_id"));
+      });
+
+      if (memberList.length == 0) {
+        alert("스터디장 외에도 구성원이 있어야합니다.");
+        return false;
+      }
+
+      $("input[name=member]").val(memberList.toString());
+      return true;
+    }
+
+    $(function () {
+      CKEDITOR.replace('content', {
+        language: 'ko',
+        toolbar: 'Basic',
+        filebrowserUploadUrl: "{% url 'ckeditor_upload' %}"
+      });
+
+      $("#registration-submit").click(function () {
+        $("button[type=submit]").click();
+      });
+
+      $("#member-search").search({
+        apiSettings: {
+          url: "{% url 'study_api_search_user' %}?query={query}"
+        },
+        onSelect: function (result, response) {
+          addMember(result);
+        }
+      });
+    });
+  </script>
+{% endblock %}
+
+{% block header_title %}
+  스터디 등록 신청
+{% endblock %}
+
+{% block header_content %}
+  <a href="{% url 'study' %}" class="ui button inverted basic">스터디 목록</a>
+  <button id="registration-submit" type="button" class="ui button inverted green">스터디 등록 신청</button>
+{% endblock %}
+
+{% block body %}
+  <section class="ui container">
+    <form id="registration-form" class="ui form" onsubmit="return registrationSubmit();"
+          method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="field">
+        <label>스터디 이름</label>
+        <input type="text" name="name" placeholder="스터디 이름" required>
+      </div>
+      <div class="field">
+        <label>간략한 설명</label>
+        <input type="text" name="description" placeholder="진행할 내용에 대해 간략한 설명" required>
+      </div>
+      <div class="field">
+        <label>대표 사진</label>
+        <input type="file" name="image" required>
+      </div>
+      <div>
+        <label>구성원</label>
+        <div id="member-search" class="ui search push-left">
+          <div class="ui icon input">
+            <input class="prompt" type="text" placeholder="구성원 검색">
+            <i class="search icon"></i>
+          </div>
+          <div class="results"></div>
+        </div>
+        <div id="member-container" class="ui grid push-top push-bottom">
+          <input type="hidden" name="member"/>
+          <div class="item" item_id="{{ user.pk }}">
+            <div class="ui feed">
+              <div class="event">
+                <div class="label">
+                  {% if user.profile %}
+                    <img src="{{ user.profile.url }}">
+                  {% else %}
+                    <img src="{% static 'mainapp/img/profile_default.png' %}">
+                  {% endif %}
+                </div>
+                <div class="content">
+                  {{ user.name }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label>계획</label>
+        <textarea name="content" rows="16" placeholder="내용, 계획, 목표 등에 대해서 작성" required></textarea>
+      </div>
+      <div class="field">
+        <label>첨부 파일</label>
+        <input type="file" name="attachment">
+      </div>
+      <button type="submit" class="hide"></button>
+    </form>
+  </section>
+{% endblock %}
