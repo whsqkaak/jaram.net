@@ -21,13 +21,20 @@ class LoginView(TemplateView):
 
 
 class LogoutView(View):
-
     def get(self, request, *args, **kwargs):
         return redirect('intro')
 
 
 class MainView(TemplateView):
     template_name = 'main.html'
+
+    def get(self, request, *args, **kwargs):
+        response = create_response(request)
+        return render(request, self.template_name, response)
+
+
+class SeminarView(TemplateView):
+    template_name = 'postList.html'
 
     def get(self, request, *args, **kwargs):
         response = create_response(request)
