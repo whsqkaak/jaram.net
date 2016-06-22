@@ -4,6 +4,8 @@ from datetime import datetime
 import httplib2
 import os
 import xmltodict
+from dateutil import parser
+from dateutil.tz import gettz
 from django.conf import settings
 from gallery.models import Album, Photo
 from oauth2client.client import OAuth2WebServerFlow
@@ -74,8 +76,8 @@ class GPhoto:
                 main_url=album['media:group']['media:content'].get('@url', ''),
                 thumbnail_url=album['media:group']['media:thumbnail'].get('@url', ''),
                 date=datetime.fromtimestamp(int(album['gphoto:timestamp']) / 1000),
-                pub_date=album['published'],
-                update_date=album['updated'],
+                pub_date=parser.parse(album['published']),
+                update_date=parser.parse(album['updated']),
             ))
 
         return result
@@ -103,9 +105,9 @@ class GPhoto:
                 image_url=image_url,
                 image_2048_url=image_url_split[0] + '/s2048/' + image_url_split[1],
                 image_origin_url=image_url_split[0] + '/s16383/' + image_url_split[1],
-                date=datetime.fromtimestamp(int(photo['gphoto:timestamp']) / 1000),
-                pub_date=photo['published'],
-                update_date=photo['updated'],
+                date=datetime.fromtimestamp(int(photo['gphoto:timestamp']) / 1000, tz=gettz(settings.TIME_ZONE)),
+                pub_date=parser.parse(photo['published']),
+                update_date=parser.parse(photo['updated']),
             ))
 
         return result
