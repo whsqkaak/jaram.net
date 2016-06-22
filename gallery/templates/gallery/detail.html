@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+
+{% load staticfiles %}
+
+{% block head %}
+  <style>
+    {% if album.main_url %}
+      header {
+        background: url("{{ album.main_url }}") center;
+      }
+    {% endif %}
+
+    .grid-item {
+      width: 20%;
+      overflow: hidden;
+      text-align: center;
+      padding: 12px;
+    }
+  </style>
+  <script src="https://npmcdn.com/masonry-layout@4.0/dist/masonry.pkgd.min.js"></script>
+  <script>
+    $(function () {
+      $('.grid').masonry({
+        // options
+        itemSelector: '.grid-item'
+      });
+    });
+  </script>
+{% endblock %}
+
+{% block header_title %}
+  {{ album.title }}
+{% endblock %}
+
+{% block header_content %}
+  <p>{{ album.description }}</p>
+  <a href="{% url 'gallery' %}" class="ui button inverted basic">앨범 목록</a>
+{% endblock %}
+
+{% block body %}
+  <section class="">
+    <div class="grid">
+      {% for image in album.photo_set.all %}
+        <div class="grid-item">
+          <a href="{{ image.image_origin_url }}">
+            <img src="{{ image.image_url }}">
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}

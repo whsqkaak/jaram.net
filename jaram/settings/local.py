@@ -19,4 +19,5 @@ DATABASES = {
 }
 
 DEBUG = True
-MEDIA_URL = 'http://localhost:8000' + MEDIA_URL
+URL = 'http://localhost:8000'
+MEDIA_URL = URL + MEDIA_URL
