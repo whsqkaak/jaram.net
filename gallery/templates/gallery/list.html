@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+{% load staticfiles %}
+
+{% block head %}
+{% endblock %}
+
+{% block header_title %}
+  갤러리
+{% endblock %}
+
+{% block header_content %}
+  {% if user.is_staff %}
+    <a href="{% url 'gallery_link' %}" class="ui button inverted basic yellow">동기화</a>
+  {% endif %}
+{% endblock %}
+
+{% block body %}
+  <section class="ui container">
+    <div class="ui five cards">
+      {% for album in albums %}
+        <div class="card">
+          <div class="image">
+            <img src="{{ album.thumbnail_url }}">
+          </div>
+          <div class="content">
+            <a href="{% url 'gallery_detail' id=album.pk %}" class="header">{{ album.title }}</a>
+            <div class="meta">
+              <span>{{ album.date|date:'Y-m-d' }}</span>
+            </div>
+            <div class="description">{{ album.description }}</div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}
