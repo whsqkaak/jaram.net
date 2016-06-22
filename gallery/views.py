@@ -29,11 +29,8 @@ class GalleryLinkView(View):
         gphoto = GPhoto.get()
 
         if data.get('code'):
-            print('code', data.get('code'))
             gphoto.login(data.get('code'))
-            print('login')
             gphoto.sync()
-            print('sync')
         else:
             return redirect(gphoto.login())
 
