@@ -1,10 +1,10 @@
 from django.conf.urls import url
 
-from main.views import IntroView, LoginView, MainView, LogoutView
+from main.views import IntroView, MainView
 
 urlpatterns = [
     url(r'^$|^intro', IntroView.as_view(), name='intro'),
-    url(r'^login', LoginView.as_view(), name='login'),
-    url(r'^logout', LogoutView.as_view(), name='logout'),
+    url(r'^login', 'django.contrib.auth.views.login', name='login', kwargs={'template_name': 'login.html'}),
+    url(r'^logout', 'django.contrib.auth.views.logout', name='logout', kwargs={'next_page': '/'}),
     url(r'^main', MainView.as_view(), name='homepage_main'),
 ]

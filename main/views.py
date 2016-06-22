@@ -10,21 +10,6 @@ class IntroView(TemplateView):
         return render(request, self.template_name)
 
 
-class LoginView(TemplateView):
-    template_name = 'login.html'
-
-    def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
-
-    def post(self, request, *args, **kwargs):
-        return redirect('homepage_main')
-
-
-class LogoutView(View):
-    def get(self, request, *args, **kwargs):
-        return redirect('intro')
-
-
 class MainView(TemplateView):
     template_name = 'main.html'
 
