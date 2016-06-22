@@ -95,9 +95,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ko-kr'
 TIME_ZONE = 'Asia/Seoul'
-USE_I18N = True
-USE_L10N = True
-USE_TZ = True
+USE_I18N = False
+USE_L10N = False
+USE_TZ = False
 
 DATETIME_FORMAT = ('Y-m-d H:i:s',)
 DATE_FORMAT = ('Y-m-d',)
@@ -141,3 +141,5 @@ STATIC_ROOT = '/tmp/jaram/static_root/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+URL = 'http://localhost:8000'

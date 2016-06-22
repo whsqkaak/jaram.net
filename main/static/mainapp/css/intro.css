@@ -117,7 +117,3 @@ section p {
 #hello > h1 {
     font-size: 36px;
 }
-
-section.gallery .row, section.gallery .row div.image {
-    padding: 0 !important;
-}
