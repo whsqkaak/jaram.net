@@ -87,4 +87,5 @@ div.overlay {
 #login-item div.field > input {
     background: rgba(255, 255, 255, 0);
     border: solid white 2px;
+    color: white;
 }
