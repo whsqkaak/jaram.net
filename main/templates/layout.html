@@ -38,11 +38,11 @@
         <a href="{% url 'study' %}" class="item">스터디</a>
         <a href="{% url 'seminar' %}" class="item">세미나</a>
         <a href="{% url 'playstorming' %}" class="item">플레이 스토밍</a>
-        <a class="item">워크샵</a>
+        <a href="{% url 'workshop' %}" class="item">워크샵</a>
       </div>
     </div>
-    <a class="item">갤러리</a>
-    <a href="{%  url 'event_report' %}" class="item">일정</a>
+    <a href="{% url 'gallery' %}" class="item">갤러리</a>
+    <a href="{% url 'schedule' %}" class="item">일정</a>
 
     <div class="right-container">
       <a><img class="icon" src="{% static 'mainapp/img/icon/profile.svg' %}"></a>
@@ -75,5 +75,17 @@
 </section>
 {% block body %}
 {% endblock %}
+<div class="ui divider"></div>
+<div class="ui vertical footer segment">
+  <div class="ui center aligned container">
+    <a href="{% url 'homepage_main' %}"><h2 id="logo" class="push-right2">JARAM</h2></a>
+    <div class="ui horizontal small divided link list">
+      <a class="item" href="#">Site Map</a>
+      <a class="item" href="#">Contact Us</a>
+      <a class="item" href="#">Terms and Conditions</a>
+      <a class="item" href="#">Privacy Policy</a>
+    </div>
+  </div>
+</div>
 </body>
 </html>

@@ -59,6 +59,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'main.middleware.LoginRequiredMiddleware',
 ]
 
 ROOT_URLCONF = 'jaram.urls'
@@ -75,6 +76,9 @@ DATABASES = {
 }
 
 AUTH_USER_MODEL = 'main.Member'
+LOGIN_URL = '/login'
+LOGOUT_URL = '/logout'
+LOGIN_REDIRECT_URL = '/main'
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
@@ -128,7 +132,7 @@ TEMPLATES = [
 ]
 
 STATIC_URL = '/static/'
-
+STATIC_ROOT = '/tmp/jaram/static_root/'
 STATICFILES_DIRS = (
     'main/static',
     'board/static',
@@ -137,7 +141,14 @@ STATICFILES_DIRS = (
     'gallery/static',
 )
 
-STATIC_ROOT = '/tmp/jaram/static_root/'
-
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+URL = 'http://localhost:8000'
+
+EXCLUDE_LOGIN_REQUIRED_URLS = [
+    r'^$|^intro',
+    r'^login',
+    r'^logout',
+    r'^admin',
+]
