@@ -31,11 +31,3 @@ class MainView(TemplateView):
     def get(self, request, *args, **kwargs):
         response = create_response(request)
         return render(request, self.template_name, response)
-
-
-class SeminarView(TemplateView):
-    template_name = 'postList.html'
-
-    def get(self, request, *args, **kwargs):
-        response = create_response(request)
-        return render(request, self.template_name, response)
