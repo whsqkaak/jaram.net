@@ -1,10 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'layout.html' %}
 
-</body>
-</html>
+{% block header_title %}
+    {{ header_title }}
+{% endblock %}
+
+{% block header_content %}
+  <a href="{% url 'seminar' %}" class="ui button inverted basic">게시글 작성</a>
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+    <h1>This is test head</h1>
+{% endblock %}
