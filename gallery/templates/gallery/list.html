@@ -3,6 +3,15 @@
 {% load staticfiles %}
 
 {% block head %}
+  <script>
+    $(function () {
+      $("#gallery-link").click(function () {
+        if (confirm("동기화는 반드시 Jaram 게정으로 이루어져야 합니다. 현재 구글에 로그인되어 있는 계정이 Jaram 계정입니까?")) {
+          window.location.href = "{% url 'gallery_link' %}";
+        }
+      });
+    });
+  </script>
 {% endblock %}
 
 {% block header_title %}
@@ -11,7 +20,7 @@
 
 {% block header_content %}
   {% if user.is_staff %}
-    <a href="{% url 'gallery_link' %}" class="ui button inverted basic yellow">동기화</a>
+    <button id="gallery-link" class="ui button inverted basic yellow">동기화</button>
   {% endif %}
 {% endblock %}
 
