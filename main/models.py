@@ -1,3 +1,4 @@
+from django import template
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
@@ -115,8 +116,10 @@ class Member(AbstractBaseUser, PermissionsMixin):
     def get_username(self):
         return self.name
 
+    def enter_year_short(self):
+        return self.enter_year % 100
+
     class Meta:
         ordering = ['-id']
         verbose_name = _('자람 회원')
         verbose_name_plural = _('자람 회원')
-

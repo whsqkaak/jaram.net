@@ -28,7 +28,7 @@
 
 {% block body %}
   <form class="ui form" method="post">
-  {% csrf_token %}
+    {% csrf_token %}
     <section class="ui container">
       <div id="profile-image-container">
         {% if user.profile %}
@@ -37,17 +37,10 @@
           <img style="margin: 0 auto;" class="ui small circular image"
                src="{% static 'mainapp/img/profile_default.png' %}">
         {% endif %}
-        <h4 style="text-align: center;" class="push-top">{{ user.name }}({{ user.user_id }})</h4>
+        <h4 style="text-align: center;"
+            class="push-top">{{ user.enter_year_short }} {{ user.name }}({{ user.user_id }})</h4>
       </div>
       <div class="ui text container">
-{#        <div class="column field">#}
-{#          <label>기수</label>#}
-{#          <input type="number" name="period" value="{{ user.period }}">#}
-{#        </div>#}
-{#        <div class="column field">#}
-{#          <label>입학년도</label>#}
-{#          <input type="number" name="enter_year" value="{{ user.enter_year }}">#}
-{#        </div>#}
         <div class="column field">
           <label>이메일</label>
           <input type="email" name="email" value="{{ user.email|default_if_none:'' }}" required>
@@ -60,10 +53,10 @@
           <label>SNS</label>
           <input type="url" name="sns" value="{{ user.sns|default_if_none:'' }}">
         </div>
-{#        <div class="column field">#}
-{#          <label>생일</label>#}
-{#          <input type="date" name="birth" value="{{ user.birth|default_if_none:'' }}">#}
-{#        </div>#}
+        <div class="column field">
+          <label>생일</label>
+          <input type="date" name="birth" value="{{ user.birth|default_if_none:'' }}">
+        </div>
       </div>
     </section>
     <input type="submit" class="hide" id="submit">
