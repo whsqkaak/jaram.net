@@ -109,3 +109,14 @@ div.center-item {
     text-align: center;
     vertical-align: middle;
 }
+
+.gallery div.image {
+    padding: 0 !important;
+}
+
+.image.full {
+    height: 240px;
+    background-image: url("http://www.klim.com/c.3569702/sca-dev-denali/img/no_image_available.jpeg");
+    background-position: center;
+    background-size: cover !important;
+}
