@@ -16,3 +16,25 @@ class MainView(TemplateView):
     def get(self, request, *args, **kwargs):
         response = create_response(request)
         return render(request, self.template_name, response)
+
+
+class ProfileView(TemplateView):
+    template_name = 'profile.html'
+
+    def get(self, request, *args, **kwargs):
+        response = create_response(request)
+        return render(request, self.template_name, response)
+
+    def post(self, request, *args, **kwargs):
+        data = request.POST
+        if not data.get('email'):
+            return redirect('/profile?error=이메일을 입력해주세요')
+
+        user = request.user
+
+        user.email = data.get('email')
+        user.phone = data.get('phone', '')
+        user.sns = data.get('sns', '')
+        user.save()
+
+        return redirect('profile')
