@@ -44,7 +44,7 @@
     <a href="{% url 'gallery' %}" class="item">갤러리</a>
     <a href="{% url 'schedule' %}" class="item">일정</a>
     <div class="right-container">
-      <a><img class="icon" src="{% static 'mainapp/img/icon/profile.svg' %}"></a>
+      <a href="{% url 'profile' %}"><img class="icon" src="{% static 'mainapp/img/icon/profile.svg' %}"></a>
       <a href="{% url 'logout' %}"><img class="icon" src="{% static 'mainapp/img/icon/logout.svg' %}"></a>
     </div>
   </div>
@@ -74,10 +74,9 @@
 </section>
 {% block body %}
 {% endblock %}
-<div class="ui divider"></div>
-<div class="ui vertical footer segment">
+<div class="ui vertical footer segment push-top3 push-bottom3">
   <div class="ui center aligned container">
-    <a href="{% url 'homepage_main' %}"><h2 id="logo" class="push-right2">JARAM</h2></a>
+    <a href="{% url 'homepage_main' %}"><h2 id="logo">JARAM</h2></a>
     <div class="ui horizontal small divided link list">
       <a class="item" href="#">Site Map</a>
       <a class="item" href="#">Contact Us</a>
