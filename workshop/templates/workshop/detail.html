@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+{% load staticfiles %}
+
+{% block head %}
+  <script>
+    $(function () {
+      $('.ui.sticky').sticky({
+        context: '#sticky-container',
+        offset: 96
+      });
+    });
+  </script>
+{% endblock %}
+
+{% block header_title %}
+  {{ workshop.subject }}
+{% endblock %}
+
+{% block header_content %}
+  <a href="{% url 'workshop' %}" class="ui button inverted basic">워크샵 목록</a>
+{% endblock %}rk
+
+{% block body %}
+  <section class="ui container">
+    <div class="ui piled segment">
+      <h1 class="ui header">{{ workshop.subject }}</h1>
+      <div>시작 날짜 : {{ workshop.start_date }}</div>
+      <div>종료 날짜 : {{ workshop.end_date }}</div><br/>
+      <p><h3>워크샵 내용</h3></p>
+      {% autoescape off %}
+      <div>{{ workshop.content }}</div>
+      {% endautoescape %}
+    </div>
+  </section>
+{% endblock %}
