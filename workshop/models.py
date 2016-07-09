@@ -5,8 +5,8 @@ from main.models import Member
 
 
 class WorkShop(models.Model):
-    start_date = models.DateField(_('워크숍 시작 날짜'), null=True, blank=True)
-    end_date = models.DateField(_('워크숍 끝 날짜'), null=True, blank=True)
+    start_date = models.DateField(_('워크샵 시작 날짜'), null=True, blank=True)
+    end_date = models.DateField(_('워크샵 종료 날짜'), null=True, blank=True)
     subject = models.CharField(_('주제'), max_length=255, null=False, blank=False)
     content = models.TextField(_('내용'), null=True, blank=True, default='')
 
@@ -17,8 +17,8 @@ class WorkShop(models.Model):
 
     class Meta:
         ordering = ['-id']
-        verbose_name = _('워크숍')
-        verbose_name_plural = _('워크숍')
+        verbose_name = _('워크샵')
+        verbose_name_plural = _('워크샵')
 
 
 class WorkShopTask(models.Model):
@@ -26,6 +26,7 @@ class WorkShopTask(models.Model):
     content = models.TextField(_('과제 내용'), null=False, blank=False)
     duty_member = models.ManyToManyField(Member)
     deadline = models.DateTimeField(_('제출 마감일'), null=True, blank=True)
+
     # TODO: 첨부파일
 
     def __str__(self):
@@ -33,8 +34,8 @@ class WorkShopTask(models.Model):
 
     class Meta:
         ordering = ['-id']
-        verbose_name = _('워크숍 과제')
-        verbose_name_plural = _('워크숍 과제')
+        verbose_name = _('워크샵 과제')
+        verbose_name_plural = _('워크샵 과제')
 
 
 class WorkShopTaskSubmission(models.Model):
@@ -42,11 +43,12 @@ class WorkShopTaskSubmission(models.Model):
     presenter = models.ForeignKey(Member)
     content = models.TextField(_('내용'), null=True, blank=True, default='')
     date = models.DateTimeField(_('제출일'), null=False, blank=False, default=timezone.now)
+    attachment = models.FileField(_('첨부 파일'), upload_to='workshop/attachment/', null=True, blank=True)
 
     def __str__(self):
         return self.presenter.name + ' - ' + self.presenter.name
 
     class Meta:
         ordering = ['-id']
-        verbose_name = _('워크숍 과제 제출')
-        verbose_name_plural = _('워크숍 과제 제출')
+        verbose_name = _('워크샵 과제 제출')
+        verbose_name_plural = _('워크샵 과제 제출')
