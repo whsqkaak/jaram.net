@@ -1,82 +1,68 @@
 {% extends 'layout.html' %}
+{% load board_extras %}
 
 {% block header_title %}
     {{ header_title }}
 {% endblock %}
 
 {% block header_content %}
-  <a href="{% url 'write_post' %}" class="ui button inverted basic">게시글 작성</a>
+    <a href="{% url 'write_post' %}?type={{ dir }}" class="ui button inverted basic">게시글 작성</a>
+
 {% endblock %}
 
 {% block head %}
+    <script>
+        $(function () {
+            $(".pagination > .item").click(function () {
+                $("input[name=page]").val($(this).attr("page-num"));
+                $("#page-form").submit();
+            });
+        });
+    </script>
 {% endblock %}
 
 {% block body %}
-    <div class="ui container">
+    <form id="page-form" method="get">
+        <input type="hidden" name="page" value="{{ page.number }}">
+    </form>
+
+    <div class="ui text container">
         <h1 class="ui header">{{ header_title }}</h1>
         <div class="ui divider"></div>
         <div class="ui divided items">
-        {% for post in posts %}
-            <div class="item">
-                <div class="ui small rounded image">
-                    <img src="/../../static/mainapp/img/sodam01.jpg" style="width:150px;height:150px;">
-                </div>
-                <div class="middle aligned content">
-                    <a class="header" style="">{{ post.title }}</a>
-                    <div class="meta">
-                        <span>{{ post.content|truncatechars:100 }}</span>
+            {% for post in page %}
+                <div class="item">
+                    <div class="ui small rounded image">
+                        <img src="/../../static/mainapp/img/sodam01.jpg" style="width:150px;height:150px;">
                     </div>
-                    <div class="description">
-                        <br>
-                    </div>
-                    <div class="extra">
-                        <div class="ui right floated small breadcrumb">
-                            <a class="section">Activity</a>
-                            <div class="divider"> / </div>
-                            <a class="section">Study</a>
+                    <div class="middle aligned content">
+                    {% if dir == 'seminar' %}
+                        <a href={% url 'seminar_detail' id=post.pk %} class="header" style="">{{ post.title }}</a>
+                    {% elif dir == 'playstorming' %}
+                        <a href={% url 'playstorming_detail' id=post.pk %} class="header" style="">{{ post.title }}</a>
+                    {% endif %}
+                        <div class="meta">
+                            <span>{% autoescape off %}
+                                {{ post.content|get_text|truncatechars:150 }}{% endautoescape %}</span>
                         </div>
-                        {% if header_title != '플레이스토밍' %}
-                           <span class="writer">{{ post.author }}</span>
-                        {% endif %}
-                        <span class="">|</span>
-                        <span class="posted_date">{{ post.write_date|date:'Y년 m월 d일' }}</span>
+                        <div class="description">
+                            <br>
+                        </div>
+                        <div class="extra">
+                            {% if header_title != '플레이스토밍' %}
+                                <i class="user icon"></i>
+                                <span class="writer">{{ post.writer }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                            {% endif %}
+                            <i class="calendar icon"></i>
+                            <span class="posted_date">{{ post.write_date|date:'Y년 m월 d일' }}</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
         </div>
         <br>
-        <div class= "center-container">
-            <div class="ui pagination menu center-item" style="margin:auto">
-                <a class="active item">
-                    1
-                </a>
-                <div class="disabled item">
-                    ...
-                </div>
-                <a class="item">
-                    10
-                </a>
-                <a class="item">
-                    11
-                </a>
-                <a class="item">
-                    12
-                </a>
-            </div>
-        </div>
+
+        {% include 'easy_paginator.html' %}
     </div>
     <br>
-    <div class="ui divider"></div>
-    <div class="ui vertical footer segment">
-        <div class="ui center aligned container">
-            <a href="{% url 'homepage_main' %}"><h2 id="logo" class="push-right2">JARAM</h2></a>
-            <div class="ui horizontal small divided link list">
-                <a class="item" href="#">Site Map</a>
-                <a class="item" href="#">Contact Us</a>
-                <a class="item" href="#">Terms and Conditions</a>
-                <a class="item" href="#">Privacy Policy</a>
-            </div>
-        </div>
-    </div>
 {% endblock %}

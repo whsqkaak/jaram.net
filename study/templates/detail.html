@@ -47,7 +47,7 @@
               <div class="ui segment full-width">
                 <h2 class="ui header">{{ report.title }}</h2>
                 <h4 class="ui header">{{ report.write_date|date:'Y년 m월 d일' }}</h4>
-                <div>{{ report.content }}</div>
+                <div>{% autoescape off %}{{ report.content }}{% endautoescape %}</div>
                 {% if report.attachment %}
                   <div class="ui divider"></div>
                   <a href="{{ report.attachment.url }}"><i class="icon download"></i> {{ report.attachment.name }}</a>

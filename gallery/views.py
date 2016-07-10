@@ -15,7 +15,7 @@ class GalleryView(TemplateView):
 
 
 class GalleryDetailView(TemplateView):
-    template_name = 'gallery/detail.html'
+    template_name = 'gallery/board_detail.html'
 
     def get(self, request, *args, **kwargs):
         response = create_response(request)

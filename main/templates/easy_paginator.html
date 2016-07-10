@@ -1,0 +1,33 @@
+<div class="center-container{% if display_button_list|length == 1 %} hide{% endif %}">
+    <div class="ui pagination menu center-item">
+        {% if 1 < display_button_list|first %}
+            <a class="item" page-num="1">1</a>
+        {% endif %}
+        {% if 2 < display_button_list|first %}
+            <a class="item" page-num="2">2</a>
+        {% endif %}
+        {% if 3 < display_button_list|first %}
+            <a class="item disabled">...</a>
+        {% endif %}
+
+        {% for pn in display_button_list %}
+            <a class="item{% if pn == page.number %} active{% endif %}" page-num="{{ pn }}">{{ pn }}</a>
+        {% endfor %}
+
+        {% if display_button_list|last < last_page|add:-2 %}
+            <a class="item disabled">...</a>
+        {% endif %}
+        {% if display_button_list|last < last_page|add:-1 %}
+            <a class="item" page-num="{{ last_page|add:-1 }}">{{ last_page|add:-1 }}</a>
+        {% endif %}
+        {% if display_button_list|last < last_page %}
+            <a class="item" page-num="{{ last_page }}">{{ last_page }}</a>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+    .ui.pagination > a {
+        cursor: pointer;
+    }
+</style>
