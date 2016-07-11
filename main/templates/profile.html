@@ -1,0 +1,64 @@
+{% extends 'layout.html' %}
+
+{% load staticfiles %}
+
+{% block header_title %}
+  {{ user.name }}
+{% endblock %}
+
+{% block header_content %}
+  <p>{{ user.period }}기 | {{ user.grade.name }}</p>
+  <button id="submit-button" class="ui button inverted basic yellow">수정 완료</button>
+{% endblock %}
+
+{% block head %}
+  <style>
+    #profile-image-container {
+      margin: 64px;
+    }
+  </style>
+  <script>
+    $(function () {
+      $("#submit-button").click(function () {
+        $("#submit").click();
+      });
+    });
+  </script>
+{% endblock %}
+
+{% block body %}
+  <form class="ui form" method="post">
+    {% csrf_token %}
+    <section class="ui container">
+      <div id="profile-image-container">
+        {% if user.profile %}
+          <img style="margin: 0 auto;" class="ui small circular image" src="{{ user.profile.url }}">
+        {% else %}
+          <img style="margin: 0 auto;" class="ui small circular image"
+               src="{% static 'mainapp/img/profile_default.png' %}">
+        {% endif %}
+        <h4 style="text-align: center;"
+            class="push-top">{{ user.enter_year_short }} {{ user.name }}({{ user.user_id }})</h4>
+      </div>
+      <div class="ui text container">
+        <div class="column field">
+          <label>이메일</label>
+          <input type="email" name="email" value="{{ user.email|default_if_none:'' }}" required>
+        </div>
+        <div class="column field">
+          <label>전화번호</label>
+          <input type="tel" name="phone" value="{{ user.phone|default_if_none:'' }}">
+        </div>
+        <div class="column field">
+          <label>SNS</label>
+          <input type="url" name="sns" value="{{ user.sns|default_if_none:'' }}">
+        </div>
+        <div class="column field">
+          <label>생일</label>
+          <input type="date" name="birth" value="{{ user.birth|default_if_none:'' }}">
+        </div>
+      </div>
+    </section>
+    <input type="submit" class="hide" id="submit">
+  </form>
+{% endblock %}
