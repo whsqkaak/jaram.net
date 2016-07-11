@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+
+{% load staticfiles %}
+
+{% block head %}
+  <script>
+    $(function () {
+      $('.ui.sticky').sticky({
+        context: '#sticky-container',
+        offset: 96
+      });
+    });
+  </script>
+{% endblock %}
+
+{% block header_title %}
+    제출 과제 페이지
+{% endblock %}
+
+{% block header_content %}
+  <a href="{% url 'workshop' %}" class="ui button inverted basic">워크샵 목록</a>
+  <a href="{% url 'workshop_taskList' %}" class="ui button inverted basic">과제 목록</a>
+    <a href="{% url 'workshop_taskSubmissionList' id=workshop_task.pk %}" class="ui button inverted basic yellow">제출 목록</a>
+{% endblock %}rk
+
+{% block body %}
+  <section class="ui container">
+    <div class="ui piled segment">
+      <h1 class="ui header">{{ workshop_taskSubmission.presenter }}</h1>
+      <div>제출일 : {{ workshop_taskSubmission.date }}</div><br/>
+      <p><h3>과제 내용</h3></p>
+      {% autoescape off %}
+      <div>{{ workshop_taskSubmission.content }}</div>
+      {% endautoescape %}
+        {% if worskhop_taskSubmission.attachment %}
+                  <div class="ui divider"></div>
+                  <a href="{{ workshop_taskSubmission.attachment.url }}"><i class="icon download"></i> {{ workshop_taskSubmission.attachment.name }}</a>
+        {% endif %}
+    </div>
+  </section>
+{% endblock %}
