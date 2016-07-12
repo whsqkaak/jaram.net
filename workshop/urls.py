@@ -2,7 +2,7 @@ from django.conf.urls import url
 from workshop.views import WorkShopListView, WorkShopRegistrationView, WorkShopDetailView, WorkShopTaskListView,\
     WorkShopTaskSubmissionView, WorkShopTaskRegistrationView, \
     WorkShopTaskSubmissionListView, WorkShopTaskDetailView, \
-    WorkShopTaskSubmissionDetailView
+    WorkShopTaskSubmissionDetailView, WorkShopTaskUpdateView
 
 urlpatterns = [
     url(r'^$', WorkShopListView.as_view(), name='workshop'),
@@ -16,4 +16,5 @@ urlpatterns = [
         WorkShopTaskSubmissionListView.as_view(), name='workshop_taskSubmissionList'),
     url(r'^taskList/(?P<id>\d+)/taskSubmissionList/(?P<task_id>\d+)/?$',
         WorkShopTaskSubmissionDetailView.as_view(), name='workshop_taskSubmissionDetail'),
+    url(r'^taskList/(?P<id>\d+)/taskUpdate/(?P<task_id>\d+)/?$', WorkShopTaskUpdateView.as_view(), name='workshop_taskUpdate'),
 ]

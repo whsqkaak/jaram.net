@@ -21,6 +21,7 @@
   <a href="{% url 'workshop' %}" class="ui button inverted basic">워크샵 목록</a>
   <a href="{% url 'workshop_taskList' %}" class="ui button inverted basic">과제 목록</a>
     <a href="{% url 'workshop_taskSubmissionList' id=workshop_task.pk %}" class="ui button inverted basic yellow">제출 목록</a>
+    <a href="{% url 'workshop_taskUpdate' id=workshop_task.pk task_id=workshop_taskSubmission.pk %}" class="ui button inverted basic yellow">과제 수정</a>
 {% endblock %}rk
 
 {% block body %}
@@ -32,9 +33,9 @@
       {% autoescape off %}
       <div>{{ workshop_taskSubmission.content }}</div>
       {% endautoescape %}
-        {% if worskhop_taskSubmission.attachment %}
-                  <div class="ui divider"></div>
-                  <a href="{{ workshop_taskSubmission.attachment.url }}"><i class="icon download"></i> {{ workshop_taskSubmission.attachment.name }}</a>
+        {% if workshop_taskSubmission.attachment %}
+            <div class="ui divider"></div>
+            <a href="{{ workshop_taskSubmission.attachment.url }}"><i class="icon download"></i> {{ workshop_taskSubmission.attachment.name }}</a>
         {% endif %}
     </div>
   </section>
