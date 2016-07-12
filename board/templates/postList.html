@@ -33,7 +33,8 @@
             {% for post in page %}
                 <div class="item">
                     <div class="ui small rounded image">
-                        <img src="/../../static/mainapp/img/sodam01.jpg" style="width:150px;height:150px;">
+                        <img src="{{ post.thumbnail.url }}" style="width:150px;height:150px;">
+{#                        <img src="/../../static/mainapp/img/sodam01.jpg" style="width:150px;height:150px;">#}
                     </div>
                     <div class="middle aligned content">
                     {% if dir == 'seminar' %}
