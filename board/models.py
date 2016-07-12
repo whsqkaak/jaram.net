@@ -10,7 +10,6 @@ class BaseBoardModel(models.Model):
     title = models.CharField(_('제목'), max_length=255, null=True, blank=True, default='')
     content = models.TextField(_('내용'), null=False, blank=False)
     attachment = models.FileField(_('첨부 파일'), upload_to='board/attachment/', null=True, blank=True)
-    thumbnail = models.ImageField(_('미리보기'), upload_to='board/thumbnail/', null=True, blank=True)
 
     # TODO: 연관 일정
 
@@ -67,3 +66,42 @@ class EventReportComment(BaseBoardModel):
         ordering = ['-write_date']
         verbose_name = _('행사보고 댓글')
         verbose_name_plural = _('행사보고 댓글')
+
+
+class Announcement(BaseBoardModel):
+    class Meta:
+        ordering = ['-write_date']
+        verbose_name = _('공지사항')
+        verbose_name_plural = _('공지사항')
+
+
+class GraduatingBoard(BaseBoardModel):
+    class Meta:
+        ordering = ['-write_date']
+        verbose_name = _('졸업생게시판')
+        verbose_name_plural = _('졸업생게시판')
+
+
+class GraduatingBoardComment(BaseBoardModel):
+    board = models.ForeignKey(GraduatingBoard)
+
+    class Meta:
+        ordering = ['-write_date']
+        verbose_name = _('졸업생게시판 댓글')
+        verbose_name_plural = _('졸업생게시판 댓글')
+
+
+class StudentBoard(BaseBoardModel):
+    class Meta:
+        ordering = ['-write_date']
+        verbose_name = _('재학생게시판')
+        verbose_name_plural = _('재학생게시판')
+
+
+class StudentBoardComment(BaseBoardModel):
+    board = models.ForeignKey(StudentBoard)
+
+    class Meta:
+        ordering = ['-write_date']
+        verbose_name = _('재학생게시판 댓글')
+        verbose_name_plural = _('재학생게시판 댓글')

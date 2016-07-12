@@ -3,7 +3,8 @@ from django.utils import timezone
 from main.util import create_response
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
-from board.models import Seminar, PlayStorming, SeminarComment, PlayStormingComment
+from board.models import Seminar, PlayStorming, SeminarComment, PlayStormingComment, Announcement, GraduatingBoard, \
+    StudentBoard, GraduatingBoardComment, StudentBoardComment
 from main.utils.paginator import easy_paginator
 
 
@@ -41,13 +42,18 @@ class MakePostView(TemplateView):
             model = Seminar
         elif type == 'playstorming':
             model = PlayStorming
+        elif type == 'announcement':
+            model = Announcement
+        elif type == 'graduating':
+            model = GraduatingBoard
+        elif type == 'student':
+            model = StudentBoard
 
         model(writer=request.user,
               write_date=timezone.now(),
               title=data.get('title'),
               content=data.get('content'),
-              attachment=request.FILES.get('attachment'),
-              thumbnail=request.FILES.get('thumbnail')).save()
+              attachment=request.FILES.get('attachment')).save()
 
         return redirect('/board/' + type + '?success=성공적으로 등록되었습니다.')
 
@@ -86,24 +92,22 @@ class SeminarDetailView(TemplateView):
         except ObjectDoesNotExist:
             return redirect('/seminar?error=존재하지 않는 게시글입니다.')
 
-        response['seminar'] = seminar
+        response['post'] = seminar
         response['header_title'] = '세미나'
         response['comments'] = seminar.seminarcomment_set.order_by('-write_date').all()
-        # response['page_num'] = seminar.
         return render(request, self.template_name, response)
 
     def post(self, request, *args, **kwargs):
         data = request.POST
         try:
-            seminar = Seminar.objects.get(pk=kwargs.get('id'))
+            post = Seminar.objects.get(pk=kwargs.get('id'))
         except ObjectDoesNotExist:
             return redirect('/board/seminar?error=존재하지 않는 게시글입니다.')
 
         if not (data.get('content')):
             return redirect('/board/seminar?error=입력된 정보가 올바르지 않습니다.')
-
         SeminarComment(writer=request.user,
-                       board=seminar,
+                       board=post,
                        write_date=timezone.now(),
                        content=data.get('content')).save()
 
@@ -121,7 +125,7 @@ class PlayStormingDetailView(TemplateView):
         except ObjectDoesNotExist:
             return redirect('/playstorming?error=존재하지 않는 게시글입니다.')
 
-        response['seminar'] = playstorming
+        response['post'] = playstorming
         response['header_title'] = '세미나'
         response['comments'] = playstorming.playstormingcomment_set.order_by('-write_date').all()
         return render(request, self.template_name, response)
@@ -129,7 +133,7 @@ class PlayStormingDetailView(TemplateView):
     def post(self, request, *args, **kwargs):
         data = request.POST
         try:
-            seminar = PlayStorming.objects.get(pk=kwargs.get('id'))
+            post = PlayStorming.objects.get(pk=kwargs.get('id'))
         except ObjectDoesNotExist:
             return redirect('/board/playstorming?error=존재하지 않는 게시글입니다.')
 
@@ -137,7 +141,7 @@ class PlayStormingDetailView(TemplateView):
             return redirect('/board/playstorming?error=입력된 정보가 올바르지 않습니다.')
 
         PlayStormingComment(writer=request.user,
-                            board=seminar,
+                            board=post,
                             write_date=timezone.now(),
                             content=data.get('content')).save()
 
@@ -151,3 +155,126 @@ class EventReportView(TemplateView):
         response = create_response(request)
         response['header_title'] = '일정'
         return render(request, self.template_name, response)
+
+
+class AnnouncementListView(TemplateView):
+    template_name = 'postList.html'
+
+    def get(self, request, *args, **kwargs):
+        response = create_response(request)
+        easy_paginator(Announcement.objects.all(), request.GET.get('page', 1), each_data_count=6,
+                       display_button_range=3,
+                       save_to=response)
+        response['dir'] = 'announcement'
+        response['header_title'] = '공지사항'
+        return render(request, self.template_name, response)
+
+
+class AnnouncementDetailView(TemplateView):
+    template_name = 'board_detail.html'
+
+    def get(self, request, *args, **kwargs):
+        response = create_response(request)
+
+        try:
+            announcement = Announcement.objects.get(pk=kwargs.get('id'))
+        except ObjectDoesNotExist:
+            return redirect('/announcement?error=존재하지 않는 게시글입니다.')
+
+        response['post'] = announcement
+        response['header_title'] = '공지사항'
+        return render(request, self.template_name, response)
+
+
+class GraduatingBoardListView(TemplateView):
+    template_name = 'postList.html'
+
+    def get(self, request, *args, **kwargs):
+        response = create_response(request)
+        easy_paginator(GraduatingBoard.objects.all(), request.GET.get('page', 1), each_data_count=6,
+                       display_button_range=3,
+                       save_to=response)
+        response['dir'] = 'graduating'
+        response['header_title'] = '졸업생게시판'
+        return render(request, self.template_name, response)
+
+
+class GraduatingBoardDetailView(TemplateView):
+    template_name = 'board_detail.html'
+
+    def get(self, request, *args, **kwargs):
+        response = create_response(request)
+
+        try:
+            graduating = GraduatingBoard.objects.get(pk=kwargs.get('id'))
+        except ObjectDoesNotExist:
+            return redirect('/graduating?error=존재하지 않는 게시글입니다.')
+
+        response['post'] = graduating
+        response['header_title'] = '졸업생게시판'
+        response['comments'] = graduating.graduatingboardcomment_set.order_by('-write_date').all()
+        return render(request, self.template_name, response)
+
+    def post(self, request, *args, **kwargs):
+        data = request.POST
+        try:
+            post = GraduatingBoard.objects.get(pk=kwargs.get('id'))
+        except ObjectDoesNotExist:
+            return redirect('/board/graduating?error=존재하지 않는 게시글입니다.')
+
+        if not (data.get('content')):
+            return redirect('/board/graduating?error=입력된 정보가 올바르지 않습니다.')
+
+        GraduatingBoardComment(writer=request.user,
+                               board=post,
+                               write_date=timezone.now(),
+                               content=data.get('content')).save()
+
+        return redirect('/board/graduating/' + kwargs.get('id') + '?success=성공적으로 등록되었습니다.')
+
+
+class StudentBoardListView(TemplateView):
+    template_name = 'postList.html'
+
+    def get(self, request, *args, **kwargs):
+        response = create_response(request)
+        easy_paginator(StudentBoard.objects.all(), request.GET.get('page', 1), each_data_count=6,
+                       display_button_range=3,
+                       save_to=response)
+        response['dir'] = 'student'
+        response['header_title'] = '재학생게시판'
+        return render(request, self.template_name, response)
+
+
+class StudentBoardDetailView(TemplateView):
+    template_name = 'board_detail.html'
+
+    def get(self, request, *args, **kwargs):
+        response = create_response(request)
+
+        try:
+            student = StudentBoard.objects.get(pk=kwargs.get('id'))
+        except ObjectDoesNotExist:
+            return redirect('/graduating?error=존재하지 않는 게시글입니다.')
+
+        response['post'] = student
+        response['header_title'] = '재학생게시판'
+        response['comments'] = student.studentboardcomment_set.order_by('-write_date').all()
+        return render(request, self.template_name, response)
+
+    def post(self, request, *args, **kwargs):
+        data = request.POST
+        try:
+            post = StudentBoard.objects.get(pk=kwargs.get('id'))
+        except ObjectDoesNotExist:
+            return redirect('/board/student?error=존재하지 않는 게시글입니다.')
+
+        if not (data.get('content')):
+            return redirect('/board/student?error=입력된 정보가 올바르지 않습니다.')
+
+        StudentBoardComment(writer=request.user,
+                            board=post,
+                            write_date=timezone.now(),
+                            content=data.get('content')).save()
+
+        return redirect('/board/student/' + kwargs.get('id') + '?success=성공적으로 등록되었습니다.')

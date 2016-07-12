@@ -3,11 +3,11 @@
 {% load staticfiles %}
 
 {% block header_title %}
-    {{ seminar.title }}
+    {{ post.title }}
 {% endblock %}
 
 {% block header_content %}
-    <p><i class="user icon"></i>&nbsp;{{ seminar.writer }}&nbsp;&nbsp;&nbsp;&nbsp;<i class="calendar icon"></i>&nbsp;{{ seminar.write_date|date:'Y년 m월 d일'}}</p>
+    <p><i class="user icon"></i>&nbsp;{{ post.writer }}&nbsp;&nbsp;&nbsp;&nbsp;<i class="calendar icon"></i>&nbsp;{{ post.write_date|date:'Y년 m월 d일'}}</p>
     <a href="{% url 'seminar' %}" class="ui button inverted basic">게시글 목록</a>
 {% endblock %}
 
@@ -17,9 +17,10 @@
 {% block body %}
     <div class='ui text container'>
         <div id="contents">
-            {% autoescape off %}{{ seminar.content }}{% endautoescape %}
+            {% autoescape off %}{{ post.content }}{% endautoescape %}
         </div>
         <br>
+        {% if header_title != '공지사항' %}
         <div class="ui comments">
             <h3 class="ui dividing header">{{ comments|num_of_comments }}개의 댓글</h3>
             {% for comment in comments %}
@@ -52,12 +53,10 @@
                     <label>댓글달기</label>
                     <textarea name="content" rows="3" required></textarea>
                 </div>
-                <div class="ui blue labeled submit icon button" type="submit" class="hide" style="float: right;"><i class="icon edit"></i>저장</div>
+                <button class="ui blue labeled submit icon button" type="submit" class="hidden" style="float: right;"><i class="icon edit"></i>저장</button>
+                <br>
             </form>
         </div>
-    </div>
-    <div class="ui special popup">
-        <div class="header">Custom Header</div>
-        <div class="ui button">Click Me</div>
+        {% endif %}
     </div>
 {% endblock %}
