@@ -6,7 +6,7 @@
 
 {% block header_content %}
 
-        <a href="{% url 'seminar' %}" class="ui button inverted basic">게시글 목록</a>
+        <a href="/board/{{ target }}" class="ui button inverted basic">게시글 목록</a>
         <button id="post-submit" type="button" class="ui button inverted green">글 작성</button>
 {% endblock %}
 
