@@ -8,7 +8,7 @@
 
 {% block header_content %}
     <p><i class="user icon"></i>&nbsp;{{ post.writer }}&nbsp;&nbsp;&nbsp;&nbsp;<i class="calendar icon"></i>&nbsp;{{ post.write_date|date:'Y년 m월 d일'}}</p>
-    <a href="{% url 'seminar' %}" class="ui button inverted basic">게시글 목록</a>
+    <a href= '/board/{{ dir }}' class="ui button inverted basic">게시글 목록</a>
 {% endblock %}
 
 {% block head %}

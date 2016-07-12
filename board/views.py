@@ -93,6 +93,7 @@ class SeminarDetailView(TemplateView):
             return redirect('/seminar?error=존재하지 않는 게시글입니다.')
 
         response['post'] = seminar
+        response['dir'] = 'seminar'
         response['header_title'] = '세미나'
         response['comments'] = seminar.seminarcomment_set.order_by('-write_date').all()
         return render(request, self.template_name, response)
@@ -113,6 +114,19 @@ class SeminarDetailView(TemplateView):
 
         return redirect('/board/seminar/' + kwargs.get('id') + '?success=성공적으로 등록되었습니다.')
 
+    def delete(self, request, *args, **kwargs):
+        data = request.POST
+        try:
+            post = Seminar.objects.get(pk=kwargs.get('id'))
+        except ObjectDoesNotExist:
+            return redirect('/board/seminar?error=존재하지 않는 게시글입니다.')
+
+        if not (data.get('content')):
+            return redirect('/board/seminar?error=입력된 정보가 올바르지 않습니다.')
+        post.delete()
+
+        return redirect('/board/seminar/' + kwargs.get('id') + '?success=삭제되었습니다.')
+
 
 class PlayStormingDetailView(TemplateView):
     template_name = 'board_detail.html'
@@ -126,7 +140,8 @@ class PlayStormingDetailView(TemplateView):
             return redirect('/playstorming?error=존재하지 않는 게시글입니다.')
 
         response['post'] = playstorming
-        response['header_title'] = '세미나'
+        response['dir'] = 'playstorming'
+        response['header_title'] = '플레이스토밍'
         response['comments'] = playstorming.playstormingcomment_set.order_by('-write_date').all()
         return render(request, self.template_name, response)
 
@@ -182,6 +197,7 @@ class AnnouncementDetailView(TemplateView):
             return redirect('/announcement?error=존재하지 않는 게시글입니다.')
 
         response['post'] = announcement
+        response['dir'] = 'announcement'
         response['header_title'] = '공지사항'
         return render(request, self.template_name, response)
 
@@ -211,6 +227,7 @@ class GraduatingBoardDetailView(TemplateView):
             return redirect('/graduating?error=존재하지 않는 게시글입니다.')
 
         response['post'] = graduating
+        response['dir'] = 'graduating'
         response['header_title'] = '졸업생게시판'
         response['comments'] = graduating.graduatingboardcomment_set.order_by('-write_date').all()
         return render(request, self.template_name, response)
@@ -258,6 +275,7 @@ class StudentBoardDetailView(TemplateView):
             return redirect('/graduating?error=존재하지 않는 게시글입니다.')
 
         response['post'] = student
+        response['dir'] = 'student'
         response['header_title'] = '재학생게시판'
         response['comments'] = student.studentboardcomment_set.order_by('-write_date').all()
         return render(request, self.template_name, response)

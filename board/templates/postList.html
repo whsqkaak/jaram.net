@@ -35,7 +35,7 @@
                     <div class="ui small rounded image">
                     <img src="/../../static/mainapp/img/sodam01.jpg" style="width:150px;height:150px;">
                     </div>
-                    <div class="middle aligned content">
+                    <div class="content">
                     {% if dir == 'seminar' %}
                         <a href={% url 'seminar_detail' id=post.pk %} class="header" style="">{{ post.title }}</a>
                     {% elif dir == 'playstorming' %}
@@ -49,7 +49,7 @@
                     {% endif %}
                         <div class="meta">
                             <span>{% autoescape off %}
-                                {{ post.content|get_text|truncatechars:150 }}{% endautoescape %}</span>
+                                {{ post.content|get_text|truncatechars:200 }}{% endautoescape %}</span>
                         </div>
                         <div class="description">
                             <br>
