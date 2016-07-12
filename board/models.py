@@ -66,3 +66,42 @@ class EventReportComment(BaseBoardModel):
         ordering = ['-write_date']
         verbose_name = _('행사보고 댓글')
         verbose_name_plural = _('행사보고 댓글')
+
+
+class Announcement(BaseBoardModel):
+    class Meta:
+        ordering = ['-write_date']
+        verbose_name = _('공지사항')
+        verbose_name_plural = _('공지사항')
+
+
+class GraduatingBoard(BaseBoardModel):
+    class Meta:
+        ordering = ['-write_date']
+        verbose_name = _('졸업생게시판')
+        verbose_name_plural = _('졸업생게시판')
+
+
+class GraduatingBoardComment(BaseBoardModel):
+    board = models.ForeignKey(GraduatingBoard)
+
+    class Meta:
+        ordering = ['-write_date']
+        verbose_name = _('졸업생게시판 댓글')
+        verbose_name_plural = _('졸업생게시판 댓글')
+
+
+class StudentBoard(BaseBoardModel):
+    class Meta:
+        ordering = ['-write_date']
+        verbose_name = _('재학생게시판')
+        verbose_name_plural = _('재학생게시판')
+
+
+class StudentBoardComment(BaseBoardModel):
+    board = models.ForeignKey(StudentBoard)
+
+    class Meta:
+        ordering = ['-write_date']
+        verbose_name = _('재학생게시판 댓글')
+        verbose_name_plural = _('재학생게시판 댓글')
