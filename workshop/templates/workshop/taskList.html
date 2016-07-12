@@ -1,0 +1,35 @@
+{%  extends 'layout.html' %}
+
+{% load staticfiles %}
+
+{%  block header_title %}
+    워크샵 과제
+{%  endblock  %}
+
+{% block header_content %}
+    <a href="{% url 'workshop' %}" class="ui button inverted basic yellow">워크샵 목록</a>
+    <a href="{% url 'workshop_taskRegistration' %}" class="ui button inverted basic yellow">과제 등록</a>
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+  <section class="ui container">
+    <div class="ui three cards">
+      {% for task in tasks %}
+        <div class="card">
+          <div class="content">
+            <a href="{% url 'workshop_taskDetail' id=task.pk %}" class="header">{{ task.title }}</a>
+            <div class="deadline">
+              <span>제출 기한 : {{ task.deadline }}</span>
+            </div>
+              {% autoescape off %}
+                <div class="content">{{ task.content }}</div>
+              {% endautoescape %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}
