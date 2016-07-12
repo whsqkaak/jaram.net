@@ -33,14 +33,19 @@
             {% for post in page %}
                 <div class="item">
                     <div class="ui small rounded image">
-                        <img src="{{ post.thumbnail.url }}" style="width:150px;height:150px;">
-{#                        <img src="/../../static/mainapp/img/sodam01.jpg" style="width:150px;height:150px;">#}
+                    <img src="/../../static/mainapp/img/sodam01.jpg" style="width:150px;height:150px;">
                     </div>
                     <div class="middle aligned content">
                     {% if dir == 'seminar' %}
                         <a href={% url 'seminar_detail' id=post.pk %} class="header" style="">{{ post.title }}</a>
                     {% elif dir == 'playstorming' %}
                         <a href={% url 'playstorming_detail' id=post.pk %} class="header" style="">{{ post.title }}</a>
+                    {% elif dir == 'announcement' %}
+                        <a href={% url 'announcement_detail' id=post.pk %} class="header" style="">{{ post.title }}</a>
+                    {% elif dir == 'graduating' %}
+                        <a href={% url 'graduating_detail' id=post.pk %} class="header" style="">{{ post.title }}</a>
+                    {% elif dir == 'student' %}
+                        <a href={% url 'student_detail' id=post.pk %} class="header" style="">{{ post.title }}</a>
                     {% endif %}
                         <div class="meta">
                             <span>{% autoescape off %}
