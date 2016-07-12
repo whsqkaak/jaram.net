@@ -46,7 +46,8 @@ class MakePostView(TemplateView):
               write_date=timezone.now(),
               title=data.get('title'),
               content=data.get('content'),
-              attachment=request.FILES.get('attachment')).save()
+              attachment=request.FILES.get('attachment'),
+              thumbnail=request.FILES.get('thumbnail')).save()
 
         return redirect('/board/' + type + '?success=성공적으로 등록되었습니다.')
 
@@ -88,6 +89,7 @@ class SeminarDetailView(TemplateView):
         response['seminar'] = seminar
         response['header_title'] = '세미나'
         response['comments'] = seminar.seminarcomment_set.order_by('-write_date').all()
+        # response['page_num'] = seminar.
         return render(request, self.template_name, response)
 
     def post(self, request, *args, **kwargs):

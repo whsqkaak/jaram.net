@@ -10,6 +10,7 @@ class BaseBoardModel(models.Model):
     title = models.CharField(_('제목'), max_length=255, null=True, blank=True, default='')
     content = models.TextField(_('내용'), null=False, blank=False)
     attachment = models.FileField(_('첨부 파일'), upload_to='board/attachment/', null=True, blank=True)
+    thumbnail = models.ImageField(_('미리보기'), upload_to='board/thumbnail/', null=True, blank=True)
 
     # TODO: 연관 일정
 
