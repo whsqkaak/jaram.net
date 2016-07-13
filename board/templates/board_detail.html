@@ -9,10 +9,20 @@
 {% block header_content %}
     <p><i class="user icon"></i>&nbsp;{{ post.writer }}&nbsp;&nbsp;&nbsp;&nbsp;<i class="calendar icon"></i>&nbsp;{{ post.write_date|date:'Y년 m월 d일'}}</p>
     <a href= '/board/{{ dir }}' class="ui button inverted basic">게시글 목록</a>
-    <a href= '/board/{{ dir }}/delete/{{ post.pk }}' class="ui button inverted red basic">삭제</a>
+    <a href="{% url 'edit_post' %}?type={{ dir }}&id={{ post.pk }}" class="ui button inverted yellow basic">수정</a>
+    <button id='post-delete' class="ui button inverted red basic">삭제</button>
 {% endblock %}
 
 {% block head %}
+    <script>
+        $(function () {
+            $("#post-delete").click(function () {
+                $('.ui.basic.modal')
+                    .modal('show')
+                ;
+            });
+        })
+    </script>
 {% endblock %}
 
 {% block body %}
@@ -41,9 +51,9 @@
                         <div class="text">
                             {{ comment.content }}
                         </div>
-                        <div class="actions">
-                            <a class="reply">Reply</a>
-                        </div>
+{#                        <div class="actions">#}
+{#                            <a class="reply">Reply</a>#}
+{#                        </div>#}
                     </div>
                 </div>
             {% endfor %}
@@ -58,5 +68,31 @@
             </form>
         </div>
         {% endif %}
+    </div>
+    <div class="ui basic modal">
+        <i class="close icon"></i>
+        <div class="header">
+            게시글 삭제
+        </div>
+        <div class="image content">
+            <div class="image">
+                <i class="warning sign icon"></i>
+            </div>
+            <div class="description">
+                <p>삭제된 게시물은 복구할 수 없습니다. 진행하시겠습니까?</p>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="two fluid ui inverted buttons">
+                <a class="ui cancel red basic inverted button">
+                    <i class="remove icon"></i>
+                    No
+                </a>
+                <a href= '/board/{{ dir }}/delete/{{ post.pk }}' class="ui ok green basic inverted button">
+                    <i class="checkmark icon"></i>
+                    Yes
+                </a>
+            </div>
+        </div>
     </div>
 {% endblock %}

@@ -107,3 +107,5 @@ class StudentBoardComment(BaseBoardModel):
         ordering = ['-write_date']
         verbose_name = _('재학생게시판 댓글')
         verbose_name_plural = _('재학생게시판 댓글')
+
+#TODO: reply 모델, 뷰 만들기

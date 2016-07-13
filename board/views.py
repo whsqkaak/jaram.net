@@ -27,7 +27,7 @@ class MakePostView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         response = create_response(request)
-        response['header_title'] = '게시글 작성'
+        response['header_title'] = '게시글 수정'
         response['target'] = request.GET.get('type')
         if not response['target']:
             pass
@@ -58,6 +58,8 @@ class MakePostView(TemplateView):
         elif type == 'student':
             model = StudentBoard
 
+        print(request.FILES.get('attachment'))
+
         model(writer=request.user,
               write_date=timezone.now(),
               title=data.get('title'),
@@ -65,6 +67,57 @@ class MakePostView(TemplateView):
               attachment=request.FILES.get('attachment')).save()
 
         return redirect('/board/' + type + '?success=성공적으로 등록되었습니다.')
+
+
+class EditPostView(TemplateView):
+    template_name = 'editPost.html'
+
+    def get(self, request, *args, **kwargs):
+        response = create_response(request)
+        response['header_title'] = '게시글 수정'
+        response['target'] = request.GET.get('type')
+        if not response['target']:
+            pass
+        type = request.GET.get('type')
+
+        if type == 'seminar':
+            model = Seminar
+        elif type == 'playstorming':
+            model = PlayStorming
+        elif type == 'announcement':
+            model = Announcement
+        elif type == 'graduating':
+            model = GraduatingBoard
+        elif type == 'student':
+            model = StudentBoard
+        post = model.objects.get(pk=request.GET.get('id'))
+        response['post'] = post
+        return render(request, self.template_name, response)
+
+    def post(self, request, *args, **kwargs):
+        data = request.POST
+        type = data.get('post_type')
+
+        if type == 'seminar':
+            model = Seminar
+        elif type == 'playstorming':
+            model = PlayStorming
+        elif type == 'announcement':
+            model = Announcement
+        elif type == 'graduating':
+            model = GraduatingBoard
+        elif type == 'student':
+            model = StudentBoard
+
+        post = model.objects.get(pk=request.GET.get('id'))
+
+        post.title = data.get('title')
+        post.content = data.get('content')
+        post.attachment=request.FILES.get('attachment')
+
+        post.save()
+
+        return redirect('/board/' + type + '/' + request.GET.get('id') + '?success=성공적으로 수정되었습니다.')
 
 
 class PlayStormingListView(TemplateView):
