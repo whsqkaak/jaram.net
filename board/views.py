@@ -114,18 +114,25 @@ class SeminarDetailView(TemplateView):
 
         return redirect('/board/seminar/' + kwargs.get('id') + '?success=성공적으로 등록되었습니다.')
 
-    def delete(self, request, *args, **kwargs):
-        data = request.POST
-        try:
-            post = Seminar.objects.get(pk=kwargs.get('id'))
-        except ObjectDoesNotExist:
-            return redirect('/board/seminar?error=존재하지 않는 게시글입니다.')
 
-        if not (data.get('content')):
-            return redirect('/board/seminar?error=입력된 정보가 올바르지 않습니다.')
-        post.delete()
+class SeminarDeleteView(TemplateView):
+    template_name = 'board_detail.html'
 
-        return redirect('/board/seminar/' + kwargs.get('id') + '?success=삭제되었습니다.')
+    def get(self, request, *args, **kwargs):
+        seminar = Seminar.objects.get(pk=kwargs.get('id'))
+        seminar.delete()
+
+        return redirect('/board/seminar?success=삭제되었습니다.')
+
+
+class PlayStormingDeleteView(TemplateView):
+    template_name = 'board_detail.html'
+
+    def get(self, request, *args, **kwargs):
+        playstorming = PlayStorming.objects.get(pk=kwargs.get('id'))
+        playstorming.delete()
+
+        return redirect('/board/playstorming?success=삭제되었습니다.')
 
 
 class PlayStormingDetailView(TemplateView):
@@ -202,6 +209,16 @@ class AnnouncementDetailView(TemplateView):
         return render(request, self.template_name, response)
 
 
+class AnnouncementDeleteView(TemplateView):
+    template_name = 'board_detail.html'
+
+    def get(self, request, *args, **kwargs):
+        announcement = Announcement.objects.get(pk=kwargs.get('id'))
+        announcement.delete()
+
+        return redirect('/board/announcement?success=삭제되었습니다.')
+
+
 class GraduatingBoardListView(TemplateView):
     template_name = 'postList.html'
 
@@ -250,6 +267,16 @@ class GraduatingBoardDetailView(TemplateView):
         return redirect('/board/graduating/' + kwargs.get('id') + '?success=성공적으로 등록되었습니다.')
 
 
+class GraduatingBoardDeleteView(TemplateView):
+    template_name = 'board_detail.html'
+
+    def get(self, request, *args, **kwargs):
+        graduating = GraduatingBoard.objects.get(pk=kwargs.get('id'))
+        graduating.delete()
+
+        return redirect('/board/graduating?success=삭제되었습니다.')
+
+
 class StudentBoardListView(TemplateView):
     template_name = 'postList.html'
 
@@ -296,3 +323,13 @@ class StudentBoardDetailView(TemplateView):
                             content=data.get('content')).save()
 
         return redirect('/board/student/' + kwargs.get('id') + '?success=성공적으로 등록되었습니다.')
+
+
+class StudentBoardDeleteView(TemplateView):
+    template_name = 'board_detail.html'
+
+    def get(self, request, *args, **kwargs):
+        student = StudentBoard.objects.get(pk=kwargs.get('id'))
+        student.delete()
+
+        return redirect('/board/student?success=삭제되었습니다.')
