@@ -44,6 +44,15 @@ class MakePostView(TemplateView):
             model = PlayStorming
         elif type == 'announcement':
             model = Announcement
+            model(writer=request.user,
+                  write_date=timezone.now(),
+                  title=data.get('title'),
+                  content=data.get('content'),
+                  attachment=request.FILES.get('attachment'),
+                  importance=data.get('importance')).save()
+
+            return redirect('/board/' + type + '?success=성공적으로 등록되었습니다.')
+
         elif type == 'graduating':
             model = GraduatingBoard
         elif type == 'student':
@@ -188,6 +197,7 @@ class AnnouncementListView(TemplateView):
                        display_button_range=3,
                        save_to=response)
         response['dir'] = 'announcement'
+        response['important_page'] = Announcement.objects.filter(importance=True).all()
         response['header_title'] = '공지사항'
         return render(request, self.template_name, response)
 

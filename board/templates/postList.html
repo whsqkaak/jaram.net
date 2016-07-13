@@ -27,6 +27,35 @@
     </form>
 
     <div class="ui text container">
+        {% if dir == 'announcement' %}
+            <h1 class="ui header">중요 공지사항</h1>
+            <div class="ui divider"></div>
+            <div class="ui divided items">
+                {% for post in important_page %}
+                <div class="item">
+                        <div class="ui small rounded image">
+                            <img src="/../../static/mainapp/img/sodam01.jpg" style="width:150px;height:150px;">
+                        </div>
+                        <div class="middle aligned content">
+                            <a href={% url 'announcement_detail' id=post.pk %} class="header" style="">{{ post.title }}</a>
+                            <div class="meta">
+                                <span>{% autoescape off %}
+                                    {{ post.content|get_text|truncatechars:150 }}{% endautoescape %}</span>
+                            </div>
+                            <div class="description">
+                                <br>
+                            </div>
+                            <div class="extra">
+                                <i class="user icon"></i>
+                                <span class="writer">{{ post.writer }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <i class="calendar icon"></i>
+                                <span class="posted_date">{{ post.write_date|date:'Y년 m월 d일' }}</span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
         <h1 class="ui header">{{ header_title }}</h1>
         <div class="ui divider"></div>
         <div class="ui divided items">
