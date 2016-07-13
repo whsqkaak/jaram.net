@@ -1,7 +1,5 @@
 {% extends 'layout.html' %}
 
-{% load staticfiles %}
-
 {% block header_title %}
     <p>{{ header_title }}</p>
 {% endblock %}
@@ -9,7 +7,7 @@
 {% block header_content %}
 
         <a href="/board/{{ target }}" class="ui button inverted basic">게시글 목록</a>
-        <button id="post-submit" type="button" class="ui button inverted green">글 작성</button>
+        <button id="post-submit" type="button" class="ui button inverted green">글 수정</button>
 {% endblock %}
 
 {% block head %}
@@ -35,15 +33,15 @@
             {% csrf_token %}
             <div class="field">
                 <label>제목</label>
-                <input type="text" name="title" placeholder="니가 아는 바로 그 제목" required>
+                <input type="text" name="title" value="{{ post.title }}" required>
             </div>
             <div class="field">
                 <label>내용</label>
-                <textarea name="content" rows="16" required></textarea>
+                <textarea name="content" rows="16" required>{{ post.content }}</textarea>
             </div>
             <div class="field">
                 <label>첨부 파일</label>
-                <input type="file" name="attachment">
+                <input type="file" name="attachment" value="{{ post.attachment }}">
             </div>
             <button type="submit" class="hide"></button>
         </form>

@@ -1,7 +1,7 @@
 from board.views import EventReportView, SeminarListView, MakePostView, \
     PlayStormingListView, SeminarDetailView, PlayStormingDetailView, AnnouncementListView, GraduatingBoardListView, \
     StudentBoardListView, AnnouncementDetailView, GraduatingBoardDetailView, StudentBoardDetailView, SeminarDeleteView, \
-    PlayStormingDeleteView, AnnouncementDeleteView, StudentBoardDeleteView, GraduatingBoardDeleteView
+    PlayStormingDeleteView, AnnouncementDeleteView, StudentBoardDeleteView, GraduatingBoardDeleteView, EditPostView
 from django.conf.urls import url
 
 urlpatterns = [
@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^playstorming/delete/(?P<id>\d+)/?$', PlayStormingDeleteView.as_view(), name='playstorming_delete'),
     url(r'^event_report$', EventReportView.as_view(), name='event_report'),
     url(r'^write_post$', MakePostView.as_view(), name='write_post'),
+    url(r'^edit_post$', EditPostView.as_view(), name='edit_post'),
     url(r'^announcement$', AnnouncementListView.as_view(), name='announcement'),
     url(r'^announcement/(?P<id>\d+)/?$', AnnouncementDetailView.as_view(), name='announcement_detail'),
     url(r'^announcement/delete/(?P<id>\d+)/?$', AnnouncementDeleteView.as_view(), name='announcement_delete'),
