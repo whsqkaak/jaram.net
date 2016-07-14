@@ -74,13 +74,12 @@ class WorkShopTaskRegistrationView(TemplateView):
     def post(self, request, *args, **kwargs):
         data = request.POST
 
-        if not (data.get('title') and data.get('content') and data.get('deadline') and data.get('duty_member')):
-            return redirect('/workshop/taskRegistration/?error=워크샵 과제 등록에 필요한 정보가 부족합니다.')
+        if not (data.get('title') and data.get('content') and data.get('deadline') and data.get('duty_member') ):
+            return redirect('/workshop/taskList/taskRegistration/?error=워크샵 과제 등록에 필요한 정보가 부족합니다.')
 
         workshoptask = WorkShopTask()
         workshoptask.title = data.get('title')
         workshoptask.content = data.get('content')
-        workshoptask.duty_member = data.get('duty_member')
         workshoptask.deadline = data.get('deadline')
 
         workshoptask.save()
@@ -179,3 +178,48 @@ class WorkShopTaskSubmissionDetailView(TemplateView):
         response['workshop_task'] = workshop_task
         response['workshop_taskSubmission'] = workshop_taskSubmission
         return render(request, self.template_name, response)
+
+
+class WorkShopTaskUpdateView(TemplateView):
+    template_name = 'workshop/taskUpdate.html'
+
+    def get(self, request, *args, **kwargs):
+        response = create_response(request)
+
+        try:
+            workshop_task = WorkShopTask.objects.get(pk=kwargs.get('id'))
+        except ObjectDoesNotExist:
+            return redirect('/workshop?error=존재하지 않는 워크샵입니다.')
+
+        response['workshop_task'] = workshop_task
+
+        try:
+            workshop_taskSubmission = WorkShopTaskSubmission.objects.get(pk=kwargs.get('task_id'))
+        except ObjectDoesNotExist:
+            return redirect('/workshop/taskList?error=존재하지 않는 워크샵입니다.')
+
+        response['workshop_taskSubmission'] = workshop_taskSubmission
+        return render(request, self.template_name, response)
+
+    def post(self, request, *args, **kwargs):
+        data = request.POST
+
+        try:
+            task = WorkShopTask.objects.get(pk=kwargs.get('id'))
+        except ObjectDoesNotExist:
+            return redirect('/workshop?error=존재하지 않는 워크샵 과제입니다.')
+
+        if not (data.get('content')):
+            return redirect('/workshop/taskList/?error=과제 제출에 필요한 정보가 부족합니다.')
+        try:
+            submission_task = WorkShopTaskSubmission.objects.get(pk=kwargs.get('task_id'))
+        except ObjectDoesNotExist:
+            return redirect('/workshop/taskList?error=존재하지 않는 워크샵입니다.')
+
+        submission_task.task = task
+        submission_task.presenter = request.user
+        submission_task.content = data.get('content')
+        submission_task.attachment = request.FILES.get('attachment')
+        submission_task.__class__.objects.filter(id=task.pk).update()
+        submission_task.save()
+        return redirect('workshop_taskSubmissionDetail', id=task.pk ,task_id=submission_task.pk)
