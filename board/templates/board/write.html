@@ -1,0 +1,70 @@
+{% extends 'layout.html' %}
+
+{% block header_title %}
+  <p>게시글 작성</p>
+{% endblock %}
+
+{% block header_content %}
+  <button type="button" onclick="window.history.back()" class="ui button inverted basic">뒤로 가기</button>
+  <button id="post-submit" type="button" class="ui button inverted green">글 작성</button>
+{% endblock %}
+
+{% block head %}
+  <script src="//cdn.ckeditor.com/4.5.9/standard/ckeditor.js"></script>
+  <script>
+    $(function () {
+      CKEDITOR.replace('content', {
+        language: 'ko',
+        toolbar: 'Basic',
+        filebrowserUploadUrl: "{% url 'ckeditor_upload' %}"
+      });
+      $("#post-submit").click(function () {
+        $("button[type=submit]").click();
+      });
+      $("#board-select").dropdown();
+    });
+  </script>
+{% endblock %}
+
+{% block body %}
+  <section class="ui container">
+    <form id="post-form" class="ui form" method="post">
+      {% csrf_token %}
+      <div class="fields">
+        <div class="three wide field">
+          <label>게시판</label>
+          <div id="board-select" class="ui selection dropdown">
+            <input type="hidden" name="board_name" value="{{ board.eng_name }}" required>
+            <i class="dropdown icon"></i>
+            <div class="default text">선택</div>
+            <div class="menu">
+              {% for each in boards %}
+                <div class="item" data-value="{{ each.eng_name }}" data-text="{{ each.name }}">{{ each.name }}</div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="thirteen wide field">
+          <label>제목</label>
+          <input type="text" name="title" placeholder="니가 아는 바로 그 제목"
+                 value="{% if post %}{{ post.title }}{% endif %}" required>
+        </div>
+      </div>
+      <div class="field">
+        <label>내용</label>
+        <textarea name="content" rows="16" required>{% if post %}{{ post.content }}{% endif %}</textarea>
+      </div>
+      <div class="field">
+        <label>첨부 파일</label>
+        <input type="file" name="attachment">
+      </div>
+      {% if board.eng_name == 'notice' %}
+        <div class="ui checkbox">
+          <input type="checkbox" name="emphasis" value="{% if post %}{{ post.emphasis }}{% endif %}">
+          <label>중요</label>
+        </div>
+      {% endif %}
+      <button type="submit" class="hide"></button>
+    </form>
+  </section>
+{% endblock %}
