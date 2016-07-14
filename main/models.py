@@ -120,6 +120,18 @@ class Member(AbstractBaseUser, PermissionsMixin):
     def enter_year_short(self):
         return self.enter_year % 100
 
+    def get_level(self, groups):
+        if self.is_superuser or self.is_staff:
+            return 0
+
+        if Group.objects.get(name='임원진') in self.groups.all():
+            return 1
+
+        if self.groups.filter(pk__in=groups.values_list('pk', flat=True)).exists():
+            return 2
+
+        return 3
+
     class Meta:
         ordering = ['-id']
         verbose_name = _('자람 회원')
