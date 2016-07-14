@@ -1,5 +1,7 @@
 {% extends 'layout.html' %}
 
+{% load staticfiles %}
+
 {% block header_title %}
   중요 알림
 {% endblock %}
@@ -20,122 +22,60 @@
         <h1 class="ui header">최신 게시물</h1>
         <div class="ui divider"></div>
         <div class="ui divided items">
-            {% for item in new_page %}
-              <div class="item">
-                <div class="ui small rounded image">
-                  <img src="/../../static/mainapp/img/sodam01.jpg" style="width:150px;height:150px;">
+          {% for item in recent_posts %}
+            <div class="item">
+              <div class="ui small rounded image">
+                <img src="{% static 'mainapp/img/sodam01.jpg' %}" style="width:150px; height:150px;">
+              </div>
+              <div class="middle aligned content">
+                <a href="{% url 'post_detail' name=item.board.eng_name id=item.pk %}"
+                   class="header">{{ item.title }}</a>
+                <div class="meta">
+                  <span>{% autoescape off %}{{ item.content }}{% endautoescape %}</span>
                 </div>
-                <div class="middle aligned content">
-                    {% if forloop.counter == 1 %}
-                        {% if dir_0 == 'Seminar' %}
-                            <a href={% url 'seminar_detail' id=item.pk %} class="header" style="">{{ item.title }}</a>
-                        {% elif dir_0 == 'PlayStorming' %}
-                            <a href={% url 'playstorming_detail' id=item.pk %} class="header" style="">{{ item.title }}</a>
-                        {% elif dir_0 == 'GraduatingBoard' %}
-                            <a href={% url 'graduating_detail' id=item.pk %} class="header" style="">{{ item.title }}</a>
-                        {% elif dir_0 == 'StudentBoard' %}
-                            <a href={% url 'student_detail' id=item.pk %} class="header" style="">{{ item.title }}</a>
-                        {% endif %}
-                    {% elif forloop.counter == 2 %}
-                        {% if dir_11 == 'Seminar' %}
-                            <a href={% url 'seminar_detail' id=item.pk %} class="header" style="">{{ item.title }}</a>
-                        {% elif dir_1 == 'PlayStorming' %}
-                            <a href={% url 'playstorming_detail' id=item.pk %} class="header" style="">{{ item.title }}</a>
-                        {% elif dir_1 == 'GraduatingBoard' %}
-                            <a href={% url 'graduating_detail' id=item.pk %} class="header" style="">{{ item.title }}</a>
-                        {% elif dir_1 == 'StudentBoard' %}
-                            <a href={% url 'student_detail' id=item.pk %} class="header" style="">{{ item.title }}</a>
-                        {% endif %}
-                    {% else %}
-                        {% if dir_2 == 'Seminar' %}
-                            <a href={% url 'seminar_detail' id=item.pk %} class="header" style="">{{ item.title }}</a>
-                        {% elif dir_2 == 'PlayStorming' %}
-                            <a href={% url 'playstorming_detail' id=item.pk %} class="header" style="">{{ item.title }}</a>
-                        {% elif dir_2 == 'GraduatingBoard' %}
-                            <a href={% url 'graduating_detail' id=item.pk %} class="header" style="">{{ item.title }}</a>
-                        {% elif dir_2 == 'StudentBoard' %}
-                            <a href={% url 'student_detail' id=item.pk %} class="header" style="">{{ item.title }}</a>
-                        {% endif %}
-                    {% endif %}
-                  <div class="meta">
-                      {% autoescape off %}
-                        <span>{{ item.content }}</span>
-                      {% endautoescape %}
+                <div class="description">
+                  <br>
+                </div>
+                <div class="extra">
+                  <div class="ui right floated small breadcrumb">
+                    <a href="{% url 'post_list' name=item.board.eng_name %}" class="section">{{ item.board.name }}</a>
                   </div>
-                  <div class="description">
-                    <br>
-                  </div>
-                  <div class="extra">
-                    <div class="ui right floated small breadcrumb">
-                      {% if forloop.counter == 1 %}
-                          {% if dir_0 == 'Seminar' %}
-                              <a href={% url 'seminar' %} class="section">{{ dir_0 }}</a>
-                          {% elif dir_0 == 'PlayStorming' %}
-                              <a href={% url 'playstorming' %} class="section">{{ dir_0 }}</a>
-                          {% elif dir_0 == 'GraduatingBoard' %}
-                              <a href={% url 'graduating' %} class="section">{{ dir_0 }}</a>
-                          {% elif dir_0 == 'StudentBoard' %}
-                              <a href={% url 'student' %} class="section">{{ dir_0 }}</a>
-                          {% endif %}
-                        {% elif forloop.counter == 2 %}
-                          {% if dir_1 == 'Seminar' %}
-                              <a href={% url 'seminar' %} class="section">{{ dir_1 }}</a>
-                          {% elif dir_1 == 'PlayStorming' %}
-                              <a href={% url 'playstorming' %} class="section">{{ dir_1 }}</a>
-                          {% elif dir_1 == 'GraduatingBoard' %}
-                              <a href={% url 'graduating' %} class="section">{{ dir_1 }}</a>
-                          {% elif dir_1 == 'StudentBoard' %}
-                              <a href={% url 'student' %} class="section">{{ dir_1 }}</a>
-                          {% endif %}
-                        {% else %}
-                            {% if dir_2 == 'Seminar' %}
-                              <a href={% url 'seminar' %} class="section">{{ dir_2 }}</a>
-                            {% elif dir_2 == 'PlayStorming' %}
-                              <a href={% url 'playstorming' %} class="section">{{ dir_2 }}</a>
-                            {% elif dir_2 == 'GraduatingBoard' %}
-                              <a href={% url 'graduating' %} class="section">{{ dir_2 }}</a>
-                            {% elif dir_2 == 'StudentBoard' %}
-                              <a href={% url 'student' %} class="section">{{ dir_2 }}</a>
-                             {% endif %}
-                        {% endif %}
-                    </div>
-                    <span class="writer">{{ item.writer }}</span>
-                    <span class="">|</span>
-                    <span class="posted_date">{{ item.write_date }}</span>
-                  </div>
+                  <span class="writer">{{ item.writer }}</span>
+                  <span class="">|</span>
+                  <span class="posted_date">{{ item.write_date }}</span>
                 </div>
               </div>
-            {% endfor %}
+            </div>
+          {% endfor %}
         </div>
         <!--공지사항-->
         <h1 class="ui header">공지사항</h1>
         <div class="ui divider"></div>
         <div class="ui divided items">
-            {% for item in announce_page %}
-                  <div class="item">
-                    <div class="ui small rounded image">
-                      <img src="/../../static/mainapp/img/sodam01.jpg" style="width:150px;height:150px;">
-                    </div>
-                    <div class="middle aligned content">
-                        {% if item.importance == True %}
-                            <a href={% url 'announcement_detail' id=item.pk %} class="header" style="">중요 : {{ item.title }}</a>
-                        {% else %}
-                            <a href={% url 'announcement_detail' id=item.pk %} class="header" style="">{{ item.title }}</a>
-                        {% endif %}
-                      <div class="meta">
-                          {% autoescape off %}
-                          <span>{{ item.content }}</span>
-                          {% endautoescape %}
-                      </div>
-                      <div class="description">
-                        <br>
-                      </div>
-                      <div class="extra">
-                        {{ item.write_date }}
-                      </div>
-                    </div>
-                  </div>
-            {% endfor %}
+          {% for item in notice_posts %}
+            <div class="item">
+              <div class="ui small rounded image">
+                <img src="{% static 'mainapp/img/sodam01.jpg' %}" style="width:150px; height:150px;">
+              </div>
+              <div class="middle aligned content">
+                {% if item.emphasis %}
+                  <a href="{% url 'post_detail' name='notice' id=item.pk %}" class="header">중요 : {{ item.title }}</a>
+                  <!-- TODO: '중요 : ' 이거 대신에 스타일을 다르게 주도록 변경-->
+                {% else %}
+                  <a href="{% url 'post_detail' name='notice' id=item.pk %}" class="header">{{ item.title }}</a>
+                {% endif %}
+                <div class="meta">
+                  <span>{% autoescape off %}{{ item.content }}{% endautoescape %}</span>
+                </div>
+                <div class="description">
+                  <br>
+                </div>
+                <div class="extra">
+                  {{ item.write_date }}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
         </div>
       </div>
       <!--우측 위젯 바-->
