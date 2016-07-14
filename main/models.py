@@ -74,7 +74,7 @@ class Member(AbstractBaseUser, PermissionsMixin):
     # 서버 운영에 필요한 정보
     date_joined = models.DateTimeField(_('가입 날짜'), default=timezone.now)
     is_active = models.BooleanField(_('활성화 여부'), default=True)
-    is_staff = models.BooleanField(_('임원진'), default=False)
+    is_staff = models.BooleanField(_('사이트 관리 권한'), default=False)
 
     USERNAME_FIELD = 'user_id'
 
