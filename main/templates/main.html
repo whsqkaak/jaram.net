@@ -20,134 +20,122 @@
         <h1 class="ui header">최신 게시물</h1>
         <div class="ui divider"></div>
         <div class="ui divided items">
-          <div class="item">
-            <div class="ui small rounded image">
-              <img src="/../../static/mainapp/img/sodam01.jpg" style="width:150px;height:150px;">
-            </div>
-            <div class="middle aligned content">
-              <a class="header" style="">Header</a>
-              <div class="meta">
-                <span>Domestic dogs inherited complex behaviors, such as bite inhibition, from their wolf ancestors, which would have been pack hunters with complex body language.</span>
-              </div>
-              <div class="description">
-                <br>
-              </div>
-              <div class="extra">
-                <div class="ui right floated small breadcrumb">
-                  <a class="section">Activity</a>
-                  <div class="divider"> /</div>
-                  <a class="section">Study</a>
+            {% for item in new_page %}
+              <div class="item">
+                <div class="ui small rounded image">
+                  <img src="/../../static/mainapp/img/sodam01.jpg" style="width:150px;height:150px;">
                 </div>
-                <span class="writer">Kyoungchan Cho</span>
-                <span class="">|</span>
-                <span class="posted_date">2016/05/30</span>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="ui small rounded image">
-              <img src="/../../static/mainapp/img/sodam02.png" style="width:150px;height:150px;">
-            </div>
-            <div class="middle aligned content">
-              <a class="header" style="">Header</a>
-              <div class="meta">
-                <span>Domestic dogs inherited complex behaviors, such as bite inhibition, from their wolf ancestors, which would have been pack hunters with complex body language.</span>
-              </div>
-              <div class="description">
-                <br>
-              </div>
-              <div class="extra">
-                <div class="ui right floated small breadcrumb">
-                  <a class="section">Activity</a>
-                  <div class="divider"> /</div>
-                  <a class="section">Seminar</a>
+                <div class="middle aligned content">
+                    {% if forloop.counter == 1 %}
+                        {% if dir_0 == 'Seminar' %}
+                            <a href={% url 'seminar_detail' id=item.pk %} class="header" style="">{{ item.title }}</a>
+                        {% elif dir_0 == 'PlayStorming' %}
+                            <a href={% url 'playstorming_detail' id=item.pk %} class="header" style="">{{ item.title }}</a>
+                        {% elif dir_0 == 'GraduatingBoard' %}
+                            <a href={% url 'graduating_detail' id=item.pk %} class="header" style="">{{ item.title }}</a>
+                        {% elif dir_0 == 'StudentBoard' %}
+                            <a href={% url 'student_detail' id=item.pk %} class="header" style="">{{ item.title }}</a>
+                        {% endif %}
+                    {% elif forloop.counter == 2 %}
+                        {% if dir_11 == 'Seminar' %}
+                            <a href={% url 'seminar_detail' id=item.pk %} class="header" style="">{{ item.title }}</a>
+                        {% elif dir_1 == 'PlayStorming' %}
+                            <a href={% url 'playstorming_detail' id=item.pk %} class="header" style="">{{ item.title }}</a>
+                        {% elif dir_1 == 'GraduatingBoard' %}
+                            <a href={% url 'graduating_detail' id=item.pk %} class="header" style="">{{ item.title }}</a>
+                        {% elif dir_1 == 'StudentBoard' %}
+                            <a href={% url 'student_detail' id=item.pk %} class="header" style="">{{ item.title }}</a>
+                        {% endif %}
+                    {% else %}
+                        {% if dir_2 == 'Seminar' %}
+                            <a href={% url 'seminar_detail' id=item.pk %} class="header" style="">{{ item.title }}</a>
+                        {% elif dir_2 == 'PlayStorming' %}
+                            <a href={% url 'playstorming_detail' id=item.pk %} class="header" style="">{{ item.title }}</a>
+                        {% elif dir_2 == 'GraduatingBoard' %}
+                            <a href={% url 'graduating_detail' id=item.pk %} class="header" style="">{{ item.title }}</a>
+                        {% elif dir_2 == 'StudentBoard' %}
+                            <a href={% url 'student_detail' id=item.pk %} class="header" style="">{{ item.title }}</a>
+                        {% endif %}
+                    {% endif %}
+                  <div class="meta">
+                      {% autoescape off %}
+                        <span>{{ item.content }}</span>
+                      {% endautoescape %}
+                  </div>
+                  <div class="description">
+                    <br>
+                  </div>
+                  <div class="extra">
+                    <div class="ui right floated small breadcrumb">
+                      {% if forloop.counter == 1 %}
+                          {% if dir_0 == 'Seminar' %}
+                              <a href={% url 'seminar' %} class="section">{{ dir_0 }}</a>
+                          {% elif dir_0 == 'PlayStorming' %}
+                              <a href={% url 'playstorming' %} class="section">{{ dir_0 }}</a>
+                          {% elif dir_0 == 'GraduatingBoard' %}
+                              <a href={% url 'graduating' %} class="section">{{ dir_0 }}</a>
+                          {% elif dir_0 == 'StudentBoard' %}
+                              <a href={% url 'student' %} class="section">{{ dir_0 }}</a>
+                          {% endif %}
+                        {% elif forloop.counter == 2 %}
+                          {% if dir_1 == 'Seminar' %}
+                              <a href={% url 'seminar' %} class="section">{{ dir_1 }}</a>
+                          {% elif dir_1 == 'PlayStorming' %}
+                              <a href={% url 'playstorming' %} class="section">{{ dir_1 }}</a>
+                          {% elif dir_1 == 'GraduatingBoard' %}
+                              <a href={% url 'graduating' %} class="section">{{ dir_1 }}</a>
+                          {% elif dir_1 == 'StudentBoard' %}
+                              <a href={% url 'student' %} class="section">{{ dir_1 }}</a>
+                          {% endif %}
+                        {% else %}
+                            {% if dir_2 == 'Seminar' %}
+                              <a href={% url 'seminar' %} class="section">{{ dir_2 }}</a>
+                            {% elif dir_2 == 'PlayStorming' %}
+                              <a href={% url 'playstorming' %} class="section">{{ dir_2 }}</a>
+                            {% elif dir_2 == 'GraduatingBoard' %}
+                              <a href={% url 'graduating' %} class="section">{{ dir_2 }}</a>
+                            {% elif dir_2 == 'StudentBoard' %}
+                              <a href={% url 'student' %} class="section">{{ dir_2 }}</a>
+                             {% endif %}
+                        {% endif %}
+                    </div>
+                    <span class="writer">{{ item.writer }}</span>
+                    <span class="">|</span>
+                    <span class="posted_date">{{ item.write_date }}</span>
+                  </div>
                 </div>
-                <span class="writer">Jongheon Kim</span>
-                <span class="">|</span>
-                <span class="posted_date">2016/05/29</span>
               </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="ui small rounded image">
-              <img src="/../../static/mainapp/img/sodam03.jpg" style="width:150px;height:150px;">
-            </div>
-            <div class="middle aligned content">
-              <a class="header" style="">Header</a>
-              <div class="meta">
-                <span>Domestic dogs inherited complex behaviors, such as bite inhibition, from their wolf ancestors, which would have been pack hunters with complex body language.</span>
-              </div>
-              <div class="description">
-                <br>
-              </div>
-              <div class="extra">
-                <div class="ui right floated small breadcrumb">
-                  <a class="section">Activity</a>
-                  <div class="divider"> /</div>
-                  <a class="section">Study</a>
-                </div>
-                <span class="writer">Kyoungchan Cho</span>
-                <span class="">|</span>
-                <span class="posted_date">2016/05/26</span>
-              </div>
-            </div>
-          </div>
+            {% endfor %}
         </div>
         <!--공지사항-->
         <h1 class="ui header">공지사항</h1>
         <div class="ui divider"></div>
         <div class="ui divided items">
-          <div class="item">
-            <div class="ui small rounded image">
-              <img src="/../../static/mainapp/img/sodam01.jpg" style="width:150px;height:150px;">
-            </div>
-            <div class="middle aligned content">
-              <a class="header">Header</a>
-              <div class="meta">
-                <span>Domestic dogs inherited complex behaviors, such as bite inhibition, from their wolf ancestors, which would have been pack hunters with complex body language.</span>
-              </div>
-              <div class="description">
-                <br>
-              </div>
-              <div class="extra">
-                2016/05/26
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="ui small rounded image">
-              <img src="/../../static/mainapp/img/sodam02.png" style="width:150px;height:150px;">
-            </div>
-            <div class="middle aligned content">
-              <a class="header">Header</a>
-              <div class="meta">
-                <span>Domestic dogs inherited complex behaviors, such as bite inhibition, from their wolf ancestors, which would have been pack hunters with complex body language.</span>
-              </div>
-              <div class="description">
-                <br>
-              </div>
-              <div class="extra">
-                2016/05/29
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="ui small rounded image">
-              <img src="/../../static/mainapp/img/sodam03.jpg" style="width:150px;height:150px;">
-            </div>
-            <div class="middle aligned content">
-              <a class="header">Header</a>
-              <div class="meta">
-                <span>Domestic dogs inherited complex behaviors, such as bite inhibition, from their wolf ancestors, which would have been pack hunters with complex body language.</span>
-              </div>
-              <div class="description">
-                <br>
-              </div>
-              <div class="extra">
-                2016/05/30
-              </div>
-            </div>
-          </div>
+            {% for item in announce_page %}
+                  <div class="item">
+                    <div class="ui small rounded image">
+                      <img src="/../../static/mainapp/img/sodam01.jpg" style="width:150px;height:150px;">
+                    </div>
+                    <div class="middle aligned content">
+                        {% if item.importance == True %}
+                            <a href={% url 'announcement_detail' id=item.pk %} class="header" style="">중요 : {{ item.title }}</a>
+                        {% else %}
+                            <a href={% url 'announcement_detail' id=item.pk %} class="header" style="">{{ item.title }}</a>
+                        {% endif %}
+                      <div class="meta">
+                          {% autoescape off %}
+                          <span>{{ item.content }}</span>
+                          {% endautoescape %}
+                      </div>
+                      <div class="description">
+                        <br>
+                      </div>
+                      <div class="extra">
+                        {{ item.write_date }}
+                      </div>
+                    </div>
+                  </div>
+            {% endfor %}
         </div>
       </div>
       <!--우측 위젯 바-->

@@ -69,6 +69,8 @@ class EventReportComment(BaseBoardModel):
 
 
 class Announcement(BaseBoardModel):
+    importance = models.NullBooleanField()
+
     class Meta:
         ordering = ['-write_date']
         verbose_name = _('공지사항')
