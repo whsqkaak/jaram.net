@@ -5,11 +5,11 @@ from django.utils.translation import ugettext_lazy as _
 from main.models import Member
 
 
-class BaseBoardModel(models.Model):
+class BasePostModel(models.Model):
     writer = models.ForeignKey(Member)
     write_date = models.DateTimeField(_('작성일'), null=False, blank=False, default=timezone.now)
     title = models.CharField(_('제목'), max_length=255, null=True, blank=True, default='')
-    content = models.TextField(_('내용'), null=False, blank=False)
+    content = models.TextField(_('내용'), null=False, blank=False, default='')
     attachment = models.FileField(_('첨부 파일'), upload_to='board/attachment/', null=True, blank=True)
     emphasis = models.BooleanField(_('게시글 강조'), default=False)
 
@@ -36,7 +36,7 @@ class Board(models.Model):
         verbose_name_plural = _('게시판')
 
 
-class Post(BaseBoardModel):
+class Post(BasePostModel):
     board = models.ForeignKey(Board)
 
     def __str__(self):
@@ -48,7 +48,7 @@ class Post(BaseBoardModel):
         verbose_name_plural = _('게시글')
 
 
-class Comment(BaseBoardModel):
+class Comment(BasePostModel):
     board = models.ForeignKey(Board)
     post = models.ForeignKey(Post)
 
