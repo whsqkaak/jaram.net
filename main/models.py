@@ -1,6 +1,6 @@
 from django import template
 from django.contrib.auth.base_user import AbstractBaseUser
-from django.contrib.auth.models import PermissionsMixin
+from django.contrib.auth.models import PermissionsMixin, Group
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
@@ -8,6 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 
 class Grade(models.Model):
     name = models.CharField(_('등급 이름'), max_length=10, null=False, blank=False)
+    group = models.ForeignKey(Group, null=False, blank=False)
 
     def __str__(self):
         return self.name
@@ -72,8 +73,8 @@ class Member(AbstractBaseUser, PermissionsMixin):
 
     # 서버 운영에 필요한 정보
     date_joined = models.DateTimeField(_('가입 날짜'), default=timezone.now)
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(_('임원진'), default=False)
+    is_active = models.BooleanField(_('활성화 여부'), default=True)
+    is_staff = models.BooleanField(_('사이트 관리 권한'), default=False)
 
     USERNAME_FIELD = 'user_id'
 
