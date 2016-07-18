@@ -1,5 +1,7 @@
 {% extends 'layout.html' %}
 
+{% load staticfiles %}
+
 {% block header_title %}
   중요 알림
 {% endblock %}
@@ -20,134 +22,60 @@
         <h1 class="ui header">최신 게시물</h1>
         <div class="ui divider"></div>
         <div class="ui divided items">
-          <div class="item">
-            <div class="ui small rounded image">
-              <img src="/../../static/mainapp/img/sodam01.jpg" style="width:150px;height:150px;">
-            </div>
-            <div class="middle aligned content">
-              <a class="header" style="">Header</a>
-              <div class="meta">
-                <span>Domestic dogs inherited complex behaviors, such as bite inhibition, from their wolf ancestors, which would have been pack hunters with complex body language.</span>
+          {% for item in recent_posts %}
+            <div class="item">
+              <div class="ui small rounded image">
+                <img src="{% static 'mainapp/img/sodam01.jpg' %}" style="width:150px; height:150px;">
               </div>
-              <div class="description">
-                <br>
-              </div>
-              <div class="extra">
-                <div class="ui right floated small breadcrumb">
-                  <a class="section">Activity</a>
-                  <div class="divider"> /</div>
-                  <a class="section">Study</a>
+              <div class="middle aligned content">
+                <a href="{% url 'post_detail' name=item.board.eng_name id=item.pk %}"
+                   class="header">{{ item.title }}</a>
+                <div class="meta">
+                  <span>{% autoescape off %}{{ item.content }}{% endautoescape %}</span>
                 </div>
-                <span class="writer">Kyoungchan Cho</span>
-                <span class="">|</span>
-                <span class="posted_date">2016/05/30</span>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="ui small rounded image">
-              <img src="/../../static/mainapp/img/sodam02.png" style="width:150px;height:150px;">
-            </div>
-            <div class="middle aligned content">
-              <a class="header" style="">Header</a>
-              <div class="meta">
-                <span>Domestic dogs inherited complex behaviors, such as bite inhibition, from their wolf ancestors, which would have been pack hunters with complex body language.</span>
-              </div>
-              <div class="description">
-                <br>
-              </div>
-              <div class="extra">
-                <div class="ui right floated small breadcrumb">
-                  <a class="section">Activity</a>
-                  <div class="divider"> /</div>
-                  <a class="section">Seminar</a>
+                <div class="description">
+                  <br>
                 </div>
-                <span class="writer">Jongheon Kim</span>
-                <span class="">|</span>
-                <span class="posted_date">2016/05/29</span>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="ui small rounded image">
-              <img src="/../../static/mainapp/img/sodam03.jpg" style="width:150px;height:150px;">
-            </div>
-            <div class="middle aligned content">
-              <a class="header" style="">Header</a>
-              <div class="meta">
-                <span>Domestic dogs inherited complex behaviors, such as bite inhibition, from their wolf ancestors, which would have been pack hunters with complex body language.</span>
-              </div>
-              <div class="description">
-                <br>
-              </div>
-              <div class="extra">
-                <div class="ui right floated small breadcrumb">
-                  <a class="section">Activity</a>
-                  <div class="divider"> /</div>
-                  <a class="section">Study</a>
+                <div class="extra">
+                  <div class="ui right floated small breadcrumb">
+                    <a href="{% url 'post_list' name=item.board.eng_name %}" class="section">{{ item.board.name }}</a>
+                  </div>
+                  <span class="writer">{{ item.writer }}</span>
+                  <span class="">|</span>
+                  <span class="posted_date">{{ item.write_date }}</span>
                 </div>
-                <span class="writer">Kyoungchan Cho</span>
-                <span class="">|</span>
-                <span class="posted_date">2016/05/26</span>
               </div>
             </div>
-          </div>
+          {% endfor %}
         </div>
         <!--공지사항-->
         <h1 class="ui header">공지사항</h1>
         <div class="ui divider"></div>
         <div class="ui divided items">
-          <div class="item">
-            <div class="ui small rounded image">
-              <img src="/../../static/mainapp/img/sodam01.jpg" style="width:150px;height:150px;">
-            </div>
-            <div class="middle aligned content">
-              <a class="header">Header</a>
-              <div class="meta">
-                <span>Domestic dogs inherited complex behaviors, such as bite inhibition, from their wolf ancestors, which would have been pack hunters with complex body language.</span>
+          {% for item in notice_posts %}
+            <div class="item">
+              <div class="ui small rounded image">
+                <img src="{% static 'mainapp/img/sodam01.jpg' %}" style="width:150px; height:150px;">
               </div>
-              <div class="description">
-                <br>
-              </div>
-              <div class="extra">
-                2016/05/26
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="ui small rounded image">
-              <img src="/../../static/mainapp/img/sodam02.png" style="width:150px;height:150px;">
-            </div>
-            <div class="middle aligned content">
-              <a class="header">Header</a>
-              <div class="meta">
-                <span>Domestic dogs inherited complex behaviors, such as bite inhibition, from their wolf ancestors, which would have been pack hunters with complex body language.</span>
-              </div>
-              <div class="description">
-                <br>
-              </div>
-              <div class="extra">
-                2016/05/29
+              <div class="middle aligned content">
+                {% if item.emphasis %}
+                  <a href="{% url 'post_detail' name='notice' id=item.pk %}" class="header">중요 : {{ item.title }}</a>
+                  <!-- TODO: '중요 : ' 이거 대신에 스타일을 다르게 주도록 변경-->
+                {% else %}
+                  <a href="{% url 'post_detail' name='notice' id=item.pk %}" class="header">{{ item.title }}</a>
+                {% endif %}
+                <div class="meta">
+                  <span>{% autoescape off %}{{ item.content }}{% endautoescape %}</span>
+                </div>
+                <div class="description">
+                  <br>
+                </div>
+                <div class="extra">
+                  {{ item.write_date }}
+                </div>
               </div>
             </div>
-          </div>
-          <div class="item">
-            <div class="ui small rounded image">
-              <img src="/../../static/mainapp/img/sodam03.jpg" style="width:150px;height:150px;">
-            </div>
-            <div class="middle aligned content">
-              <a class="header">Header</a>
-              <div class="meta">
-                <span>Domestic dogs inherited complex behaviors, such as bite inhibition, from their wolf ancestors, which would have been pack hunters with complex body language.</span>
-              </div>
-              <div class="description">
-                <br>
-              </div>
-              <div class="extra">
-                2016/05/30
-              </div>
-            </div>
-          </div>
+          {% endfor %}
         </div>
       </div>
       <!--우측 위젯 바-->

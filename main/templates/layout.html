@@ -26,9 +26,9 @@
       <div class="text">게시판</div>
       <i class="dropdown icon"></i>
       <div class="menu">
-        <a href="{% url 'announcement' %}" class="item">공지사항</a>
-        <a href="{% url 'student' %}" class="item">재학생 게시판</a>
-        <a href="{% url 'graduating' %}" class="item">졸업생 게시판</a>
+        <a href="{% url 'post_list' name='notice' %}" class="item">공지사항</a>
+        <a href="{% url 'post_list' name='student' %}" class="item">재학생 게시판</a>
+        <a href="{% url 'post_list' name='graduate' %}" class="item">졸업생 게시판</a>
       </div>
     </div>
     <div class="item ui simple dropdown">
@@ -36,8 +36,8 @@
       <i class="dropdown icon"></i>
       <div class="menu">
         <a href="{% url 'study' %}" class="item">스터디</a>
-        <a href="{% url 'seminar' %}" class="item">세미나</a>
-        <a href="{% url 'playstorming' %}" class="item">플레이 스토밍</a>
+        <a href="{% url 'post_list' name='seminar' %}" class="item">세미나</a>
+        <a href="{% url 'post_list' name='notice' %}" class="item">플레이 스토밍</a>
         <a href="{% url 'workshop' %}" class="item">워크샵</a>
       </div>
     </div>

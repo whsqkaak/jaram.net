@@ -15,7 +15,6 @@
         toolbar: 'Basic',
         filebrowserUploadUrl: "{% url 'ckeditor_upload' %}"
       });
-
       $("#registration-submit").click(function () {
         $("button[type=submit]").click();
       });
@@ -24,12 +23,15 @@
 {% endblock %}
 
 {% block header_title %}
-  워크샵 등록
+  과제 제출
 {% endblock %}
 
 {% block header_content %}
   <a href="{% url 'workshop' %}" class="ui button inverted basic">워크샵 목록</a>
-  <button id="registration-submit" type="button" class="ui button inverted green">워크샵 등록</button>
+  <a href="{% url 'workshop_taskList' %}" class="ui button inverted basic">과제 목록</a>
+  <a href="{% url 'workshop_taskDetail' id=workshop_task.pk %}" class="ui button inverted basic">과제 페이지</a>
+  <a href="{% url 'workshop_taskSubmissionDetail' id=workshop_task.pk task_id=workshop_taskSubmission.pk %}" class="ui button inverted basic">제출 과제 페이지</a>
+  <button id="registration-submit" type="button" class="ui button inverted green">과제 수정</button>
 {% endblock %}
 
 {% block body %}
@@ -38,20 +40,13 @@
           method="post" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="field">
-        <label>워크샵 주제</label>
-        <input type="text" name="subject" placeholder="워크샵 주제" required>
+        <textarea name="content" rows="16" placeholder="과제 내용에 대해 작성" required>{% autoescape off %}
+      <div>{{ workshop_taskSubmission.content }}</div>
+      {% endautoescape %}</textarea>
       </div>
       <div class="field">
-        <label>워크샵 시작 날짜</label>
-        <input type="date" name="start_date" placeholder="워크샵 시작 날짜 (YYYY-MM-DD)" required>
-      </div>
-      <div class="field">
-        <label>워크샵 종료 날짜</label>
-        <input type="date" name="end_date" placeholder="워크샵 종료 날짜 (YYYY-MM-DD)" required>
-      </div>
-      <div class="field">
-        <label>워크샵 내용</label>
-        <textarea name="content" rows="16" placeholder="내용, 계획, 목표 등에 대해서 작성" required></textarea>
+        <label>첨부 파일</label>
+        <input type="file" name="attachment">
       </div>
       <button type="submit" class="hide"></button>
     </form>
