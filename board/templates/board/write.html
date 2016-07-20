@@ -1,5 +1,6 @@
 {% extends 'layout.html' %}
 
+{% load staticfiles %}
 {% block header_title %}
   <p>게시글 작성</p>
 {% endblock %}
@@ -28,7 +29,7 @@
 
 {% block body %}
   <section class="ui container">
-    <form id="post-form" class="ui form" method="post">
+    <form id="post-form" class="ui form" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="fields">
         <div class="three wide field">

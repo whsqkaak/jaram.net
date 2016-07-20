@@ -17,13 +17,14 @@ class MainView(TemplateView):
     def get(self, request, *args, **kwargs):
         response = create_response(request)
 
-        notice = Board.objects.get(name='공지사항')
-
-        response['recent_posts'] = Post.objects.exclude(board=notice) \
+        try:
+            notice = Board.objects.get(name='공지사항')
+            response['recent_posts'] = Post.objects.exclude(board=notice) \
                                       .filter(board__usable_group__in=request.user.groups.all()) \
                                       .order_by('-write_date')[:3]
-
-        response['notice_posts'] = notice.post_set.order_by('-emphasis')[:3]
+            response['notice_posts'] = notice.post_set.order_by('-emphasis')[:3]
+        except Board.DoesNotExist:
+            notice = None
 
         return render(request, self.template_name, response)
 
