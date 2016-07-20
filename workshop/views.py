@@ -74,7 +74,7 @@ class WorkShopTaskRegistrationView(TemplateView):
     def post(self, request, *args, **kwargs):
         data = request.POST
 
-        if not (data.get('title') and data.get('content') and data.get('deadline') and data.get('duty_member') ):
+        if not (data.get('title') and data.get('content') and data.get('deadline')):
             return redirect('/workshop/taskList/taskRegistration/?error=워크샵 과제 등록에 필요한 정보가 부족합니다.')
 
         workshoptask = WorkShopTask()

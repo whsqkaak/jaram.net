@@ -14,10 +14,12 @@ class PostListView(TemplateView):
         response = create_response(request)
 
         user = request.user
-
+        eng_name = kwargs.get('name')
+        category = dict(seminar='세미나', playstorming='플레이스토밍', notice='공지사항', student='재학생 게시판', graduate='졸업생 게시판')
         try:
-            board = Board.objects.get(eng_name=kwargs.get('name'))
+            board = Board.objects.get(eng_name=eng_name)
         except ObjectDoesNotExist:
+            Board(name=category[eng_name], eng_name=eng_name).save()
             return redirect('/main/?warning=잘못된 접근입니다.')
 
         if board.usable_group and not request.user.groups.filter(
@@ -63,8 +65,8 @@ class PostView(TemplateView):
         response['comments'] = board.comment_set.order_by('-write_date').all()
         response['header_title'] = board.name
 
-
         return render(request, self.template_name, response)
+        # TODO: 게시글 댓글 중복되는것 수정
 
     def post(self, request, *args, **kwargs):
         data = request.POST
@@ -135,7 +137,6 @@ class PostWriteView(TemplateView):
         board_name = data.get('board_name')
         title = data.get('title')
         content = data.get('content')
-
 
         if not (board_name and title and content):
             return redirect('/board/write?warning=입력된 정보가 올바르지 않습니다.&board_name=' + board_name)
