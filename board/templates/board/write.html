@@ -52,6 +52,10 @@
         </div>
       </div>
       <div class="field">
+        <label>미리보기 사진</label>
+        <input type="file" name="thumbnail">
+      </div>
+      <div class="field">
         <label>내용</label>
         <textarea name="content" rows="16" required>{% if post %}{{ post.content }}{% endif %}</textarea>
       </div>

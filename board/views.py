@@ -145,13 +145,13 @@ class PostWriteView(TemplateView):
             board = Board.objects.get(eng_name=board_name)
         except ObjectDoesNotExist:
             return redirect('/board/write?warning=입력된 정보가 올바르지 않습니다.&board_name=' + board_name)
-
         Post(
             board=board,
             writer=request.user,
             title=title,
             content=content,
             attachment=request.FILES.get('attachment'),
+            thumbnail=request.FILES.get('thumbnail'),
             emphasis=data.get('emphasis', False)
         ).save()
 

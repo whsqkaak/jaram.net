@@ -11,6 +11,7 @@ class BasePostModel(models.Model):
     title = models.CharField(_('제목'), max_length=255, null=True, blank=True, default='')
     content = models.TextField(_('내용'), null=False, blank=False, default='')
     attachment = models.FileField(_('첨부 파일'), upload_to='board/attachment/', null=True, blank=True)
+    thumbnail = models.ImageField(_('미리보기'), upload_to='board/thumbnail/', null=True, blank=True)
     emphasis = models.BooleanField(_('게시글 강조'), default=False)
 
     # TODO: 연관 일정
@@ -51,6 +52,7 @@ class Post(BasePostModel):
 class Comment(BasePostModel):
     board = models.ForeignKey(Board)
     post = models.ForeignKey(Post)
+    parent = models.ForeignKey('self', null=True, related_name='replies')
 
     def __str__(self):
         return str(self.post) + ' - ' + self.title
