@@ -62,11 +62,10 @@ class PostView(TemplateView):
             return redirect('/board/%s/?error=존재하지 않는 게시글입니다.' % board.eng_name)
 
         response['post'] = post.first()
-        response['comments'] = board.comment_set.order_by('-write_date').all()
+        response['comments'] = board.comment_set.filter(post_id=kwargs.get('id')).order_by('-write_date').all()
         response['header_title'] = board.name
 
         return render(request, self.template_name, response)
-        # TODO: 게시글 댓글 중복되는것 수정
 
     def post(self, request, *args, **kwargs):
         data = request.POST
@@ -88,13 +87,15 @@ class PostView(TemplateView):
         if not post.exists():
             return redirect('/board/%s/?error=존재하지 않는 게시글입니다.' % board.eng_name)
 
+        post = post.first()
+
         if not data.get('content'):
             return redirect('/board/%s/%d?error=입력된 정보가 올바르지 않습니다.' % (board.eng_name, post.pk))
 
         Comment(
             writer=request.user,
             board=board,
-            post=post.first(),
+            post=post,
             write_date=timezone.now(),
             content=data.get('content')
         ).save()
