@@ -60,8 +60,11 @@ class PostView(TemplateView):
 
         if not post.exists():
             return redirect('/board/%s/?error=존재하지 않는 게시글입니다.' % board.eng_name)
-
-        response['post'] = post.first()
+        post = post.first()
+        if not request.user == post.writer:
+            post.hit += 1
+            post.save()
+        response['post'] = post
         response['comments'] = board.comment_set.filter(post_id=kwargs.get('id')).order_by('-write_date').all()
         response['header_title'] = board.name
 
