@@ -38,6 +38,7 @@ JARAM_APPS = [
 THIRD_PARTY_APPS = [
     'ckeditor',
     'ckeditor_uploader',
+    'django_cleanup'
 ]
 
 INSTALLED_APPS = DJANGO_APPS + JARAM_APPS + THIRD_PARTY_APPS
