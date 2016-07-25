@@ -150,5 +150,6 @@ EXCLUDE_LOGIN_REQUIRED_URLS = [
     r'^$|^intro',
     r'^login',
     r'^logout',
+    r'^sign_up',
     r'^admin',
 ]

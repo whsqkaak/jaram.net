@@ -6,7 +6,7 @@ from main.models import Grade, Member
 
 def create_grade(name):
     try:
-        grade = Grade.objects.get(name=name)
+        grade = Grade.objects.filter(name=name)[0]
     except ObjectDoesNotExist:
         grade = Grade(name=name)
 
@@ -63,9 +63,9 @@ class Command(BaseCommand):
         create_group('준회원', lambda g: grant_permission(g, 'board', models=['studentboard']))
         create_group('수습회원')
 
+        create_group('미승인')
         create_group('활동', Command.grant_active_group)
         create_group('비활동')
-        create_group('미승인')
 
         create_group('임원진', lambda g: grant_permission(g, 'board', models=['eventreport']))
 
@@ -87,7 +87,7 @@ class Command(BaseCommand):
         admin.email = 'admin@jaram.net'
         admin.period = 0
         admin.enter_year = 00
-        admin.grade = Grade.objects.get(name='정회원')
+        admin.grade = Grade.objects.filter(name='정회원')[0]
         admin.is_active = True
         admin.is_staff = True
         admin.is_superuser = True

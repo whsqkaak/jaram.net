@@ -54,6 +54,7 @@
             {{ form.password }}
           </div>
           <input type="submit" class="ui inverted button" value="로그인">
+          <a href="{% url 'sign_up' %}" class="ui inverted button">회원가입</a>
           <input type="hidden" name="next" value="{{ next }}">
         </form>
       </div>
