@@ -13,7 +13,7 @@ class BaseBoardModel(models.Model):
     attachment = models.FileField(_('첨부 파일'), upload_to='board/attachment/', null=True, blank=True)
     thumbnail = models.ImageField(_('미리보기'), upload_to='board/thumbnail/', null=True, blank=True)
     emphasis = models.BooleanField(_('게시글 강조'), default=False)
-
+    hit = models.IntegerField(_('조회수'), default=0)
     # TODO: 연관 일정
 
     def __str__(self):
