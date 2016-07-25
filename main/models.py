@@ -5,7 +5,6 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
-
 class Grade(models.Model):
     name = models.CharField(_('등급 이름'), max_length=10, null=False, blank=False)
     group = models.ForeignKey(Group, null=False, blank=False)
