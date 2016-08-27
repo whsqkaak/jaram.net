@@ -37,7 +37,11 @@
         {% for post in emphasis_posts %}
           <div class="item">
             <div class="ui small rounded image">
-              <img src="{% static 'mainapp/img/sodam01.jpg' %}" style="width:150px; height:150px;">
+              {% if post.thumbnail %}
+                <img src="{{ post.thumbnail.url }}" style="width:150px; height:150px;">
+              {% else %}
+                <img src="{% static 'mainapp/img/sodam01.jpg' %}" style="width:150px; height:150px;">
+              {% endif %}
             </div>
             <div class="middle aligned content">
               <a href="{% url 'post_detail' name='notice' id=post.pk %}" class="header" style="">{{ post.title }}</a>
@@ -64,16 +68,18 @@
       {% for post in page %}
         <div class="item">
           <div class="ui small rounded image">
-            <img src="{% static 'mainapp/img/sodam01.jpg' %}" style="width:150px; height:150px;">
+            {% if post.thumbnail %}
+              <img src="{{ post.thumbnail.url }}" style="width:150px; height:150px;">
+            {% else %}
+              <img src="{% static 'mainapp/img/sodam01.jpg' %}" style="width:150px; height:150px;">
+            {% endif %}
           </div>
           <div class="middle aligned content">
             <a href="{% url 'post_detail' name=board.eng_name id=post.pk %}" class="header">{{ post.title }}</a>
             <div class="meta">
-              <span>{% autoescape off %}{{ post.content|get_text|truncatechars:150 }}{% endautoescape %}</span>
+              <span>{% autoescape off %}{{ post.content|get_text|truncatechars:140 }}{% endautoescape %}</span>
             </div>
-            <div class="description">
-              <br>
-            </div>
+            <br>
             <div class="extra">
               {% if board.name != '플레이스토밍' %}
                 <i class="user icon"></i>
@@ -81,6 +87,8 @@
               {% endif %}
               <i class="calendar icon"></i>
               <span class="posted_date">{{ post.write_date|date:'Y년 m월 d일' }}</span>
+              <i class="unhide icon"></i>
+              <span clcass="hit">{{ post.hit }}회</span>
             </div>
           </div>
         </div>

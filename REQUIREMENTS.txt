@@ -6,3 +6,4 @@ oauth2client==2.2.0
 xmltodict==0.10.2
 python-dateutil==2.5.3
 beautifulsoup4==4.4.1
+django-cleanup==0.4.2

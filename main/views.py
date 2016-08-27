@@ -27,7 +27,6 @@ class MainView(TemplateView):
                                           .order_by('-write_date')[:3]
 
             response['notice_posts'] = notice.post_set.order_by('-emphasis')[:3]
-
         except Board.DoesNotExist:
             notice = None
 
