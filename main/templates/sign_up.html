@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  {% load staticfiles %}
+  <title>Jaram</title>
+  {% include 'head_default.html' %}
+
+  <link rel="stylesheet" href="{% static 'mainapp/css/login.css' %}">
+  <style>
+    header {
+      background: url("{% static 'mainapp/img/background.jpg'%}") center;
+      background-size: cover;
+    }
+  </style>
+
+  <script>
+    function registrationSubmit() {
+      return true;
+    }
+      $("#registration-submit").click(function () {
+        $("button[type=submit]").click();
+      });
+  </script>
+</head>
+<nav>
+  <a id="back" href="{% url 'intro' %}" style="float: right;"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+</nav>
+<body>
+<header class="blur-background">
+  <div class="overlay"></div>
+  <div class="vertical-center-container">
+    <div class="vertical-center-item">
+      <div id="login-item">
+        <form class="ui form" onsubmit="return registrationSubmit();"
+        method="post" enctype="multipart/form-data">
+          <h4 class="ui dividing header">회원가입</h4>
+          {% csrf_token %}
+          <div class="field">
+            <label>* 이름</label>
+            <div class="field">
+              <input type="text" name="name" placeholder="이름 (ex : 홍길동)">
+            </div>
+          </div>
+          <div class="field">
+            <label>* ID</label>
+            <div class="field">
+              <input type="text" name="user_id" placeholder="ID">
+            </div>
+          </div>
+          <div class="field">
+            <label>* Password</label>
+            <div class="field">
+              <input type="text" name="password" placeholder="password">
+            </div>
+          </div>
+          <div class="field">
+            <label>* Email</label>
+            <div class="field">
+              <input type="text" name="Email" placeholder="Email">
+            </div>
+          </div>
+          <div class="field">
+            <label>* 전화번호</label>
+            <div class="field">
+              <input type="text" name="phone" placeholder="전화번호">
+            </div>
+          </div>
+          <div class="field">
+            <label>* 기수</label>
+            <div class="field">
+              <input type="text" name="period" placeholder="기수 (ex : 31)">
+            </div>
+          </div>
+          <div class="field">
+            <label>* 학번(입학년도)</label>
+            <div class="field">
+              <input type="text" name="enter_year" placeholder="학번 (ex : 2015)">
+            </div>
+          </div>
+          <div class="field">
+              <label>생일</label>
+              <div class="field">
+                  <input type="date" name="birth" placeholder="생일">
+              </div>
+          </div>
+          <div class="field">
+            <label>SNS 주소</label>
+            <div class="field">
+              <input type="text" name="sns" placeholder="SNS 주소">
+            </div>
+          </div>
+          <button class="ui button" type="submit" tabindex="0">회원 가입</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+</body>
+</html>

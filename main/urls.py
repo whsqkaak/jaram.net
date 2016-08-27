@@ -1,6 +1,5 @@
 from django.conf.urls import url
-
-from main.views import IntroView, MainView, ProfileView
+from main.views import IntroView, MainView, ProfileView, SignUpView
 
 urlpatterns = [
     url(r'^$|^intro', IntroView.as_view(), name='intro'),
@@ -8,4 +7,5 @@ urlpatterns = [
     url(r'^logout', 'django.contrib.auth.views.logout', name='logout', kwargs={'next_page': '/'}),
     url(r'^main', MainView.as_view(), name='homepage_main'),
     url(r'^profile', ProfileView.as_view(), name='profile'),
+    url(r'^sign_up', SignUpView.as_view(), name='sign_up'),
 ]
