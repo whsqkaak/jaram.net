@@ -5,10 +5,6 @@
 {% block head %}
   <script src="//cdn.ckeditor.com/4.5.9/standard/ckeditor.js"></script>
   <script>
-    function registrationSubmit() {
-      return true;
-    }
-
     $(function () {
       CKEDITOR.replace('content', {
         language: 'ko',
@@ -35,8 +31,7 @@
 
 {% block body %}
   <section class="ui container">
-    <form id="registration-form" class="ui form" onsubmit="return registrationSubmit();"
-          method="post" enctype="multipart/form-data">
+    <form id="registration-form" class="ui form" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="field">
         <label>과제 내용</label>

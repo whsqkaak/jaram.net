@@ -6,7 +6,7 @@ from main.models import Grade, Member
 
 def create_grade(name):
     try:
-        grade = Grade.objects.filter(name=name)[0]
+        grade = Grade.objects.get(name=name)
     except ObjectDoesNotExist:
         grade = Grade(name=name)
 

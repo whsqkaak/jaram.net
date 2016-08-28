@@ -10,9 +10,18 @@
   <p><i class="user icon"></i>&nbsp;{{ post.writer }}&nbsp;&nbsp;&nbsp;&nbsp;<i
       class="calendar icon"></i>&nbsp;{{ post.write_date|date:'Y년 m월 d일' }}</p>
   <a href="{% url 'post_list' name=post.board.eng_name %}" class="ui button inverted basic">게시글 목록</a>
+  <a href="{% url 'post_modify' name=post.board.eng_name id=post.pk%}" class="ui button inverted yellow basic">수정</a>
+  <a href="{% url 'post_delete' name=post.board.eng_name id=post.pk%}" class="ui button inverted red basic">삭제</a>
 {% endblock %}
 
 {% block head %}
+  <style>
+    {% if post.thumbnail %}
+      header {
+        background: url("{{ post.thumbnail.url }}") center;
+      }
+    {% endif %}
+  </style>
 {% endblock %}
 
 {% block body %}
@@ -20,6 +29,11 @@
     <div id="contents">
       {% autoescape off %}{{ post.content }}{% endautoescape %}
     </div>
+    {% if post.attachment %}
+      <br><div class="ui divider"></div>
+      <h3>첨부파일</h3>
+      <a href="{{ post.attachment.url }}"><i class="icon download"></i>{{ post.attachment.name }}</a>
+    {% endif %}
     <br>
     {% if header_title != '공지사항' %}
       <div class="ui comments">
@@ -37,7 +51,7 @@
               <a class="author">{{ comment.writer }}</a>
               <div class="metadata">
                 <span class="date">{{ comment.write_date }}</span>
-                {#                            <span class="date">Today at 5:42PM</span>#}
+                <!--TODO: 날짜, 시간 표시 포맷 변경 ex) Today at 5:42PM-->
               </div>
               <div class="text">
                 {{ comment.content }}
@@ -46,7 +60,30 @@
                 <a class="reply">Reply</a>
               </div>
             </div>
+          <!--TODO: 댓글 작성자 클릭 시 회원정보 보여주는 페이지 제작 -->
           </div>
+          {% for reply in comment.replies.all %}
+            <div class="comment">
+              <a class="avatar">
+                {% if comment.writer.profile %}
+                  <img src={{ comment.writer.profile }}>
+                {% else %}
+                  <img src="{% static "mainapp/img/profile_default.png" %}">
+                {% endif %}
+              </a>
+              <div class="content">
+                <a class="author">{{ comment.writer }}</a>
+                <div class="metadata">
+                  <span class="date">{{ comment.write_date }}</span>
+                  <!--TODO: 날짜, 시간 표시 포맷 변경 ex) Today at 5:42PM-->
+                </div>
+                <div class="text">
+                  {{ comment.content }}
+                </div>
+              </div>
+              <!--TODO: 댓글 작성자 클릭 시 회원정보 보여주는 페이지 제작 -->
+            </div>
+          {% endfor %}
         {% endfor %}
         <form id="comment-form" class="ui reply form" method="post">
           {% csrf_token %}
