@@ -1,3 +1,5 @@
 from django.contrib import admin
+from main.admin import admin_register
+from schedule.models import Event
 
-# Register your models here.
+admin_register(Event, admin.ModelAdmin)

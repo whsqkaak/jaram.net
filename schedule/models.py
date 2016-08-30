@@ -1,16 +1,25 @@
+import datetime
+
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+from main.models import Member
 
 
 class Event(models.Model):
-    date = models.DateTimeField(_('날짜'), null=False, blank=False)
+    writer = models.ForeignKey(Member)
+    start_date = models.DateTimeField(_('시작 날짜'), null=False, blank=False, default=timezone.now)
+    end_date = models.DateTimeField(_('종료 날짜'), null=False, blank=False,
+                                    default=timezone.now() + datetime.timedelta(hours=1))
     title = models.CharField(_('제목'), max_length=255, null=False, blank=False)
+    description = models.TextField(_('내용'), null=False, blank=False)
+    all_day = models.BooleanField(_('하루종일'), default=False)
     link_page = models.CharField(_('연결 페이지'), max_length=255, null=True, blank=True, default='')
 
     def __str__(self):
         return self.title
 
     class Meta:
-        ordering = ['-date']
+        ordering = ['-start_date']
         verbose_name = _('행사')
         verbose_name_plural = _('행사')
