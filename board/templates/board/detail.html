@@ -22,6 +22,9 @@
       }
     {% endif %}
   </style>
+  <script>
+
+  </script>
 {% endblock %}
 
 {% block body %}
@@ -56,7 +59,7 @@
               <div class="text">
                 {{ comment.content }}
               </div>
-              <div class="actions">
+              <div class="actions" id="{{ forloop.counter }}">
                 <a class="reply">Reply</a>
               </div>
             </div>
