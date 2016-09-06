@@ -1,6 +1,5 @@
 from django.conf.urls import url
-
-from main.views import IntroView, MainView, ProfileView, SignUpView
+from main.views import IntroView, MainView, ProfileView, SignUpView, SitemapView
 
 urlpatterns = [
     url(r'^$|^intro', IntroView.as_view(), name='intro'),
@@ -9,4 +8,5 @@ urlpatterns = [
     url(r'^main', MainView.as_view(), name='homepage_main'),
     url(r'^profile', ProfileView.as_view(), name='profile'),
     url(r'^sign_up', SignUpView.as_view(), name='sign_up'),
+    url(r'^sitemap', SitemapView.as_view(), name='sitemap')
 ]
