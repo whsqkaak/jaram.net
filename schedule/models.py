@@ -6,8 +6,22 @@ from django.utils.translation import ugettext_lazy as _
 from main.models import Member
 
 
+class EventGroup(models.Model):
+    title = models.CharField(_('행사 그룹'), max_length=255, null=False, blank=False)
+    color = models.CharField(_('그룹 색'), max_length=255, null=False, blank=False)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['-id']
+        verbose_name = _('행사 그룹')
+        verbose_name_plural = _('행사 그룹')
+
+
 class Event(models.Model):
     writer = models.ForeignKey(Member)
+    category = models.ForeignKey(EventGroup)
     start_date = models.DateTimeField(_('시작 날짜'), null=False, blank=False, default=timezone.now)
     end_date = models.DateTimeField(_('종료 날짜'), null=False, blank=False,
                                     default=timezone.now() + datetime.timedelta(hours=1))
