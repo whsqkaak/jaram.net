@@ -122,7 +122,6 @@ class PostWriteView(TemplateView):
         try:
             board = Board.objects.get(eng_name=request.GET.get('board_name'))
         except ObjectDoesNotExist:
-
             board = boards.first()
 
         post = Post.objects.filter(pk=kwargs.get('id'))

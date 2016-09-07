@@ -27,6 +27,7 @@ class MainView(TemplateView):
                                           .order_by('-write_date')[:3]
 
             response['notice_posts'] = notice.post_set.order_by('-emphasis')[:3]
+
         except Board.DoesNotExist:
             notice = None
 
@@ -88,3 +89,9 @@ class SignUpView(TemplateView):
 
         return redirect('/login?success=회원 가입이 완료되었습니다.')
 
+class SitemapView(TemplateView):
+    template_name = 'sitemap.html'
+
+    def get(self, request, *args, **kwargs):
+        response = create_response(request)
+        return render(request, self.template_name, response)

@@ -1,0 +1,63 @@
+{% extends 'layout.html' %}
+
+{% load staticfiles %}
+
+{% block header_title %}
+{% endblock %}
+
+{% block header_content %}
+{% endblock %}
+
+{% block head %}
+  <style>
+    .column h3{
+      text-align: center;
+    }
+
+    .column p{
+      text-align: center;
+    }
+
+    a:link, a:visited {
+      color: #000000;
+      cursor: auto;
+    }
+
+    a:link:active, a:visited:active {
+      color: #000000;
+    }
+  </style>
+{% endblock %}
+
+{% block body %}
+  <div class="ui stackable five column grid text container">
+    <div class="column"><a href="{% url 'homepage_main' %}"><h3>main</h3></a></div>
+    <div class="column">
+      <h3>게시판</h3>
+      <a href="{% url 'post_list' name='notice' %}"><p>공지사항</p></a>
+      <br>
+      <a href="{% url 'post_list' name='student' %}"><p>재학생 게시판</p></a>
+      <br>
+      <a href="{% url 'post_list' name='graduate' %}"><p>졸업생 게시판</p></a>
+    </div>
+    <div class="column">
+      <h3>활동</h3>
+      <a href="{% url 'study' %}"><p>스터디</p></a>
+      <br>
+      <a href="{% url 'post_list' name='seminar' %}"><p>세미나</p></a>
+      <br>
+      <a href="{% url 'post_list' name='playstorming' %}"><p>플레이스토밍</p></a>
+      <br>
+      <a href="{% url 'post_list' name='workshop' %}"><p>워크샵</p></a>
+    </div>
+    <div class="column">
+      <a href="{% url 'gallery' %}"><h3>갤러리</h3></a>
+    </div>
+    <div class="column">
+      <a href="{% url 'schedule' %}"><h3>일정</h3></a>
+    </div>
+  </div>
+{% endblock %}
+
+
+
