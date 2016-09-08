@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% load staticfiles %}
+
+{% block header_title %}
+  {{ event.title }}
+{% endblock %}
+
+{% block header_content %}
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+  <div class="ui text container">
+    <div id="contents">
+      {% autoescape off %}{{ event.description }}{% endautoescape %}
+    </div>
+  </div>
+{% endblock %}
+
+
