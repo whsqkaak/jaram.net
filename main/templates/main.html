@@ -83,15 +83,30 @@
         <div class="ui segment">
           <h1>Upcoming Events</h1>
           <div class="ui divider"></div>
-{#          <p>2016/05/31</p>#}
-{#          <ul>#}
-{#            <li>현충일</li>#}
-{#            <li>세미나(31기 송유경, 31기 박건우)</li>#}
-{#            <li>빈지노 정규앨범 발매일</li>#}
-{#          </ul>#}
-{#          <br>#}
-{#          <p>이벤트 들어가는 자리. 디자인은 나중에...</p>#}
-          <p>개발중이에유 ㅜ_ㅜ;;;;;;</p>
+          {% for weeks in new_calendar %}
+          <tr>
+            {% for date in weeks %}
+              <td style="height: 120px; background-color: #f7f7f7; padding: 0">
+                <div class="container">
+                  <div class="contents">
+                    {% for event in events %}
+                      {% if event.end_date.day >= today.day %}
+                        {% if event.start_date.day <= date and event.end_date.day >= date %}
+                          <p>{{ today.year }}/{{ today.month }}/{{ date }}</p>
+                          <div class="schedule">
+                          <ul>
+                            <li><a href="{% url 'scheduleDetail' id=event.pk %}" class="title">{{ event.title }}</a></li>
+                          </ul>
+                          </div>
+                        {% endif %}
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                </div>
+              </td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
         </div>
       </div>
     </div>
