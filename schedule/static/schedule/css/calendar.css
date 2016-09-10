@@ -15,34 +15,63 @@ div.container {
     width: inherit;
     height: 20px;
 }
-.title {
+
+@media screen and (min-width: 768px) {
+    p.weekday {
+        float:right;
+    }
+    div.date {
+        position: absolute;
+        width: 100%;
+        height: 35px;
+        padding: 10px 10px 0 0;
+        float: right;
+    }
+    td.date {
+        height: 120px !important;
+        padding: 0 !important;
+
+    }
+    td.weekend.date {
+        background-color: #f7f7f7 !important;
+    }
+    div.date p {
+       float:right;
+    }
+    .title {
     width: 100%;
     padding: 0 0 0 17px;
     height: inherit;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-@media screen and (min-width: 768px) {
-    .weekday {
-        float:right;
     }
-    .date {
-        position: absolute;
-        width: 100%;
-        height: 35px;
-        padding: 10px 10px 0 0;
-        float: right;
-    }
+    /*#media-768{*/
+        /*display: block;*/
+    /*}*/
 }
 @media screen and (max-width: 767px) {
-    .weekday {
+    p.weekday {
         text-align: center;
     }
-    .date {
+    div.date p {
         position: absolute;
-        width: 100%;
-        height: 35px;
-        padding: 10px 10px 0 0;
-        float: right;
+        left:0;
+        top: 35%;
+        width:100%;
+        text-align: center;
     }
+    td.date {
+        height: 50px !important;
+        padding: 0 !important;
+
+    }
+    td.weekend.date {
+        background-color: #f7f7f7 !important;
+    }
+    .title {
+        visibility: hidden;
+    }
+    /*#media-768{*/
+        /*display: none;*/
+    /*}*/
 }

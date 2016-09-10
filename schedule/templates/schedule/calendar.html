@@ -12,6 +12,17 @@
 
 {% block head %}
   <link rel="stylesheet" href="{% static 'schedule/css/calendar.css' %}"/>
+{#  <script>#}
+{#    function setTitleVisibility() {#}
+{#      if ($('div#media-768').css('display') == 'none') $(".title").remove();#}
+{#    }#}
+{#    $(window).on('load', function () {#}
+{#      setTitleVisibility();#}
+{#    });#}
+{#    $(window).on('resize', function () {#}
+{#      setTitleVisibility()#}
+{#    });#}
+{#  </script>#}
 {% endblock %}
 
 {% block body %}
@@ -47,10 +58,10 @@
           <tr>
             {% for date in weeks %}
               {% if forloop.counter0 == 0 %}
-                <td style="height: 120px; background-color: #f7f7f7; padding: 0">
+                <td class="weekend date">
                   <div class="container">
                     <div class="date">
-                      <p style="float:right;">{% if date != 0 %}{{ date }}{% endif %}</p>
+                      <p>{% if date != 0 %}{{ date }}{% endif %}</p>
                     </div>
                     <div class="contents">
                       {% for event in events %}
@@ -66,10 +77,10 @@
                   </div>
                 </td>
               {% else %}
-                <td style="height: 120px; padding:0;">
+                <td class="date">
                   <div class="container">
                     <div class="date">
-                      <p style="float:right;">{% if date != 0 %}{{ date }}{% endif %}</p>
+                      <p>{% if date != 0 %}{{ date }}{% endif %}</p>
                     </div>
                     <div class="contents">
                       {% for event in events %}
@@ -90,6 +101,7 @@
         {% endfor %}
     </tbody>
   </table>
+{#  <div id="media-768"></div>#}
   </section>
 
 
