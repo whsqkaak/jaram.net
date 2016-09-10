@@ -1,5 +1,8 @@
 from board.models import Post, Board
 from main.models import Member, Grade
+from schedule.models import Event
+from django.utils.datetime_safe import datetime, date
+import calendar
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.core.exceptions import ObjectDoesNotExist
@@ -19,6 +22,16 @@ class MainView(TemplateView):
     def get(self, request, *args, **kwargs):
         response = create_response(request)
 
+        today = date.today()
+        year = today.year
+        month = today.month
+        calendar.setfirstweekday(calendar.SUNDAY)
+        response['new_calendar'] = calendar.monthcalendar(year, month)
+        response['events'] = Event.objects.filter(
+            start_date__range=(
+                datetime(year, month, 1), datetime(year, month, calendar.monthrange(year, month)[1]))).order_by(
+            '-start_date')
+        response['today'] = today
         try:
             notice = Board.objects.get(name='공지사항')
 
@@ -30,7 +43,7 @@ class MainView(TemplateView):
             #                               .order_by('-write_date')[:3]
 
             response['notice_posts'] = notice.post_set.order_by('-emphasis')[:3]
-
+            
         except Board.DoesNotExist:
             notice = None
 

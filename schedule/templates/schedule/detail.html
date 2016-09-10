@@ -7,17 +7,33 @@
 {% endblock %}
 
 {% block header_content %}
+    <p>{{ event.category }}</p>
+    <a href="{% url 'schedule' %}" class="ui button inverted basic">일정</a>
 {% endblock %}
 
 {% block head %}
 {% endblock %}
 
 {% block body %}
-  <div class="ui text container">
-    <div id="contents">
-      {% autoescape off %}{{ event.description }}{% endautoescape %}
+  <section class="ui container">
+    <div class="ui piled segment">
+        <p><i class="calendar icon"></i>&nbsp;시작 날짜 : {{ event.start_date|date:'Y년 m월 d일 h시 i분' }}<br />
+           <i class="calendar icon"></i>&nbsp;종료 날짜 : {{ event.end_date|date:'Y년 m월 d일 h시 i분' }}</p><br />
+        <h1>일정 내용</h1>
+        <br />{% autoescape off %}{{ event.description }}{% endautoescape %}
     </div>
-  </div>
+    {% if event.all_day %}
+      <div class="ui checkbox">
+        <input type="checkbox" disabled="disabled" checked="checked">
+        <label>하루종일</label><br/>
+      </div>
+    {% endif %}
+    {% if event.link_page != '' %}
+      <div>
+        <a href={{ event.link_page }}>연결 페이지</a>
+      </div>
+    {% endif %}
+  </section>
 {% endblock %}
 
 

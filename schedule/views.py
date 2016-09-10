@@ -31,7 +31,8 @@ class ScheduleDetailView(TemplateView):
     def get(self, request, *args, **kwargs):
         response = create_response(request)
         try:
-            event = Event.objects.get(eng_name=kwargs.get('name'))
+            event = Event.objects.get(pk=kwargs.get('id'))
+            response['event'] = event
         except ObjectDoesNotExist:
             return redirect('/main/?warning=잘못된 접근입니다.')
         return render(request, self.template_name, response)
