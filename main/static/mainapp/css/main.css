@@ -1,0 +1,43 @@
+a:link, a:visited {
+    color: #000000;
+    cursor: auto;
+}
+a:link:active, a:visited:active {
+    color: #000000;
+}
+div.content {
+    padding-top: 5px !important;
+    height: 150px;
+}
+div.meta {
+    height: 90px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px){
+    div.meta {
+        height: 75px;
+    }
+    .textDivider {
+        visibility: hidden;
+    }
+    span.posted_date{
+        position: absolute;
+        margin-bottom: 0 !important;
+        left: 0;
+        bottom: 0;
+    }
+    div.extra {
+        height: 40px;
+    }
+    span.posted_date {
+        display: inline-block;
+    }
+    div.ui.right.floated.small.breadcrumb{
+        position: absolute;
+        bottom: 0;
+        right: 0;
+    }
+}
+@media screen and (max-width: 767px) {
+
+}
