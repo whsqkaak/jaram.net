@@ -96,7 +96,7 @@ class SignUpView(TemplateView):
         member.enter_year = data.get('enter_year')
 
         try:
-            member.grade = Grade.objects.filter(name='미승인')
+            member.grade = Grade.objects.get(name='미승인')
         except ObjectDoesNotExist:
             return redirect('/sign_up?error=해당 등급이 존재하지 않습니다.')
 
