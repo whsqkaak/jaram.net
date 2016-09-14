@@ -25,7 +25,7 @@
           {% for item in recent_posts %}
             <div class="item">
               <div class="ui small rounded image">
-                <img src="{% static 'mainapp/img/sodam01.jpg' %}" style="width:150px; height:150px;">
+                <img src="{% static 'mainapp/img/no_image.png' %}" style="width:150px; height:150px;">
               </div>
               <div class="middle aligned content">
                 <a href="{% url 'post_detail' name=item.board.eng_name id=item.pk %}"
@@ -55,7 +55,7 @@
           {% for item in notice_posts %}
             <div class="item">
               <div class="ui small rounded image">
-                <img src="{% static 'mainapp/img/sodam01.jpg' %}" style="width:150px; height:150px;">
+                <img src="{% static 'mainapp/img/no_image.png' %}" style="width:150px; height:150px;">
               </div>
               <div class="middle aligned content">
                 {% if item.emphasis %}
@@ -83,14 +83,15 @@
         <div class="ui segment">
           <h1>Upcoming Events</h1>
           <div class="ui divider"></div>
-          <p>2016/05/31</p>
-          <ul>
-            <li>현충일</li>
-            <li>세미나(31기 송유경, 31기 박건우)</li>
-            <li>빈지노 정규앨범 발매일</li>
-          </ul>
-          <br>
-          <p>이벤트 들어가는 자리. 디자인은 나중에...</p>
+{#          <p>2016/05/31</p>#}
+{#          <ul>#}
+{#            <li>현충일</li>#}
+{#            <li>세미나(31기 송유경, 31기 박건우)</li>#}
+{#            <li>빈지노 정규앨범 발매일</li>#}
+{#          </ul>#}
+{#          <br>#}
+{#          <p>이벤트 들어가는 자리. 디자인은 나중에...</p>#}
+          <p>개발중이에유 ㅜ_ㅜ;;;;;;</p>
         </div>
       </div>
     </div>
