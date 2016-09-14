@@ -3,26 +3,35 @@
 {% load staticfiles %}
 
 {% block header_title %}
-  카렌다
+  일정
 {% endblock %}
 
 {% block header_content %}
-  구월
+  {{ year }}년 {{ month }}월
 {% endblock %}
 
 {% block head %}
   <link rel="stylesheet" href="{% static 'schedule/css/calendar.css' %}"/>
-{#  <script>#}
-{#    function setTitleVisibility() {#}
-{#      if ($('div#media-768').css('display') == 'none') $(".title").remove();#}
-{#    }#}
-{#    $(window).on('load', function () {#}
-{#      setTitleVisibility();#}
-{#    });#}
-{#    $(window).on('resize', function () {#}
-{#      setTitleVisibility()#}
-{#    });#}
-{#  </script>#}
+  <script>
+    function setTitleVisibility() {
+      if ($('div#media-768').css('display') == 'none') {
+        $(".title").hide();
+        $("i.circle.icon").addClass("mini").css({"position":"static"});
+        $(".schedule").css({"display":"inline-block","width":"12px"});
+      }
+      else {
+        $(".title").show();
+        $("i.circle.icon").removeClass("mini").css({"position":"absolute"});
+        $(".schedule").css({"display":"block","width":"inherit"});
+      }
+    }
+    $(window).on('load', function () {
+      setTitleVisibility();
+    });
+    $(window).on('resize', function () {
+      setTitleVisibility();
+    });
+  </script>
 {% endblock %}
 
 {% block body %}
@@ -69,7 +78,9 @@
                           <div class="schedule">
                             <i class="{{ event.category.color }} circle icon" style="position:absolute;
                                 top: {{ forloop.counter0 }};left: 5px"></i>
-                            <a href="{% url 'scheduleDetail' id=event.pk %}" class="title">{{ event.title }}</a>
+                            <a href="{% url 'scheduleDetail' id=event.pk %}">
+                              <p class="title">{{ event.title }}</p>
+                            </a>
                           </div>
                         {% endif %}
                       {% endfor %}
@@ -88,7 +99,9 @@
                           <div class="schedule">
                             <i class="{{ event.category.color }} circle icon" style="position:absolute;
                                 top: {{ forloop.counter0 }};left: 5px;z-index: -1"></i>
-                            <a href="{% url 'scheduleDetail' id=event.pk %}" class="title">{{ event.title }}</a>
+                            <a href="{% url 'scheduleDetail' id=event.pk %}">
+                              <p class="title">{{ event.title }}</p>
+                            </a>
                           </div>
                         {% endif %}
                       {% endfor %}
@@ -101,8 +114,6 @@
         {% endfor %}
     </tbody>
   </table>
-{#  <div id="media-768"></div>#}
+  <div id="media-768"></div>
   </section>
-
-
 {% endblock %}

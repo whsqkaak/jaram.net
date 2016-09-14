@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 
 {% load staticfiles %}
+{% load board_extras %}
 
 {% block header_title %}
   중요 알림
@@ -11,6 +12,7 @@
 {% endblock %}
 
 {% block head %}
+  <link rel="stylesheet" href="{% static 'mainapp/css/main.css' %}"/>
 {% endblock %}
 
 {% block body %}
@@ -25,23 +27,28 @@
           {% for item in recent_posts %}
             <div class="item">
               <div class="ui small rounded image">
-                <img src="{% static 'mainapp/img/no_image.png' %}" style="width:150px; height:150px;">
+                {% if item.thumbnail %}
+                  <a href="{% url 'post_detail' name=item.board.eng_name id=item.pk %}">
+                    <img src="{{ item.thumbnail.url }}" style="width:150px; height:150px;">
+                  </a>
+                {% else %}
+                  <a href="{% url 'post_detail' name=item.board.eng_name id=item.pk %}">
+                    <img src="{% static 'mainapp/img/no_image.png' %}" style="width:150px; height:150px;">
+                  </a>
+                {% endif %}
               </div>
-              <div class="middle aligned content">
+              <div class="content">
                 <a href="{% url 'post_detail' name=item.board.eng_name id=item.pk %}"
                    class="header">{{ item.title }}</a>
                 <div class="meta">
-                  <span>{% autoescape off %}{{ item.content }}{% endautoescape %}</span>
-                </div>
-                <div class="description">
-                  <br>
+                  <span>{% autoescape off %}{{ item.content|get_text|truncatechars:150 }}{% endautoescape %}</span>
                 </div>
                 <div class="extra">
                   <div class="ui right floated small breadcrumb">
                     <a href="{% url 'post_list' name=item.board.eng_name %}" class="section">{{ item.board.name }}</a>
                   </div>
                   <span class="writer">{{ item.writer }}</span>
-                  <span class="">|</span>
+                  <span class="textDivider">|</span>
                   <span class="posted_date">{{ item.write_date }}</span>
                 </div>
               </div>
@@ -55,9 +62,11 @@
           {% for item in notice_posts %}
             <div class="item">
               <div class="ui small rounded image">
-                <img src="{% static 'mainapp/img/no_image.png' %}" style="width:150px; height:150px;">
+                 <a href="{% url 'post_detail' name='notice' id=item.pk %}">
+                   <img src="{% static 'mainapp/img/no_image.png' %}" style="width:150px; height:150px;">
+                 </a>
               </div>
-              <div class="middle aligned content">
+              <div class="content">
                 {% if item.emphasis %}
                   <a href="{% url 'post_detail' name='notice' id=item.pk %}" class="header">중요 : {{ item.title }}</a>
                   <!-- TODO: '중요 : ' 이거 대신에 스타일을 다르게 주도록 변경-->
@@ -66,9 +75,6 @@
                 {% endif %}
                 <div class="meta">
                   <span>{% autoescape off %}{{ item.content }}{% endautoescape %}</span>
-                </div>
-                <div class="description">
-                  <br>
                 </div>
                 <div class="extra">
                   {{ item.write_date }}

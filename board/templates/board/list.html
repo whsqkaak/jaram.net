@@ -20,6 +20,11 @@
       });
     });
   </script>
+  <style>
+    div.meta {
+      height:50px;
+    }
+  </style>
 {% endblock %}
 
 {% block body %}
@@ -37,16 +42,18 @@
         {% for post in emphasis_posts %}
           <div class="item">
             <div class="ui small rounded image">
-              {% if post.thumbnail %}
-                <img src="{{ post.thumbnail.url }}" style="width:150px; height:150px;">
-              {% else %}
-                <img src="{% static 'mainapp/img/no_image.png' %}" style="width:150px; height:150px;">
-              {% endif %}
+              <a href="{% url 'post_detail' name='notice' id=post.pk %}">
+                {% if post.thumbnail %}
+                  <img src="{{ post.thumbnail.url }}" style="width:150px; height:150px;">
+                {% else %}
+                  <img src="{% static 'mainapp/img/no_image.png' %}" style="width:150px; height:150px;">
+                {% endif %}
+              </a>
             </div>
-            <div class="middle aligned content">
-              <a href="{% url 'post_detail' name='notice' id=post.pk %}" class="header" style="">{{ post.title }}</a>
+            <div class="content">
+              <a href="{% url 'post_detail' name='notice' id=post.pk %}" class="header">{{ post.title }}</a>
               <div class="meta">
-                <span>{% autoescape off %}{{ post.content|get_text|truncatechars:140 }}{% endautoescape %}</span>
+                <span>{% autoescape off %}{{ post.content|get_text|truncatechars:150 }}{% endautoescape %}</span>
               </div>
               <div class="description">
                 <br>
@@ -70,13 +77,15 @@
       {% for post in page %}
         <div class="item">
           <div class="ui small rounded image">
-            {% if post.thumbnail %}
-              <img src="{{ post.thumbnail.url }}" style="width:150px; height:150px;">
-            {% else %}
-              <img src="{% static 'mainapp/img/no_image.png' %}" style="width:150px; height:150px;">
-            {% endif %}
+            <a href="{% url 'post_detail' name=board.eng_name id=post.pk %}" class="header">
+              {% if post.thumbnail %}
+                <img src="{{ post.thumbnail.url }}" style="width:150px; height:150px;">
+              {% else %}
+                <img src="{% static 'mainapp/img/no_image.png' %}" style="width:150px; height:150px;">
+              {% endif %}
+            </a>
           </div>
-          <div class="middle aligned content">
+          <div class="content">
             <a href="{% url 'post_detail' name=board.eng_name id=post.pk %}" class="header">{{ post.title }}</a>
             <div class="meta">
               <span>{% autoescape off %}{{ post.content|get_text|truncatechars:140 }}{% endautoescape %}</span>

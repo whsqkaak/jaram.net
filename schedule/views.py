@@ -17,6 +17,8 @@ class ScheduleView(TemplateView):
         year = today.year
         month = today.month
         calendar.setfirstweekday(calendar.SUNDAY)
+        response['year'] = year
+        response['month'] = month
         response['new_calendar'] = calendar.monthcalendar(year, month)
         response['events'] = Event.objects.filter(
             start_date__range=(
