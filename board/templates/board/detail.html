@@ -35,7 +35,7 @@
     {% if post.attachment %}
       <br><div class="ui divider"></div>
       <h3>첨부파일</h3>
-      <a href="{{ post.attachment.url }}"><i class="icon download"></i>{{ post.attachment.name }}</a>
+      <a href="{{ post.attachment.url }}"><i class="icon download"></i>{{ attachment_name }}</a>
     {% endif %}
     <br>
     {% if header_title != '공지사항' %}

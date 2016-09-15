@@ -191,6 +191,10 @@ class WorkShopTaskSubmissionDetailView(TemplateView):
 			workshop_taskSubmission = WorkShopTaskSubmission.objects.get(pk=kwargs.get('task_id'))
 		except ObjectDoesNotExist:
 			return redirect('/workshop/taskList?error=존재하지 않는 워크샵입니다.')
+			
+			# 첨부파일 경로 편집
+		if workshop_taskSubmission.attachment:
+			response['attachment_name'] = workshop_taskSubmission.attachment.name.split("/")[2]
 
 		response['workshop_task'] = workshop_task
 		response['workshop_taskSubmission'] = workshop_taskSubmission
