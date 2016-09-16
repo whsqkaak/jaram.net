@@ -37,11 +37,6 @@ class MainView(TemplateView):
 
             response['recent_posts'] = Post.objects.exclude(board=notice) \
                                            .order_by('-write_date')[:3]
-            
-            # response['recent_posts'] = Post.objects.exclude(board=notice) \
-            #                               .filter(board__usable_group__in=request.user.groups.all()) \
-            #                               .order_by('-write_date')[:3]
-
             response['notice_posts'] = notice.post_set.order_by('-emphasis')[:3]
             
         except Board.DoesNotExist:

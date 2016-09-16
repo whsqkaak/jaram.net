@@ -64,6 +64,11 @@ class PostView(TemplateView):
         if not request.user == post.writer:
             post.hit += 1
             post.save()
+        
+        #   첨부파일 경로 편집
+        if post.attachment:
+            response['attachment_name'] = post.attachment.name.split("/")[2]
+        
         response['post'] = post
         response['comments'] = board.comment_set.filter(post_id=kwargs.get('id')).order_by('-write_date').all()
         response['header_title'] = board.name

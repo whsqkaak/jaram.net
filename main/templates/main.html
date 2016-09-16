@@ -98,7 +98,9 @@
                     {% for event in events %}
                       {% if event.end_date.day >= today.day %}
                         {% if event.start_date.day <= date and event.end_date.day >= date %}
-                          <p>{{ today.year }}/{{ today.month }}/{{ date }}</p>
+                          {% if forloop.counter0 == 0 %}
+                            <p>{{ today.year }}/{{ today.month }}/{{ date }}</p>
+                          {% endif %}
                           <div class="schedule">
                           <ul>
                             <li><a href="{% url 'scheduleDetail' id=event.pk %}" class="title">{{ event.title }}</a></li>
