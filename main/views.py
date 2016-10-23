@@ -22,15 +22,17 @@ class MainView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         response = create_response(request)
-
+        
         today = date.today()
         year = today.year
         month = today.month
         calendar.setfirstweekday(calendar.SUNDAY)
         response['new_calendar'] = calendar.monthcalendar(year, month)
+        response['next_month'] = month + 1
+        response['next_month_calendar'] = calendar.monthcalendar(year, month + 1)
         response['events'] = Event.objects.filter(
             start_date__range=(
-                datetime(year, month, 1), datetime(year, month, calendar.monthrange(year, month)[1]))).order_by(
+                datetime(year, month, 1), datetime(year, month + 1, calendar.monthrange(year, month + 1)[1]))).order_by(
             '-start_date')
         response['today'] = today
         try:
