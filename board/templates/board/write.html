@@ -28,6 +28,13 @@
         filebrowserUploadUrl: "{% url 'ckeditor_upload' %}"
       });
       $("#post-submit").click(function () {
+        if (window.File && window.FileReader && window.FileList && window.Blob) {
+            var file = $("#id_file")[0].files[0];
+            if (file && file.size > 20 * 1024 * 1024) {
+              alert("첨부 파일의 크기는 20MB 이하여야 합니다.");
+              return false;
+            }
+          }
         $("button[type=submit]").click();
       });
       $("#board-select").dropdown();
@@ -74,8 +81,9 @@
       </div>
       <div class="field">
         <label>첨부 파일</label>
+        <p style="font-size:10px">20MB 이하</p>
         <p>{% if post and post.attachment %}{{ post.attachment.name }}{% endif %}</p>
-        <input type="file" name="attachment">
+        <input type="file" name="attachment" id="id_file">
       </div>
       {% if board.eng_name == 'notice' %}
         <div class="ui checkbox">

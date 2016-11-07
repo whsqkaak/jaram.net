@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from main.models import Member
+from main.utils.validator import file_size
 
 
 class WorkShop(models.Model):
@@ -43,7 +44,7 @@ class WorkShopTaskSubmission(models.Model):
     presenter = models.ForeignKey(Member)
     content = models.TextField(_('내용'), null=True, blank=True, default='')
     date = models.DateTimeField(_('제출일'), null=False, blank=False, default=timezone.now)
-    attachment = models.FileField(_('첨부 파일'), upload_to='workshop/attachment/', null=True, blank=True)
+    attachment = models.FileField(_('첨부 파일'), upload_to='workshop/attachment/', validators=[file_size], null=True, blank=True)
 
     def __str__(self):
         return self.presenter.name + ' - ' + self.presenter.name
