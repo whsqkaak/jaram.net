@@ -37,7 +37,13 @@ div.meta {
         bottom: 0;
         right: 0;
     }
+
 }
 @media screen and (max-width: 767px) {
-
+    div.row {
+        margin: 0 1em 0 1em !important;
+    }
+    div.ui.small.rounded.image {
+        display: none !important;
+    }
 }

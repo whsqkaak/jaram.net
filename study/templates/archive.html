@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% load staticfiles %}
+
+{% block head %}
+{% endblock %}
+
+{% block header_title %}
+  이전 스터디 기록
+{% endblock %}
+
+{% block header_content %}
+{% endblock %}
+
+{% block body %}
+  <div class="ui text container">
+    <div class="ui list">
+      {% for semester in semesters %}
+        <div class="item">{{ semester.name }}</div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

@@ -53,7 +53,7 @@ class Post(BasePostModel):
 class Comment(BasePostModel):
     board = models.ForeignKey(Board)
     post = models.ForeignKey(Post)
-    parent = models.ForeignKey('self', null=True, related_name='replies')
+    parent = models.ForeignKey('self', null=True, blank=True, related_name='replies')
 
     def __str__(self):
         return str(self.post) + ' - ' + self.title

@@ -1,5 +1,5 @@
 from board.models import Post, Board
-from main.models import Member, Grade
+from main.models import Member, Grade, Notice
 from schedule.models import Event
 from django.utils.datetime_safe import datetime, date
 import calendar
@@ -41,10 +41,11 @@ class MainView(TemplateView):
             response['recent_posts'] = Post.objects.exclude(board=notice) \
                                            .order_by('-write_date')[:3]
             response['notice_posts'] = notice.post_set.order_by('-emphasis')[:3]
-            
+            response['notice'] = Notice.objects.all()[0]
         except Board.DoesNotExist:
             notice = None
-
+        except IndexError:
+            pass
         return render(request, self.template_name, response)
 
 

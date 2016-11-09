@@ -6,7 +6,7 @@ from django.utils import timezone
 from django.views.generic import View, TemplateView
 from main.models import Member
 from main.util import create_response
-from study.models import Study, StudyReport
+from study.models import Study, StudyReport, Semester
 
 
 class StudyListView(TemplateView):
@@ -14,7 +14,11 @@ class StudyListView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         response = create_response(request)
-        response['page'] = Study.objects.filter(is_active=True).all()
+        try:
+            semester = Semester.objects.all()[0]
+        except ObjectDoesNotExist:
+            return redirect('/main?error=스터디 학기가 존재하지 않습니다.')
+        response['page'] = Study.objects.filter(semester=semester).filter(is_active=True).all()
         return render(request, self.template_name, response)
 
 
@@ -124,3 +128,16 @@ class SearchUserApiView(View):
             response_results.append(member_dict)
 
         return JsonResponse(response)
+
+
+class SemesterListView(TemplateView):
+    template_name = 'archive.html'
+
+    def get(self, request, *args, **kwargs):
+        response = create_response(request)
+        try:
+            response['semesters'] = Semester.objects.all()
+        except ObjectDoesNotExist:
+            return redirect('/study?error=데이터가 존재하지 않습니다.')
+
+        return render(request, self.template_name, response)
