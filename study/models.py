@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from main.models import Member
+from main.utils.validator import file_size
 
 
 class Semester(models.Model):
@@ -27,7 +28,7 @@ class Study(models.Model):
     description = models.CharField(_('간략한 설명'), max_length=64, null=False, blank=False)
     content = models.TextField(_('계획, 기간 등 상세한 설명'), null=False, blank=False)
     date = models.DateField(_('스터디 등록일'), null=False, blank=False, default=timezone.now)
-    attachment = models.FileField(_('첨부 파일'), upload_to='study/attachment/', null=True, blank=True)
+    attachment = models.FileField(_('첨부 파일'), upload_to='study/attachment/', validators=[file_size], null=True, blank=True)
     is_active = models.BooleanField(_('진행 여부'), null=False, blank=False, default=False)
 
     def __str__(self):

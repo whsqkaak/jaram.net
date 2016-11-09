@@ -6,6 +6,7 @@ import calendar
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.core.exceptions import ObjectDoesNotExist
+from django.db import IntegrityError
 from main.util import create_response
 
 
@@ -21,15 +22,17 @@ class MainView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         response = create_response(request)
-
+        
         today = date.today()
         year = today.year
         month = today.month
         calendar.setfirstweekday(calendar.SUNDAY)
         response['new_calendar'] = calendar.monthcalendar(year, month)
+        response['next_month'] = month + 1
+        response['next_month_calendar'] = calendar.monthcalendar(year, month + 1)
         response['events'] = Event.objects.filter(
             start_date__range=(
-                datetime(year, month, 1), datetime(year, month, calendar.monthrange(year, month)[1]))).order_by(
+                datetime(year, month, 1), datetime(year, month + 1, calendar.monthrange(year, month + 1)[1]))).order_by(
             '-start_date')
         response['today'] = today
         try:
@@ -77,7 +80,7 @@ class SignUpView(TemplateView):
 
     def post(self, request, *args, **kwargs):
         data = request.POST
-
+        
         if not (data.get('name') and data.get('password') and data.get('user_id') and data.get('Email')
                 and data.get('phone') and data.get('period') and data.get('enter_year')):
             return redirect('/sign_up?error=회원 가입에 필요한 정보가 부족합니다.')
@@ -96,8 +99,10 @@ class SignUpView(TemplateView):
         except ObjectDoesNotExist:
             return redirect('/sign_up?error=해당 등급이 존재하지 않습니다.')
 
-
-        member.save()
+        try:
+            member.save()
+        except IntegrityError:
+            return render(request, 'sign_up.html', {"message": "같은 아이디가 존재합니다."})
 
         return redirect('/login?success=회원 가입이 완료되었습니다.')
 

@@ -19,6 +19,13 @@
         filebrowserUploadUrl: "{% url 'ckeditor_upload' %}"
       });
       $("#report-submit").click(function () {
+          if (window.File && window.FileReader && window.FileList && window.Blob) {
+            var file = $("#id_file")[0].files[0];
+            if (file && file.size > 20 * 1024 * 1024) {
+              alert("첨부 파일의 크기는 20MB 이하여야 합니다.");
+              return false;
+            }
+          }
         $("button[type=submit]").click();
       });
     });
@@ -50,7 +57,8 @@
       </div>
       <div class="field">
         <label>첨부 파일</label>
-        <input type="file" name="attachment">
+        <p style="font-size:10px">20MB 이하</p>
+        <input type="file" name="attachment" id="id_file">
       </div>
       <button type="submit" class="hide"></button>
     </form>
