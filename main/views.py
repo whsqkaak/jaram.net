@@ -2,6 +2,7 @@ from board.models import Post, Board
 from main.models import Member, Grade
 from schedule.models import Event
 from django.utils.datetime_safe import datetime, date
+from datetime import timedelta
 import calendar
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
@@ -27,14 +28,29 @@ class MainView(TemplateView):
         year = today.year
         month = today.month
         calendar.setfirstweekday(calendar.SUNDAY)
-        response['new_calendar'] = calendar.monthcalendar(year, month)
-        response['next_month'] = month + 1
-        response['next_month_calendar'] = calendar.monthcalendar(year, month + 1)
-        response['events'] = Event.objects.filter(
+        
+        event_dates = []
+        events = Event.objects.filter(
             start_date__range=(
                 datetime(year, month, 1), datetime(year, month + 1, calendar.monthrange(year, month + 1)[1]))).order_by(
-            '-start_date')
-        response['today'] = today
+            'start_date')
+        for i in range(31):
+            each_date = today+timedelta(days=i)
+            event_dates.append([each_date])
+            for event in events:
+                if event.end_date.month == each_date.month:
+                    if (event.start_date.day <= each_date.day) and (event.end_date.day >= each_date.day):
+                        event_dates[i].append(event)
+        
+        for i in range(31):
+            each_date = today+timedelta(days=i)
+            event_dates.append([each_date])
+            for event in events:
+                if event.end_date.month + 1 == each_date.month:
+                    if event.start_date.day <= each_date.day:
+                        event_dates[i].append(event)
+                
+        response['events'] = event_dates
         try:
             notice = Board.objects.get(name='공지사항')
 

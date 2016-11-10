@@ -89,57 +89,28 @@
         <div class="ui segment">
           <h1>Upcoming Events</h1>
           <div class="ui divider"></div>
-          {% for weeks in new_calendar %}
-          <tr>
-            {% for date in weeks %}
-              {% if date > 0 %}
-                  <td style="height: 120px; background-color: #f7f7f7; padding: 0">
-                    <div class="container">
-                      <div class="contents">
-                        {% for event in events %}
-                          {% if event.start_date.month == today.month and event.start_date.day <= date %}
-                            {% if event.end_date.day >= date or event.end_date.month != today.month %}
-                                <p>{{ today.year }}/{{ today.month }}/{{ date }}</p>
+            {% for each_event in events %}
+              {% if each_event|length > 1 %}
+                  {% for event in each_event %}
+                    <tr>
+                      <td style="height: 120px; background-color: #f7f7f7; padding: 0">
+                        <div class="container">
+                          <div class="contents">
+                            {% if forloop.counter0 == 0 %}
+                              <p>{{ event.year }}/{{ event.month }}/{{ event.day }}</p>
+                            {% else %}
                               <div class="schedule">
-                              <ul>
-                                <li><a href="{% url 'scheduleDetail' id=event.pk %}" class="title">{{ event.title }}</a></li>
-                              </ul>
+                                <ul>
+                                  <li><a href="{% url 'scheduleDetail' id=event.pk %}" class="title">{{ event.title }}</a></li>
+                                </ul>
                               </div>
                             {% endif %}
-                          {% endif %}
-                        {% endfor %}
-                      </div>
-                    </div>
-                  </td>
-              {% endif %}
-            {% endfor %}
-          </tr>
-          {% endfor %}
-          {% for weeks in next_month_calendar %}
-          <tr>
-            {% for date in weeks %}
-              {% if date > 0 %}
-                  <td style="height: 120px; background-color: #f7f7f7; padding: 0">
-                    <div class="container">
-                      <div class="contents">
-                        {% for event in events %}
-                          {% if event.end_date.month > today.month and event.end_date.day >= date %}
-                            {% if event.start_date.day <= date or event.start_date.month == today.month %}
-                                <p>{{ today.year }}/{{ next_month }}/{{ date }}</p>
-                              <div class="schedule">
-                              <ul>
-                                <li><a href="{% url 'scheduleDetail' id=event.pk %}" class="title">{{ event.title }}</a></li>
-                              </ul>
-                              </div>
-                            {% endif %}
-                          {% endif %}
-                        {% endfor %}
-                      </div>
-                    </div>
-                  </td>
-              {% endif %}
-            {% endfor %}
-          </tr>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                {% endif %}
           {% endfor %}
         </div>
       </div>
