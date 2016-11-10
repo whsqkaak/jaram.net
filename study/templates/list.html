@@ -11,6 +11,7 @@
 
 {% block header_content %}
   <a href="{% url 'study_registration' %}" class="ui button inverted basic yellow">스터디 등록 신청</a>
+  <a href="{% url 'semester_list' %}" class="ui button inverted basic">이전 스터디 목록</a>
 {% endblock %}
 
 {% block body %}
@@ -35,7 +36,7 @@
             <span><i class="icon user"></i> {{ item.members.all|length|add:1 }}명이 함께 스터디 중 </span>
           </div>
         </div>
-      {% endfor %}
+    {% endfor %}
     </div>
   </section>
 {% endblock %}
