@@ -7,7 +7,7 @@
   {% if notice %}
     {{ notice.title }}
   {% else %}
-    공지가 없어유 ㅠ_ㅠ
+{#    공지가 없어유 ㅠ_ㅠ#}
   {% endif %}
 {% endblock %}
 
@@ -113,7 +113,7 @@
                             {% else %}
                               <div class="schedule">
                                 <ul>
-                                  <li><a href="{% url 'scheduleDetail' id=event.pk %}" class="title">{{ event.title }}</a></li>
+                                  <li><a href="{% url 'event' id=event.pk %}" class="title">{{ event.title }}</a></li>
                                 </ul>
                               </div>
                             {% endif %}
