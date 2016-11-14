@@ -1,7 +1,7 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
 from django.utils.datetime_safe import datetime, date
-from django.views.generic import TemplateView
+from django.views.generic import View, TemplateView
 from main.util import create_response
 import calendar
 
@@ -27,7 +27,12 @@ class ScheduleView(TemplateView):
         return render(request, self.template_name, response)
 
 
-class ScheduleDetailView(TemplateView):
+class ScheduleApiView(View):
+    def get(self, request, *args, **kwargs):
+        response = dict()
+
+
+class EventView(TemplateView):
     template_name = 'schedule/detail.html'
 
     def get(self, request, *args, **kwargs):
