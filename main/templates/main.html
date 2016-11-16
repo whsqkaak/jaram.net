@@ -4,11 +4,17 @@
 {% load board_extras %}
 
 {% block header_title %}
-  중요 알림
+  {% if notice %}
+    {{ notice.title }}
+  {% else %}
+{#    공지가 없어유 ㅠ_ㅠ#}
+  {% endif %}
 {% endblock %}
 
 {% block header_content %}
-  알림 내용
+  {% if notice %}
+    <a href="{{ notice.url }}" class="ui button inverted basic">게시글 바로가기</a>
+  {% endif %}
 {% endblock %}
 
 {% block head %}
@@ -41,7 +47,7 @@
                 <a href="{% url 'post_detail' name=item.board.eng_name id=item.pk %}"
                    class="header">{{ item.title }}</a>
                 <div class="meta">
-                  <span>{% autoescape off %}{{ item.content|get_text|truncatechars:150 }}{% endautoescape %}</span>
+                  <span><p>{% autoescape off %}{{ item.content|get_text|truncatechars:150 }}{% endautoescape %}</p></span>
                 </div>
                 <div class="extra">
                   <div class="ui right floated small breadcrumb">
@@ -62,19 +68,25 @@
           {% for item in notice_posts %}
             <div class="item">
               <div class="ui small rounded image">
-                 <a href="{% url 'post_detail' name='notice' id=item.pk %}">
-                   <img src="{% static 'mainapp/img/no_image.png' %}" style="width:150px; height:150px;">
-                 </a>
+                {% if item.thumbnail %}
+                  <a href="{% url 'post_detail' name=item.board.eng_name id=item.pk %}">
+                    <img src="{{ item.thumbnail.url }}" style="width:150px; height:150px;">
+                  </a>
+                {% else %}
+                  <a href="{% url 'post_detail' name=item.board.eng_name id=item.pk %}">
+                    <img src="{% static 'mainapp/img/no_image.png' %}" style="width:150px; height:150px;">
+                  </a>
+                {% endif %}
               </div>
               <div class="content">
                 {% if item.emphasis %}
-                  <a href="{% url 'post_detail' name='notice' id=item.pk %}" class="header">중요 : {{ item.title }}</a>
+                  <a href="{% url 'post_detail' name='notice' id=item.pk %}" class="header">[중요] {{ item.title }}</a>
                   <!-- TODO: '중요 : ' 이거 대신에 스타일을 다르게 주도록 변경-->
                 {% else %}
                   <a href="{% url 'post_detail' name='notice' id=item.pk %}" class="header">{{ item.title }}</a>
                 {% endif %}
                 <div class="meta">
-                  <span>{% autoescape off %}{{ item.content }}{% endautoescape %}</span>
+                  <span><p>{% autoescape off %}{{ item.content }}{% endautoescape %}</p></span>
                 </div>
                 <div class="extra">
                   {{ item.write_date }}
@@ -89,29 +101,28 @@
         <div class="ui segment">
           <h1>Upcoming Events</h1>
           <div class="ui divider"></div>
-          {% for weeks in new_calendar %}
-          <tr>
-            {% for date in weeks %}
-              <td style="height: 120px; background-color: #f7f7f7; padding: 0">
-                <div class="container">
-                  <div class="contents">
-                    {% for event in events %}
-                      {% if event.end_date.day >= today.day %}
-                        {% if event.start_date.day <= date and event.end_date.day >= date %}
-                          <p>{{ today.year }}/{{ today.month }}/{{ date }}</p>
-                          <div class="schedule">
-                          <ul>
-                            <li><a href="{% url 'scheduleDetail' id=event.pk %}" class="title">{{ event.title }}</a></li>
-                          </ul>
+            {% for each_event in events %}
+              {% if each_event|length > 1 %}
+                  {% for event in each_event %}
+                    <tr>
+                      <td style="height: 120px; background-color: #f7f7f7; padding: 0">
+                        <div class="container">
+                          <div class="contents">
+                            {% if forloop.counter0 == 0 %}
+                              <p>{{ event.year }}/{{ event.month }}/{{ event.day }}</p>
+                            {% else %}
+                              <div class="schedule">
+                                <ul>
+                                  <li><a href="{% url 'event' id=event.pk %}" class="title">{{ event.title }}</a></li>
+                                </ul>
+                              </div>
+                            {% endif %}
                           </div>
-                        {% endif %}
-                      {% endif %}
-                    {% endfor %}
-                  </div>
-                </div>
-              </td>
-            {% endfor %}
-          </tr>
+                        </div>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                {% endif %}
           {% endfor %}
         </div>
       </div>

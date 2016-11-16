@@ -1,9 +1,9 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
-from django.utils.datetime_safe import datetime, date
-from django.views.generic import TemplateView
+from django.utils.datetime_safe import date
+from django.views.generic import View, TemplateView
 from main.util import create_response
-import calendar
+from main.utils.calender import jaram_calendar
 
 from schedule.models import Event
 
@@ -14,20 +14,22 @@ class ScheduleView(TemplateView):
     def get(self, request, *args, **kwargs):
         response = create_response(request)
         today = date.today()
-        year = today.year
-        month = today.month
-        calendar.setfirstweekday(calendar.SUNDAY)
-        response['year'] = year
-        response['month'] = month
-        response['new_calendar'] = calendar.monthcalendar(year, month)
-        response['events'] = Event.objects.filter(
-            start_date__range=(
-                datetime(year, month, 1), datetime(year, month, calendar.monthrange(year, month)[1]))).order_by(
-            '-start_date')
+        jaram_calendar(Event, today.year, today.month, response)
         return render(request, self.template_name, response)
 
 
-class ScheduleDetailView(TemplateView):
+class ScheduleApiView(View):
+    template_name = 'jaram_calendar.html'
+
+    def get(self, request, *args, **kwargs):
+        response = dict()
+        year = int(request.GET.get('y'))
+        month = int(request.GET.get('m'))
+        jaram_calendar(Event, year, month, response)
+        return render(request, self.template_name, response)
+
+
+class EventView(TemplateView):
     template_name = 'schedule/detail.html'
 
     def get(self, request, *args, **kwargs):

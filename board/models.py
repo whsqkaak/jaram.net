@@ -3,6 +3,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from main.models import Member
+from main.utils.validator import file_size
 
 
 class BasePostModel(models.Model):
@@ -10,7 +11,7 @@ class BasePostModel(models.Model):
     write_date = models.DateTimeField(_('작성일'), null=False, blank=False, default=timezone.now)
     title = models.CharField(_('제목'), max_length=255, null=True, blank=True, default='')
     content = models.TextField(_('내용'), null=False, blank=False, default='')
-    attachment = models.FileField(_('첨부 파일'), upload_to='board/attachment/', null=True, blank=True)
+    attachment = models.FileField(_('첨부 파일'), upload_to='board/attachment/', validators=[file_size], null=True, blank=True)
     thumbnail = models.ImageField(_('미리보기'), upload_to='board/thumbnail/', null=True, blank=True)
     emphasis = models.BooleanField(_('게시글 강조'), default=False)
     hit = models.IntegerField(_('조회수'), default=0)
@@ -52,7 +53,7 @@ class Post(BasePostModel):
 class Comment(BasePostModel):
     board = models.ForeignKey(Board)
     post = models.ForeignKey(Post)
-    parent = models.ForeignKey('self', null=True, related_name='replies')
+    parent = models.ForeignKey('self', null=True, blank=True, related_name='replies')
 
     def __str__(self):
         return str(self.post) + ' - ' + self.title

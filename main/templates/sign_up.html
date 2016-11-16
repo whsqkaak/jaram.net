@@ -16,7 +16,6 @@
 
   <script>
     function registrationSubmit() {
-      alert("회원가입이 완료되었습니다.");
       return true;
     }
       $("#registration-submit").click(function () {
@@ -37,6 +36,9 @@
         method="post" enctype="multipart/form-data">
           <h4 class="ui dividing header">회원가입</h4>
           {% csrf_token %}
+          {% if message %}
+            <p>{{ message }}</p>
+          {% endif %}
           <div class="field">
             <label>* 이름</label>
             <div class="field">

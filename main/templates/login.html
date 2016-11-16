@@ -31,7 +31,6 @@
       <div id="login-item">
         <form class="ui form" method="post" action="{% url 'login' %}">
           {% csrf_token %}
-
           {% if form.errors %}
             <p>ID나 비밀번호가 일치하지 않습니다.</p>
           {% endif %}
