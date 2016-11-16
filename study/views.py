@@ -23,7 +23,6 @@ class StudyListView(TemplateView):
         response['semester'] = semester
         response['page'] = Study.objects.filter(semester=semester).filter(is_active=True).all()
         return render(request, self.template_name, response)
-        # TODO: 파라미터 없을때 최근 학기 스터디 목록, 파라미터 받으면 이전 학기 스터디 목록
 
 
 class StudyDetailView(TemplateView):
@@ -130,5 +129,5 @@ class SearchUserApiView(View):
             member_dict['price'] = '%d기' % member.period
             member_dict['description'] = member.grade.name
             response_results.append(member_dict)
-
+        print(response)
         return JsonResponse(response)
