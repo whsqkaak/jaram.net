@@ -1,0 +1,49 @@
+{% for weeks in new_calendar %}
+  <tr>
+    {% for date in weeks %}
+      {% if forloop.counter0 == 0 %}
+        <td class="weekend date">
+          <div class="container">
+            <div class="date">
+              <p>{% if date != 0 %}{{ date }}{% endif %}</p>
+            </div>
+            <div class="contents">
+              {% for event in events %}
+                {% if event.start_date.day <= date and event.end_date.day >= date %}
+                  <div class="schedule">
+                    <i class="{{ event.category.color }} circle icon" style="position:absolute;
+																top: {{ forloop.counter0 }};left: 5px"></i>
+                    <a href="{% url 'event' id=event.pk %}">
+                      <p class="title">{{ event.title }}</p>
+                    </a>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </td>
+      {% else %}
+        <td class="date">
+          <div class="container">
+            <div class="date">
+              <p>{% if date != 0 %}{{ date }}{% endif %}</p>
+            </div>
+            <div class="contents">
+              {% for event in events %}
+                {% if event.start_date.day <= date and event.end_date.day >= date %}
+                  <div class="schedule">
+                    <i class="{{ event.category.color }} circle icon" style="position:absolute;
+																top: {{ forloop.counter0 }};left: 5px;z-index: -1"></i>
+                    <a href="{% url 'event' id=event.pk %}">
+                      <p class="title">{{ event.title }}</p>
+                    </a>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </td>
+      {% endif %}
+    {% endfor %}
+  </tr>
+{% endfor %}

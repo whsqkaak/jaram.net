@@ -47,7 +47,7 @@
                 <a href="{% url 'post_detail' name=item.board.eng_name id=item.pk %}"
                    class="header">{{ item.title }}</a>
                 <div class="meta">
-                  <span>{% autoescape off %}{{ item.content|get_text|truncatechars:150 }}{% endautoescape %}</span>
+                  <span><p>{% autoescape off %}{{ item.content|get_text|truncatechars:150 }}{% endautoescape %}</p></span>
                 </div>
                 <div class="extra">
                   <div class="ui right floated small breadcrumb">
@@ -86,7 +86,7 @@
                   <a href="{% url 'post_detail' name='notice' id=item.pk %}" class="header">{{ item.title }}</a>
                 {% endif %}
                 <div class="meta">
-                  <span>{% autoescape off %}{{ item.content }}{% endautoescape %}</span>
+                  <span><p>{% autoescape off %}{{ item.content }}{% endautoescape %}</p></span>
                 </div>
                 <div class="extra">
                   {{ item.write_date }}
