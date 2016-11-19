@@ -15,24 +15,24 @@
 {% endblock %}
 
 {% block body %}
-  <section class="ui container">
-    <div class="ui three cards">
+  <table class="ui selectable celled table">
+    <thead>
+      <tr>
+        <th>WorkShop</th>
+        <th>Term</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
       {% for item in page %}
-        <div class="card">
-          <div class="content">
-            <a href="{% url 'workshop_detail' id=item.pk %}" class="header">{{ item.subject }}</a>
-            <div class="start_date">
-              <span>시작 날짜 : {{ item.start_date }}</span>
-            </div>
-            <div class="end_date">
-              <span>종료 날짜 : {{ item.end_date }}</span>
-            </div>
-              {% autoescape off %}
-                <div class="content">{{ item.content }}</div>
-              {% endautoescape %}
-          </div>
-        </div>
+        <tr>
+          <td><a href="{% url 'workshop_detail' id=item.pk %}" class="header">{{ item.subject }}</a></td>
+          <td>{{ item.start_date }} ~ {{ item.end_date }}</td>
+          {% autoescape off %}
+          <td>{{ item.content }}</td>
+          {% endautoescape %}
+        </tr>
       {% endfor %}
-    </div>
-  </section>
+    </tbody>
+  </table>
 {% endblock %}

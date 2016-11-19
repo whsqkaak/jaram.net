@@ -1,7 +1,7 @@
 from board.models import Post, Board
 from main.models import Member, Grade, Notice
 from schedule.models import Event
-from django.utils.datetime_safe import datetime, date
+from django.utils.datetime_safe import date
 from datetime import timedelta
 import calendar
 from django.shortcuts import render, redirect
