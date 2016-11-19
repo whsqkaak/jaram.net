@@ -116,7 +116,7 @@ class WorkShopTaskSubmissionView(TemplateView):
 			if (request.user == member):
 				task_duty = True
 				break
-
+		
 		if not(task_duty):
 			return redirect('/workshop/taskList/%s?error=과제 의무자가 아닙니다.' % kwargs.get('id'))
 
