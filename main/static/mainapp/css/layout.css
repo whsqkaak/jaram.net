@@ -8,7 +8,6 @@ nav > .ui.container {
 }
 
 #logo {
-    height: 100%;
     line-height: 72px;
     padding: 0;
     margin: 0;
@@ -49,4 +48,15 @@ header {
 
 #message-container > div {
     margin-bottom: 12px;
+}
+
+#footer-logo {
+    color: black;
+    position: absolute;
+    left: 50%;
+    top:0;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    padding-bottom: 23px;
+    z-index: -1;
 }

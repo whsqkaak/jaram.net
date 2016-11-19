@@ -58,6 +58,7 @@ a:link:active, a:visited:active {
         height: inherit;
         overflow: hidden;
         text-overflow: ellipsis;
+        white-space: nowrap;
     }
     #media-768{
         display: block;
