@@ -130,5 +130,5 @@ class SearchUserApiView(View):
             member_dict['price'] = '%d기' % member.period
             member_dict['description'] = member.grade.name
             response_results.append(member_dict)
-
+        print(response)
         return JsonResponse(response)

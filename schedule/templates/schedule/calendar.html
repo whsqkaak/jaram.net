@@ -7,12 +7,14 @@
 {% endblock %}
 
 {% block header_content %}
-  {{ year }}년 {{ month }}월
+  <p id="calendar-info">{{ year }}년 {{ month }}월</p>
 {% endblock %}
 
 {% block head %}
   <link rel="stylesheet" href="{% static 'schedule/css/calendar.css' %}"/>
   <script>
+    var year = {{ year }};
+    var month = {{ month }};
     function setTitleVisibility() {
       if ($('div#media-768').css('display') == 'none') {
         $(".title").hide();
@@ -25,6 +27,20 @@
         $(".schedule").css({"display":"block","width":"inherit"});
       }
     }
+    function createCalendar () {
+      $.ajax({
+        type: "get",
+        url: "{% url 'schedule_api_user' %}?y=" + year + "&m=" + month + "&o=next",
+        success: function(data){
+          $('#week-list').html(data);
+          $('#calendar-info').text(year + "년 " + month + "월");
+          setTitleVisibility();
+        },
+        error: function(){
+          alert("error");
+        }
+      });
+    }
     $(window).on('load', function () {
       setTitleVisibility();
     });
@@ -33,7 +49,25 @@
     });
     $('.ui.button').onclick
     $(function (){
-      $('#week-list').children().remove();
+      $('#next-month').click(function () {
+        year = Math.floor(year + month / 12);
+        month = month % 12 + 1;
+        createCalendar();
+      });
+      $('#this-month').click(function () {
+        year = {{ year }};
+        month = {{ month }};
+        createCalendar();
+      });
+      $('#prev-month').click(function () {
+        if (month == 1) {
+          year = year - 1;
+          month = 12;
+        } else {
+          month = month - 1;
+        }
+        createCalendar();
+      });
     });
   </script>
 {% endblock %}
@@ -44,6 +78,24 @@
         left: 50%;
         margin-right: -50%;
         transform: translate(-50%, -50%);">
+<<<<<<< HEAD
+    <div id='prev-month' class="ui basic animated button" tabindex="0">
+      <div class="hidden content">Prev</div>
+      <div class="visible content">
+        <i class="large chevron left icon"></i>
+      </div>
+    </div>
+    <div id='this-month' class="ui basic vertical animated button" tabindex="0">
+      <div class="hidden content">Now</div>
+      <div class="visible content">
+        <i class="large calendar outline icon"></i>
+      </div>
+    </div>
+    <div id='next-month' class="ui basic animated button" tabindex="0">
+      <div class="hidden content">Next</div>
+      <div class="visible content">
+        <i class="large chevron right icon"></i>
+=======
     <div class="ui basic animated button" tabindex="0">
       <div class="hidden content">Prev</div>
       <div class="visible content">
@@ -60,6 +112,7 @@
       <div class="hidden content">Next</div>
       <div class="visible content">
         <i class="right arrow icon"></i>
+>>>>>>> ea51eee80644804e8ffebf7b9af0be12c47ed775
       </div>
     </div>
   </div>
@@ -90,6 +143,9 @@
         </tr>
       </thead>
       <tbody id="week-list">
+<<<<<<< HEAD
+        {% include 'jaram_calendar.html' %}
+=======
         {% for weeks in new_calendar %}
           <tr>
             {% for date in weeks %}
@@ -139,6 +195,7 @@
             {% endfor %}
           </tr>
         {% endfor %}
+>>>>>>> ea51eee80644804e8ffebf7b9af0be12c47ed775
     </tbody>
   </table>
   <div id="media-768"></div>
