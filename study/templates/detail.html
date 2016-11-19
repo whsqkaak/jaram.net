@@ -21,12 +21,12 @@
         offset: 96
       });
     });
-    $(function () {
-      $('.ui.toggle.checkbox').checkbox({onChange: function () {
-        console.log('change');
-        list.append(listItems.get().reverse());
-      }});
-    });
+{#    $(function () {#}
+{#      $('#order-checkbox').checkbox({onChange: function () {#}
+{#        console.log('change');#}
+{#        list.append(listItems.get().reverse());#}
+{#      }});#}
+{#    });#}
   </script>
 {% endblock %}
 
@@ -50,10 +50,11 @@
   <section id="sticky-container" class="ui stackable two column grid container">
     <div class="row push-top3">
       <div class="twelve wide column">
-        <div class="ui toggle checkbox">
-          <input type="checkbox" name="public">
-          <label>추가된 날짜(최신순)</label>
-        </div>
+{#        <div id='order-checkbox' class="ui toggle checkbox">#}
+{#          <input type="checkbox" name="public">#}
+{#          <label>추가된 날짜(최신순)</label>#}
+{#        </div>#}
+      <!--TODO: 레포트 순서 체크박스 구현-->
         <div class="ui divided items push-right3" id="report-container">
           {% for report in reports %}
             <div class="item">

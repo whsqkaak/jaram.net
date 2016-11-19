@@ -1,3 +1,6 @@
+.ui.very.basic.celled.unstackable.table {
+    padding-top: 30px;
+}
 td.date > div.container {
     position: relative;
     width: 100%;

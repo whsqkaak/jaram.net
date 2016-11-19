@@ -135,3 +135,17 @@ class Member(AbstractBaseUser, PermissionsMixin):
         ordering = ['-id']
         verbose_name = _('자람 회원')
         verbose_name_plural = _('자람 회원')
+
+
+class Notice(models.Model):
+    title = models.CharField(_('제목'), max_length=255, null=True, blank=True, default='')
+    write_date = models.DateTimeField(_('작성일'), null=False, blank=False, default=timezone.now)
+    url = models.URLField(_('관련글'), null=True, blank=True, default='')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['-write_date']
+        verbose_name = _('공지')
+        verbose_name_plural = _('공지')

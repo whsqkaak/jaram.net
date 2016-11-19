@@ -6,7 +6,7 @@ from django.utils import timezone
 from django.views.generic import View, TemplateView
 from main.models import Member
 from main.util import create_response
-from study.models import Study, StudyReport
+from study.models import Study, StudyReport, Semester
 
 
 class StudyListView(TemplateView):
@@ -14,8 +14,16 @@ class StudyListView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         response = create_response(request)
-        response['page'] = Study.objects.filter(is_active=True).all()
+        try:
+            semesters = Semester.objects.all()
+            response['semesters'] = semesters
+        except ObjectDoesNotExist:
+            return redirect('/main?error=스터디 학기가 존재하지 않습니다.')
+        semester = semesters[int(request.GET.get('semester', 0))]
+        response['semester'] = semester
+        response['page'] = Study.objects.filter(semester=semester).filter(is_active=True).all()
         return render(request, self.template_name, response)
+        # TODO: 파라미터 없을때 최근 학기 스터디 목록, 파라미터 받으면 이전 학기 스터디 목록
 
 
 class StudyDetailView(TemplateView):
