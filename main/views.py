@@ -6,7 +6,8 @@ from datetime import timedelta
 import calendar
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
+from django.utils.translation import ugettext as _
 from django.db import IntegrityError
 from main.util import create_response
 
@@ -82,7 +83,10 @@ class SignUpView(TemplateView):
         if not (data.get('name') and data.get('password') and data.get('user_id') and data.get('Email')
                 and data.get('phone') and data.get('period') and data.get('enter_year')):
             return redirect('/sign_up?error=회원 가입에 필요한 정보가 부족합니다.')
-
+        
+        if data.get('password').isdigit() and len(data.get('password')) < 8:
+            return redirect('/sign_up?error=비밀번호의 형식을 지키십시오.')
+        
         member = Member()
         member.user_id = data.get('user_id')
         member.name = data.get('name')
