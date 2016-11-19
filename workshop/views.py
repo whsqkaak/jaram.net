@@ -1,10 +1,8 @@
-from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
-from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.utils.datetime_safe import date
 from django.views.generic import View, TemplateView
-from main.models import Member
+from main.models import Member, Grade
 from main.util import create_response
 from workshop.models import WorkShop, WorkShopTask, WorkShopTaskSubmission
 
@@ -12,7 +10,8 @@ from workshop.models import WorkShop, WorkShopTask, WorkShopTaskSubmission
 class WorkShopView(TemplateView):
 	def get(self, request, *args, **kwargs):
 		today = date.today()
-		
+		if request.user.grade == Grade.objects.get(name='미승인'):
+			return redirect('/main?warning=권한이 없습니다.')
 		try:
 			ongoing_workshop = WorkShop.objects.get(
 				end_date__gte=today,
@@ -28,6 +27,8 @@ class WorkShopListView(TemplateView):
 	
 	def get(self, request, *args, **kwargs):
 		response = create_response(request)
+		if request.user.grade == Grade.objects.get(name='미승인'):
+			return redirect('/main?warning=권한이 없습니다.')
 		response['page'] = WorkShop.objects.all()
 		return render(request, self.template_name, response)
 
@@ -68,6 +69,8 @@ class WorkShopDetailView(TemplateView):
 	
 	def get(self, request, *args, **kwargs):
 		response = create_response(request)
+		if request.user.grade == Grade.objects.get(name='미승인'):
+			return redirect('/main?warning=권한이 없습니다.')
 		try:
 			workshop = WorkShop.objects.get(pk=kwargs.get('id'))
 		except ObjectDoesNotExist:
@@ -82,7 +85,8 @@ class WorkShopTaskListView(TemplateView):
 	
 	def get(self, request, *args, **kwargs):
 		response = create_response(request)
-		
+		if request.user.grade == Grade.objects.get(name='미승인'):
+			return redirect('/main?warning=권한이 없습니다.')
 		response['tasks'] = WorkShopTask.objects.all()
 		return render(request, self.template_name, response)
 
@@ -170,7 +174,8 @@ class WorkShopTaskDetailView(TemplateView):
 	
 	def get(self, request, *args, **kwargs):
 		response = create_response(request)
-		
+		if request.user.grade == Grade.objects.get(name='미승인'):
+			return redirect('/main?warning=권한이 없습니다.')
 		try:
 			workshop_task = WorkShopTask.objects.get(pk=kwargs.get('id'))
 		except ObjectDoesNotExist:
@@ -186,7 +191,8 @@ class WorkShopTaskSubmissionListView(TemplateView):
 	
 	def get(self, request, *args, **kwargs):
 		response = create_response(request)
-		
+		if request.user.grade == Grade.objects.get(name='미승인'):
+			return redirect('/main?warning=권한이 없습니다.')
 		try:
 			workshop_task = WorkShopTask.objects.get(pk=kwargs.get('id'))
 		except ObjectDoesNotExist:
@@ -202,7 +208,8 @@ class WorkShopTaskSubmissionDetailView(TemplateView):
 	
 	def get(self, request, *args, **kwargs):
 		response = create_response(request)
-		
+		if request.user.grade == Grade.objects.get(name='미승인'):
+			return redirect('/main?warning=권한이 없습니다.')
 		try:
 			workshop_task = WorkShopTask.objects.get(pk=kwargs.get('id'))
 		except ObjectDoesNotExist:
@@ -227,7 +234,8 @@ class WorkShopTaskUpdateView(TemplateView):
 	
 	def get(self, request, *args, **kwargs):
 		response = create_response(request)
-		
+		if request.user.grade == Grade.objects.get(name='미승인'):
+			return redirect('/main?warning=권한이 없습니다.')
 		try:
 			workshop_task = WorkShopTask.objects.get(pk=kwargs.get('id'))
 		except ObjectDoesNotExist:

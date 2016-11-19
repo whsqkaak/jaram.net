@@ -24,9 +24,7 @@ class PostListView(TemplateView):
 
         if board.usable_group and not request.user.groups.filter(
                 pk__in=board.usable_group.values_list('pk', flat=True)).exists():
-
-            if not (user.is_superuser or user.is_staff):
-                return redirect('/main/?warning=권한이 없습니다.')
+            return redirect('/main/?warning=권한이 없습니다.')
 
         easy_paginator(board.post_set.order_by('-write_date').all(), request.GET.get('page', 1),
                        each_data_count=6, save_to=response)
@@ -52,9 +50,7 @@ class PostView(TemplateView):
 
         if board.usable_group and not request.user.groups.filter(
                 pk__in=board.usable_group.values_list('pk', flat=True)).exists():
-
-            if not (user.is_superuser or user.is_staff):
-                return redirect('/main/?warning=권한이 없습니다.')
+            return redirect('/main/?warning=권한이 없습니다.')
 
         post = board.post_set.filter(pk=kwargs.get('id'))
 
@@ -86,9 +82,7 @@ class PostView(TemplateView):
 
         if board.usable_group and not request.user.groups.filter(
                 pk__in=board.usable_group.values_list('pk', flat=True)).exists():
-
-            if not (user.is_superuser or user.is_staff):
-                return redirect('/main/?warning=권한이 없습니다.')
+            return redirect('/main/?warning=권한이 없습니다.')
 
         post = board.post_set.filter(pk=kwargs.get('id'))
 
@@ -182,9 +176,7 @@ class PostModifyView(TemplateView):
 
         if board.usable_group and not request.user.groups.filter(
                 pk__in=board.usable_group.values_list('pk', flat=True)).exists():
-
-            if not (user.is_superuser or user.is_staff):
-                return redirect('/main/?warning=권한이 없습니다.')
+            return redirect('/main/?warning=권한이 없습니다.')
 
         post = board.post_set.filter(pk=kwargs.get('id'))
 
@@ -214,9 +206,7 @@ class PostModifyView(TemplateView):
 
         if board.usable_group and not request.user.groups.filter(
                 pk__in=board.usable_group.values_list('pk', flat=True)).exists():
-
-            if not (user.is_superuser or user.is_staff):
-                return redirect('/main/?warning=권한이 없습니다.')
+            return redirect('/main/?warning=권한이 없습니다.')
 
         post = board.post_set.filter(pk=kwargs.get('id'))
 
@@ -252,9 +242,7 @@ class PostDeleteView(TemplateView):
 
         if board.usable_group and not request.user.groups.filter(
                 pk__in=board.usable_group.values_list('pk', flat=True)).exists():
-
-            if not (user.is_superuser or user.is_staff):
-                return redirect('/main/?warning=권한이 없습니다.')
+            return redirect('/main/?warning=권한이 없습니다.')
 
         post = board.post_set.filter(pk=kwargs.get('id'))
 

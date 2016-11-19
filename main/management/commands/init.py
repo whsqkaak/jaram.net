@@ -57,10 +57,10 @@ class Command(BaseCommand):
         self.init_admin()
 
     def init_group(self):
-        create_group('OB', lambda g: grant_permission(g, 'board', models=['graduatingboard']))
-        create_group('준OB', lambda g: grant_permission(g, 'board', models=['studentboard']))
-        create_group('정회원', lambda g: grant_permission(g, 'board', models=['studentboard']))
-        create_group('준회원', lambda g: grant_permission(g, 'board', models=['studentboard']))
+        create_group('OB', lambda g: grant_permission(g, 'board', models=['Board']))
+        create_group('준OB', lambda g: grant_permission(g, 'board', models=['Board']))
+        create_group('정회원', lambda g: grant_permission(g, 'board', models=['Board']))
+        create_group('준회원', lambda g: grant_permission(g, 'board', models=['Board']))
         create_group('수습회원')
 
         create_group('미승인')
