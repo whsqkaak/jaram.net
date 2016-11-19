@@ -25,32 +25,14 @@ class MainView(TemplateView):
         response = create_response(request)
         
         today = date.today()
-        year = today.year
-        month = today.month
         calendar.setfirstweekday(calendar.SUNDAY)
         
-        event_dates = []
         events = Event.objects.filter(
             start_date__range=(
-                datetime(year, month, 1), datetime(year, month + 1, calendar.monthrange(year, month + 1)[1]))).order_by(
+                today, today + timedelta(days=30))).order_by(
             'start_date')
-        for i in range(31):
-            each_date = today+timedelta(days=i)
-            event_dates.append([each_date])
-            for event in events:
-                if event.end_date.month == each_date.month:
-                    if (event.start_date.day <= each_date.day) and (event.end_date.day >= each_date.day):
-                        event_dates[i].append(event)
         
-        for i in range(31):
-            each_date = today+timedelta(days=i)
-            event_dates.append([each_date])
-            for event in events:
-                if event.end_date.month + 1 == each_date.month:
-                    if event.start_date.day <= each_date.day:
-                        event_dates[i].append(event)
-                
-        response['events'] = event_dates
+        response['events'] = events
         try:
             notice = Board.objects.get(name='공지사항')
 
