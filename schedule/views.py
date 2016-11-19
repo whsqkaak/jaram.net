@@ -19,6 +19,7 @@ class ScheduleView(TemplateView):
 
 
 class ScheduleApiView(View):
+<<<<<<< HEAD
     template_name = 'jaram_calendar.html'
 
     def get(self, request, *args, **kwargs):
@@ -27,6 +28,10 @@ class ScheduleApiView(View):
         month = int(request.GET.get('m'))
         jaram_calendar(Event, year, month, response)
         return render(request, self.template_name, response)
+=======
+    def get(self, request, *args, **kwargs):
+        response = dict()
+>>>>>>> ea51eee80644804e8ffebf7b9af0be12c47ed775
 
 
 class EventView(TemplateView):
