@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="{% static 'mainapp/css/login.css' %}">
   <style>
     header {
-      background: url("{% static 'mainapp/img/background.jpg'%}") center;
+      background: url("{% static 'mainapp/img/background.jpg'%}") fixed center;
       background-size: cover;
     }
   </style>
@@ -18,9 +18,9 @@
     function registrationSubmit() {
       return true;
     }
-      $("#registration-submit").click(function () {
-        $("button[type=submit]").click();
-      });
+    $("#registration-submit").click(function () {
+      $("button[type=submit]").click();
+    });
   </script>
 </head>
 <nav>
@@ -29,71 +29,79 @@
 <body>
 <header class="blur-background">
   <div class="overlay"></div>
-  <div class="vertical-center-container">
+  <div class="vertical-center-container" style="position: fixed;">
     <div class="vertical-center-item">
-      <div id="login-item">
+      <div id="login-item" style="width:600px;">
         <form class="ui form" onsubmit="return registrationSubmit();"
-        method="post" enctype="multipart/form-data">
+              method="post" enctype="multipart/form-data">
           <h4 class="ui dividing header">회원가입</h4>
           {% csrf_token %}
           {% if message %}
             <p>{{ message }}</p>
           {% endif %}
-          <div class="field">
-            <label>* 이름</label>
-            <div class="field">
-              <input type="text" name="name" placeholder="(ex : 홍길동)" required>
-            </div>
-          </div>
-          <div class="field">
-            <label>* ID</label>
-            <div class="field">
-              <input type="text" name="user_id" required>
-            </div>
-          </div>
-          <div class="field">
-            <label>* Password</label>
-            <div class="field">
-              <input type="password" name="password" required>
-            </div>
-          </div>
-          <div class="field">
-            <label>* Email</label>
-            <div class="field">
-              <input type="text" name="Email" placeholder="(ex : jaram@hanyang.ac.kr)" required>
-            </div>
-          </div>
-          <div class="field">
-            <label>* 전화번호</label>
-            <div class="field">
-              <input type="text" name="phone" placeholder="(ex : 01012345678)" required>
-            </div>
-          </div>
-          <div class="field">
-            <label>* 기수</label>
-            <div class="field">
-              <input type="text" name="period" placeholder="(ex : 31)" required>
-            </div>
-          </div>
-          <div class="field">
-            <label>* 학번(입학년도)</label>
-            <div class="field">
-              <input type="text" name="enter_year" placeholder="(ex : 2015)" required>
-            </div>
-          </div>
-          <div class="field">
-              <label>생일</label>
+          <div class="ui two column grid">
+            <div class="column">
               <div class="field">
-                  <input type="date" name="birth" placeholder="생일">
+                <label>* 이름</label>
+                <div class="field">
+                  <input type="text" name="name" placeholder="(ex : 홍길동)" required>
+                </div>
               </div>
-          </div>
-          <div class="field">
-            <label>SNS 주소</label>
-            <div class="field">
-              <input type="text" name="sns" placeholder="SNS 주소">
+              <div class="field">
+                <label>* ID</label>
+                <div class="field">
+                  <input type="text" name="user_id" required>
+                </div>
+              </div>
+              <div class="field">
+                <label>* Password</label>
+                <div class="field">
+                  <input type="password" pattern="(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,}" name="password"
+                         title="8자리 이상, 숫자, 영문, 특수문자를 혼합" placeholder="8자리 이상, 숫자,영문 혼합" required>
+                </div>
+              </div>
+              <div class="field">
+                <label>* Email</label>
+                <div class="field">
+                  <input type="email" name="Email" placeholder="(ex : jaram@hanyang.ac.kr)" required>
+                </div>
+              </div>
+              <div class="field">
+                <label>* 전화번호</label>
+                <div class="field">
+                  <input type="tel" name="phone" placeholder="(ex : 01012345678)" required>
+                </div>
+              </div>
+            </div>
+{#            <div class="ui vertical divider"></div>#}
+            <div class="column">
+              <div class="field">
+                <label>* 기수</label>
+                <div class="field">
+                  <input type="text" pattern="[0-9]{1,10}" title="ex:31" name="period" placeholder="(ex : 31)" required>
+                </div>
+              </div>
+              <div class="field">
+                <label>* 학번(입학년도)</label>
+                <div class="field">
+                  <input type="text" pattern="[0-9]{1,10}" title="ex:2015" name="enter_year" placeholder="(ex : 2015)" required>
+                </div>
+              </div>
+              <div class="field">
+                <label>생일</label>
+                <div class="field">
+                  <input type="date" name="birth" placeholder="생일">
+                </div>
+              </div>
+              <div class="field">
+                <label>SNS 주소</label>
+                <div class="field">
+                  <input type="url" name="sns" placeholder="SNS 주소">
+                </div>
+              </div>
+              <button class="ui button" type="submit" tabindex="0">회원 가입</button>
             </div>
           </div>
-          <button class="ui button" type="submit" tabindex="0">회원 가입</button>
         </form>
       </div>
     </div>

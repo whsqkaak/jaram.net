@@ -4,7 +4,7 @@ from django.utils.datetime_safe import date
 from django.views.generic import View, TemplateView
 from main.util import create_response
 from main.utils.calender import jaram_calendar
-
+from main.models import Grade
 from schedule.models import Event
 
 
@@ -12,6 +12,8 @@ class ScheduleView(TemplateView):
     template_name = 'schedule/calendar.html'
 
     def get(self, request, *args, **kwargs):
+        if request.user.grade == Grade.objects.get(name='미승인'):
+            return redirect('/main?warning=권한이 없습니다.')
         response = create_response(request)
         today = date.today()
         jaram_calendar(Event, today.year, today.month, response)
@@ -34,6 +36,8 @@ class EventView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         response = create_response(request)
+        if request.user.grade == Grade.objects.get(name='미승인'):
+            return redirect('/main?warning=권한이 없습니다.')
         try:
             event = Event.objects.get(pk=kwargs.get('id'))
             response['event'] = event

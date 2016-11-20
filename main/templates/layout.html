@@ -38,7 +38,7 @@
         <a href="{% url 'study' %}" class="item">스터디</a>
         <a href="{% url 'post_list' name='seminar' %}" class="item">세미나</a>
         <a href="{% url 'post_list' name='playstorming' %}" class="item">플레이 스토밍</a>
-        <a href="{% url 'workshop' %}" class="item">워크샵</a>
+        <a href="{% url 'workshop_ongoing' %}" class="item">워크샵</a>
       </div>
     </div>
     <a href="{% url 'gallery' %}" class="item">갤러리</a>
@@ -74,9 +74,9 @@
 </section>
 {% block body %}
 {% endblock %}
-<div class="ui vertical footer segment push-top3 push-bottom3">
+<div class="ui vertical footer segment push-top3 push-bottom3" style="margin-top:60px!important;">
   <div class="ui center aligned container">
-    <a href="{% url 'homepage_main' %}"><h2 id="logo">JARAM</h2></a>
+    <a href="{% url 'homepage_main' %}" ><h2 id="footer-logo">JARAM</h2></a>
     <div class="ui horizontal small divided link list">
       <a class="item" href="{% url 'sitemap' %}">Site Map</a>
       <a class="item" href="#">Contact Us</a>

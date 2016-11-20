@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.views.generic import View, TemplateView
-from main.models import Member
+from main.models import Member, Grade
 from main.util import create_response
 from study.models import Study, StudyReport, Semester
 
@@ -14,6 +14,8 @@ class StudyListView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         response = create_response(request)
+        if request.user.grade == Grade.objects.get(name='미승인'):
+            return redirect('/main?warning=권한이 없습니다.')
         try:
             semesters = Semester.objects.all()
             response['semesters'] = semesters
@@ -30,6 +32,8 @@ class StudyDetailView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         response = create_response(request)
+        if request.user.grade == Grade.objects.get(name='미승인'):
+            return redirect('/main?warning=권한이 없습니다.')
         try:
             study = Study.objects.get(pk=kwargs.get('id'))
         except ObjectDoesNotExist:
@@ -48,10 +52,13 @@ class StudyReportView(TemplateView):
     def get(self, request, *args, **kwargs):
         response = create_response(request)
         try:
-            response['study'] = Study.objects.get(pk=kwargs.get('id'))
+            study = Study.objects.get(pk=kwargs.get('id'))
         except ObjectDoesNotExist:
             return redirect('/study?error=존재하지 않는 스터디입니다.')
-
+        
+        if request.user not in study.members.all():
+            return redirect('/study/%s?error=스터디 멤버만 보고서 작성이 가능합니다.' % kwargs.get('id'))
+        response['study'] = study
         return render(request, self.template_name, response)
 
     def post(self, request, *args, **kwargs):
@@ -79,6 +86,8 @@ class StudyRegistrationView(TemplateView):
     template_name = 'registration.html'
 
     def get(self, request, *args, **kwargs):
+        if request.user.grade == Grade.objects.get(name='미승인'):
+            return redirect('/main?warning=권한이 없습니다.')
         return render(request, self.template_name, create_response(request))
 
     def post(self, request, *args, **kwargs):

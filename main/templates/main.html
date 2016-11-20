@@ -101,29 +101,22 @@
         <div class="ui segment">
           <h1>Upcoming Events</h1>
           <div class="ui divider"></div>
-            {% for each_event in events %}
-              {% if each_event|length > 1 %}
-                  {% for event in each_event %}
-                    <tr>
-                      <td style="height: 120px; background-color: #f7f7f7; padding: 0">
-                        <div class="container">
-                          <div class="contents">
-                            {% if forloop.counter0 == 0 %}
-                              <p>{{ event.year }}/{{ event.month }}/{{ event.day }}</p>
-                            {% else %}
-                              <div class="schedule">
-                                <ul>
-                                  <li><a href="{% url 'event' id=event.pk %}" class="title">{{ event.title }}</a></li>
-                                </ul>
-                              </div>
-                            {% endif %}
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  {% endfor %}
-                {% endif %}
-          {% endfor %}
+          <div>
+            {% for event in events %}
+              <tr>
+                <td style="height: 120px!important; background-color: #f7f7f7; padding: 0">
+                  <div class="item">
+                    <div class="content" style="height:60px">
+                      <a href="{% url 'event' id=event.pk %}" class="header" style="font-size:20px">{{ event.title }}</a>
+                      <div class="description">{{ event.start_date.year }} / {{ event.start_date.month }} / {{ event.start_date.day }}
+                        ~ {{ event.end_date.year }} / {{ event.end_date.month }} / {{ event.end_date.day }}
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            {% endfor %}
+          </div>
         </div>
       </div>
     </div>

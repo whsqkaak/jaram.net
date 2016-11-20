@@ -2,9 +2,11 @@ from django.conf.urls import url
 from workshop.views import WorkShopListView, WorkShopRegistrationView, WorkShopDetailView, WorkShopTaskListView,\
     WorkShopTaskSubmissionView, WorkShopTaskRegistrationView, \
     WorkShopTaskSubmissionListView, WorkShopTaskDetailView, \
-    WorkShopTaskSubmissionDetailView, WorkShopTaskUpdateView
+    WorkShopTaskSubmissionDetailView, WorkShopTaskUpdateView, \
+    WorkShopView
 
 urlpatterns = [
+    url(r'^ongoing/?$', WorkShopView.as_view(), name='workshop_ongoing'),
     url(r'^$', WorkShopListView.as_view(), name='workshop'),
     url(r'^registration/?$', WorkShopRegistrationView.as_view(), name='workshop_registration'),
     url(r'^(?P<id>\d+)/?$', WorkShopDetailView.as_view(), name='workshop_detail'),

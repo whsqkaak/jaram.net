@@ -16,21 +16,24 @@
 {% endblock %}
 
 {% block body %}
-  <section class="ui container">
-    <div class="ui three cards">
+  <table class="ui celled table">
+    <thead>
+      <tr>
+        <th>제출자</th>
+        <th>제출일</th>
+        <th>내용</th>
+      </tr>
+    </thead>
+    <tbody>
       {% for task in tasks %}
-        <div class="card">
-          <div class="content">
-            <a href="{% url 'workshop_taskSubmissionDetail' id=workshop_task.pk task_id=task.pk %}" class="header">{{ task.presenter }}</a>
-            <div class="date">
-              <span>제출일 : {{ task.date }}</span>
-            </div>
-              {% autoescape off %}
-                <div class="content">{{ task.content }}</div>
-              {% endautoescape %}
-          </div>
-        </div>
+        <tr>
+          <td><a href="{% url 'workshop_taskSubmissionDetail' id=workshop_task.pk task_id=task.pk %}" class="header">{{ task.presenter }}</a></td>
+          <td>{{ task.date }}</td>
+          {% autoescape off %}
+          <td>{{ task.content }}</td>
+          {% endautoescape %}
+        </tr>
       {% endfor %}
-    </div>
-  </section>
+    </tbody>
+  </table>
 {% endblock %}
