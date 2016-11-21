@@ -7,7 +7,7 @@
   {% if notice %}
     {{ notice.title }}
   {% else %}
-{#    공지가 없어유 ㅠ_ㅠ#}
+    {#    공지가 없어유 ㅠ_ㅠ#}
   {% endif %}
 {% endblock %}
 
@@ -35,28 +35,29 @@
               <div class="ui small rounded image">
                 {% if item.thumbnail %}
                   <a href="{% url 'post_detail' name=item.board.eng_name id=item.pk %}">
-                    <img src="{{ item.thumbnail.url }}" style="width:150px; height:150px;">
+                    <img src="{{ item.thumbnail.url }}">
                   </a>
                 {% else %}
                   <a href="{% url 'post_detail' name=item.board.eng_name id=item.pk %}">
-                    <img src="{% static 'mainapp/img/no_image.png' %}" style="width:150px; height:150px;">
+                    <img src="{% static 'mainapp/img/no_image.png' %}">
                   </a>
                 {% endif %}
               </div>
               <div class="content">
                 <a href="{% url 'post_detail' name=item.board.eng_name id=item.pk %}"
                    class="header">{{ item.title }}</a>
-                <div class="meta">
-                  <span><p>{% autoescape off %}{{ item.content|get_text|truncatechars:150 }}{% endautoescape %}</p></span>
+                <div class="writer"><p>by {{ item.writer }}</p></div>
+                <div class="description">
+                  <span><p>
+                    {% autoescape off %}{{ item.content|get_text|truncatechars:200 }}{% endautoescape %}</p></span>
                 </div>
                 <div class="extra">
-                  <div class="ui right floated small breadcrumb">
-                    <a href="{% url 'post_list' name=item.board.eng_name %}" class="section">{{ item.board.name }}</a>
-                  </div>
-                  <span class="writer">{{ item.writer }}</span>
-                  <span class="textDivider">|</span>
-                  <span class="posted_date">{{ item.write_date }}</span>
+
+                  <span class="meta">{{ item.write_date }}</span>
                 </div>
+              </div>
+              <div class="ui small breadcrumb" style="position:absolute;right:15px;">
+                <a href="{% url 'post_list' name=item.board.eng_name %}" class="section">{{ item.board.name }}</a>
               </div>
             </div>
           {% endfor %}
@@ -70,11 +71,11 @@
               <div class="ui small rounded image">
                 {% if item.thumbnail %}
                   <a href="{% url 'post_detail' name=item.board.eng_name id=item.pk %}">
-                    <img src="{{ item.thumbnail.url }}" style="width:150px; height:150px;">
+                    <img src="{{ item.thumbnail.url }}">
                   </a>
                 {% else %}
                   <a href="{% url 'post_detail' name=item.board.eng_name id=item.pk %}">
-                    <img src="{% static 'mainapp/img/no_image.png' %}" style="width:150px; height:150px;">
+                    <img src="{% static 'mainapp/img/no_image.png' %}">
                   </a>
                 {% endif %}
               </div>
@@ -85,10 +86,11 @@
                 {% else %}
                   <a href="{% url 'post_detail' name='notice' id=item.pk %}" class="header">{{ item.title }}</a>
                 {% endif %}
-                <div class="meta">
-                  <span><p>{% autoescape off %}{{ item.content }}{% endautoescape %}</p></span>
+                <div class="description">
+                  <span><p>
+                    {% autoescape off %}{{ item.content|get_text|truncatechars:200 }}{% endautoescape %}</p></span>
                 </div>
-                <div class="extra">
+                <div class="meta">
                   {{ item.write_date }}
                 </div>
               </div>
@@ -107,8 +109,10 @@
                 <td style="height: 120px!important; background-color: #f7f7f7; padding: 0">
                   <div class="item">
                     <div class="content" style="height:60px">
-                      <a href="{% url 'event' id=event.pk %}" class="header" style="font-size:20px">{{ event.title }}</a>
-                      <div class="description">{{ event.start_date.year }} / {{ event.start_date.month }} / {{ event.start_date.day }}
+                      <a href="{% url 'event' id=event.pk %}" class="header"
+                         style="font-size:20px">{{ event.title }}</a>
+                      <div class="description">{{ event.start_date.year }} / {{ event.start_date.month }}
+                        / {{ event.start_date.day }}
                         ~ {{ event.end_date.year }} / {{ event.end_date.month }} / {{ event.end_date.day }}
                       </div>
                     </div>
