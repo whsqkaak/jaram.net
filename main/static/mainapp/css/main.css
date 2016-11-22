@@ -5,6 +5,16 @@ a:link, a:visited {
 a:link:active, a:visited:active {
     color: #000000;
 }
+
+a.section:link, a.section:visited {
+    color: inherit;
+    cursor: auto;
+}
+
+a.section:link:active, a.section:visited:active {
+    color: #000000;
+}
+
 div.content {
     padding-top: 5px !important;
     height: 150px;
