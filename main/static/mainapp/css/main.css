@@ -7,9 +7,16 @@ a:link:active, a:visited:active {
     color: #000000;
 }
 
+a.section:link, a.section:visited {
+    color: inherit;
+    cursor: auto;
+}
+a.section:link:active, a.section:visited:active {
+    color: #000000;
+}
+
 div.content {
     padding-top: 5px !important;
-    height: 120px;
 }
 
 div.description {
@@ -24,7 +31,6 @@ div.description {
 a.header {
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
 div.ui.small.rounded.image {
@@ -38,7 +44,7 @@ div.ui.small.rounded.image > a > img {
 
 @media screen and (min-width: 768px) and (max-width: 991px) {
     div.extra {
-        height: 40px;
+        /*height: 40px;*/
     }
 
     span.posted_date {

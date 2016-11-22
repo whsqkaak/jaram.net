@@ -31,17 +31,15 @@
         <div class="ui divider"></div>
         <div class="ui divided items">
           {% for item in recent_posts %}
-            <div class="item">
+            <div class="item" style="">
               <div class="ui small rounded image">
-                {% if item.thumbnail %}
-                  <a href="{% url 'post_detail' name=item.board.eng_name id=item.pk %}">
+                <a href="{% url 'post_detail' name=item.board.eng_name id=item.pk %}">
+                  {% if item.thumbnail %}
                     <img src="{{ item.thumbnail.url }}">
-                  </a>
-                {% else %}
-                  <a href="{% url 'post_detail' name=item.board.eng_name id=item.pk %}">
+                  {% else %}
                     <img src="{% static 'mainapp/img/no_image.png' %}">
-                  </a>
-                {% endif %}
+                  {% endif %}
+                </a>
               </div>
               <div class="content">
                 <a href="{% url 'post_detail' name=item.board.eng_name id=item.pk %}"
@@ -51,13 +49,11 @@
                   <span><p>
                     {% autoescape off %}{{ item.content|get_text|truncatechars:200 }}{% endautoescape %}</p></span>
                 </div>
-                <div class="extra">
-
-                  <span class="meta">{{ item.write_date }}</span>
+                <div class="meta">
+                  <span>{{ item.write_date|date:"Y.m.d h:i a" }}&nbsp;|</span>
+                  <span><a href="{% url 'post_list' name=item.board.eng_name %}"
+                           class="section">{{ item.board.name }}</a></span>
                 </div>
-              </div>
-              <div class="ui small breadcrumb" style="position:absolute;right:15px;">
-                <a href="{% url 'post_list' name=item.board.eng_name %}" class="section">{{ item.board.name }}</a>
               </div>
             </div>
           {% endfor %}
@@ -82,7 +78,6 @@
               <div class="content">
                 {% if item.emphasis %}
                   <a href="{% url 'post_detail' name='notice' id=item.pk %}" class="header">[중요] {{ item.title }}</a>
-                  <!-- TODO: '중요 : ' 이거 대신에 스타일을 다르게 주도록 변경-->
                 {% else %}
                   <a href="{% url 'post_detail' name='notice' id=item.pk %}" class="header">{{ item.title }}</a>
                 {% endif %}
@@ -91,7 +86,7 @@
                     {% autoescape off %}{{ item.content|get_text|truncatechars:200 }}{% endautoescape %}</p></span>
                 </div>
                 <div class="meta">
-                  {{ item.write_date }}
+                  <span>{{ item.write_date|date:"Y.m.d h:i a" }}</span>
                 </div>
               </div>
             </div>
@@ -101,7 +96,7 @@
       <!--우측 위젯 바-->
       <div class="six wide column">
         <div class="ui segment">
-          <h1>Upcoming Events</h1>
+          <h1>다가오는 이벤트</h1>
           <div class="ui divider"></div>
           <div>
             {% for event in events %}
