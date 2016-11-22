@@ -5,20 +5,9 @@
 {% block head %}
   <script>
     $(function () {
-      $('#semester-select')
-      .dropdown({action:'hide'})
-    ;
+      $('#semester-select').dropdown();
     })
   </script>
-  <style>
-    a:link, a:visited {
-    color: #000000;
-    cursor: auto;
-    }
-    a:link:active, a:visited:active {
-      color: #000000;
-    }
-  </style>
 {% endblock %}
 
 {% block header_title %}
@@ -52,18 +41,15 @@
             <span><i class="icon user"></i> {{ item.members.all|length|add:1 }}명이 함께 스터디 중 </span>
           </div>
         </div>
-    {% endfor %}
+      {% endfor %}
     </div>
     <br>
     <div id="semester-select" class="ui scrolling selection dropdown" style="float: right;">
-      <input type="hidden" name="gender">
       <i class="dropdown icon"></i>
       <div class="default text">지난 스터디</div>
       <div class="menu">
         {% for semester in semesters %}
-          <div class="item">
-            <a href="{% url 'study' %}?semester={{ forloop.counter0 }}">{{ semester.name }}</a>
-          </div>
+          <a class="item" href="{% url 'study' %}?semester={{ forloop.counter0 }}">{{ semester.name }}</a>
         {% endfor %}
       </div>
     </div>
