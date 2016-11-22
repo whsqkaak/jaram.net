@@ -11,6 +11,7 @@ a.section:link, a.section:visited {
     color: inherit;
     cursor: auto;
 }
+
 a.section:link:active, a.section:visited:active {
     color: #000000;
 }
