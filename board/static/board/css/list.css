@@ -1,0 +1,32 @@
+a.header {
+    width: 100%;
+    overflow: hidden;
+    /*text-overflow: ellipsis;*/
+    /*white-space: nowrap;*/
+    word-wrap: break-word;
+}
+
+div.description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+}
+
+div.ui.small.rounded.image > a > img {
+    width: 150px;
+    min-height: 120px;
+}
+@media screen and (max-width: 767px) {
+    div.description{
+        -webkit-line-clamp: 2;
+    }
+    div.ui.small.rounded.image {
+        display: none !important;
+    }
+    div.content{
+        padding-top: 0!important;
+    }
+}

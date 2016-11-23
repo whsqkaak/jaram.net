@@ -12,21 +12,24 @@
   </style>
 
   <script>
-    var list = $('#report-container');
-    var listItems = list.children('div.item');
-    console.log(list);
     $(function () {
       $('.ui.sticky').sticky({
         context: '#sticky-container',
         offset: 96
       });
     });
-{#    $(function () {#}
-{#      $('#order-checkbox').checkbox({onChange: function () {#}
-{#        console.log('change');#}
-{#        list.append(listItems.get().reverse());#}
-{#      }});#}
-{#    });#}
+    $(function () {
+      $('#order-checkbox').checkbox({onChange: function () {
+        var listItems = $('#report-container').children();
+        $('#report-container').append(listItems.get().reverse());
+      },
+      onChecked: function () {
+        $('#report-order').text('추가된 날짜(오래된순)');
+      },
+      onUnchecked: function () {
+        $('#report-order').text('추가된 날짜(최신순)');
+      }});
+    });
   </script>
 {% endblock %}
 
@@ -50,10 +53,10 @@
   <section id="sticky-container" class="ui stackable two column grid container">
     <div class="row push-top3">
       <div class="twelve wide column">
-{#        <div id='order-checkbox' class="ui toggle checkbox">#}
-{#          <input type="checkbox" name="public">#}
-{#          <label>추가된 날짜(최신순)</label>#}
-{#        </div>#}
+        <div id='order-checkbox' class="ui toggle checkbox">
+          <input type="checkbox" name="public">
+          <label id="report-order">추가된 날짜(최신순)</label>
+        </div>
       <!--TODO: 레포트 순서 체크박스 구현-->
         <div class="ui divided items push-right3" id="report-container">
           {% for report in reports %}

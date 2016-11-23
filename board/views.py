@@ -29,7 +29,7 @@ class PostListView(TemplateView):
                 return redirect('/main/?warning=권한이 없습니다.')
 
         easy_paginator(board.post_set.order_by('-write_date').all(), request.GET.get('page', 1),
-                       each_data_count=6, save_to=response)
+                       each_data_count=8, save_to=response)
 
         response['board'] = board
         response['emphasis_posts'] = board.post_set.filter(emphasis=True).all()

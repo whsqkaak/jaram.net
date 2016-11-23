@@ -90,3 +90,11 @@ div.overlay {
     color: white;
     -webkit-text-fill-color: white;
 }
+
+#sign-up-button {
+    position: absolute;
+    bottom:0;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
