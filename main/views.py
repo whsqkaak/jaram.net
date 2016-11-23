@@ -7,6 +7,7 @@ import calendar
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
+from django.core.validators import validate_email
 from django.utils.translation import ugettext as _
 from django.db import IntegrityError
 from main.util import create_response
@@ -60,6 +61,11 @@ class ProfileView(TemplateView):
         if not data.get('email'):
             return redirect('/profile?error=이메일을 입력해주세요')
 
+        try:
+            validate_email(data.get('Email'))
+        except ValidationError:
+            return redirect('/sign_up?error=이메일을 제대로 입력하십시오.')
+
         user = request.user
 
         user.email = data.get('email')
@@ -86,6 +92,11 @@ class SignUpView(TemplateView):
         
         if data.get('password').isdigit() and len(data.get('password')) < 8:
             return redirect('/sign_up?error=비밀번호의 형식을 지키십시오.')
+        
+        try:
+            validate_email(data.get('Email'))
+        except ValidationError:
+            return redirect('/sign_up?error=이메일을 제대로 입력하십시오.')
         
         member = Member()
         member.user_id = data.get('user_id')
