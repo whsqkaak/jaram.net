@@ -47,7 +47,7 @@
     <div id="semester-select" class="ui scrolling selection dropdown" style="float: right;">
       <i class="dropdown icon"></i>
       <div class="default text">지난 스터디</div>
-      <div class="menu">
+      <div class="menu" style="width: 196px!important;">
         {% for semester in semesters %}
           <a class="item" href="{% url 'study' %}?semester={{ forloop.counter0 }}">{{ semester.name }}</a>
         {% endfor %}
