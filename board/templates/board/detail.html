@@ -66,10 +66,7 @@
                 <!--TODO: 날짜, 시간 표시 포맷 변경 ex) Today at 5:42PM-->
               </div>
               <div class="text">
-                  <pre>
-                  {{ comment.content }}
-
-                  </pre>
+                  {{ comment.content|linebreaks }}
               </div>
 {#              <div class="actions">#}
 {#                <a class="reply">Reply</a>#}
@@ -77,31 +74,28 @@
             </div>
           <!--TODO: 댓글 작성자 클릭 시 회원정보 보여주는 페이지 제작 -->
           </div>
-          {% for reply in comment.replies.all %}
-            <div class="comment">
-              <a class="avatar">
-                {% if comment.writer.profile %}
-                  <img src={{ comment.writer.profile }}>
-                {% else %}
-                  <img src="{% static "mainapp/img/profile_default.png" %}">
-                {% endif %}
-              </a>
-              <div class="content">
-                <a class="author">{{ comment.writer }}</a>
-                <div class="metadata">
-                  <span class="date">{{ comment.write_date }}</span>
-                  <!--TODO: 날짜, 시간 표시 포맷 변경 ex) Today at 5:42PM-->
-                </div>
-                <div class="text">
-                  <pre>
-                  {{ comment.content }}
-
-                  </pre>
-                </div>
-              </div>
-              <!--TODO: 댓글 작성자 클릭 시 회원정보 보여주는 페이지 제작 -->
-            </div>
-          {% endfor %}
+{#          {% for reply in comment.replies.all %}#}
+{#            <div class="comment">#}
+{#              <a class="avatar">#}
+{#                {% if comment.writer.profile %}#}
+{#                  <img src={{ comment.writer.profile }}>#}
+{#                {% else %}#}
+{#                  <img src="{% static "mainapp/img/profile_default.png" %}">#}
+{#                {% endif %}#}
+{#              </a>#}
+{#              <div class="content">#}
+{#                <a class="author">{{ comment.writer }}</a>#}
+{#                <div class="metadata">#}
+{#                  <span class="date">{{ comment.write_date }}</span>#}
+{#                  <!--TODO: 날짜, 시간 표시 포맷 변경 ex) Today at 5:42PM-->#}
+{#                </div>#}
+{#                <div class="text">#}
+{#                  {{ comment.content }}#}
+{#                </div>#}
+{#              </div>#}
+{#              <!--TODO: 댓글 작성자 클릭 시 회원정보 보여주는 페이지 제작 -->#}
+{#            </div>#}
+{#          {% endfor %}#}
         {% endfor %}
         <form id="comment-form" class="ui reply form" method="post">
           {% csrf_token %}
