@@ -17,7 +17,7 @@ class WorkShopView(TemplateView):
 				end_date__gte=today,
 				start_date__lte=today)
 		except ObjectDoesNotExist:
-			return render(request, 'workshop/list.html', create_response(request))
+			return redirect('workshop')
 		
 		return redirect('workshop_detail', id=ongoing_workshop.pk)
 

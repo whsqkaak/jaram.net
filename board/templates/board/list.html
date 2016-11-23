@@ -20,11 +20,7 @@
       });
     });
   </script>
-  <style>
-    div.meta {
-      height:50px;
-    }
-  </style>
+  <link rel="stylesheet" href="{% static 'board/css/list.css' %}"/>
 {% endblock %}
 
 {% block body %}
@@ -44,19 +40,16 @@
             <div class="ui small rounded image">
               <a href="{% url 'post_detail' name='notice' id=post.pk %}">
                 {% if post.thumbnail %}
-                  <img src="{{ post.thumbnail.url }}" style="width:150px; height:150px;">
+                  <img src="{{ post.thumbnail.url }}">
                 {% else %}
-                  <img src="{% static 'mainapp/img/no_image.png' %}" style="width:150px; height:150px;">
+                  <img src="{% static 'mainapp/img/no_image.png' %}">
                 {% endif %}
               </a>
             </div>
             <div class="content">
               <a href="{% url 'post_detail' name='notice' id=post.pk %}" class="header">{{ post.title }}</a>
-              <div class="meta">
-                <span>{% autoescape off %}{{ post.content|get_text|truncatechars:150 }}{% endautoescape %}</span>
-              </div>
               <div class="description">
-                <br>
+                <span>{% autoescape off %}{{ post.content|get_text|truncatechars:150 }}{% endautoescape %}</span>
               </div>
               <div class="extra">
                 <i class="user icon"></i>
@@ -79,18 +72,17 @@
           <div class="ui small rounded image">
             <a href="{% url 'post_detail' name=board.eng_name id=post.pk %}" class="header">
               {% if post.thumbnail %}
-                <img src="{{ post.thumbnail.url }}" style="width:150px; height:150px;">
+                <img src="{{ post.thumbnail.url }}">
               {% else %}
-                <img src="{% static 'mainapp/img/no_image.png' %}" style="width:150px; height:150px;">
+                <img src="{% static 'mainapp/img/no_image.png' %}">
               {% endif %}
             </a>
           </div>
           <div class="content">
             <a href="{% url 'post_detail' name=board.eng_name id=post.pk %}" class="header">{{ post.title }}</a>
-            <div class="meta">
-              <span>{% autoescape off %}{{ post.content|get_text|truncatechars:140 }}{% endautoescape %}</span>
+            <div class="description">
+              <span><p>{% autoescape off %}{{ post.content|get_text|truncatechars:200 }}{% endautoescape %}</p></span>
             </div>
-            <br>
             <div class="extra">
               {% if board.name != '플레이스토밍' %}
                 <i class="user icon"></i>
@@ -100,7 +92,6 @@
               <span class="posted_date">{{ post.write_date|date:'Y년 m월 d일' }}</span>
               <i class="unhide icon"></i>
               <span clcass="hit">{{ post.hit }}회</span>
-              <!-- TODO: Text-Overflow 관련 코드 수정-->
             </div>
           </div>
         </div>
