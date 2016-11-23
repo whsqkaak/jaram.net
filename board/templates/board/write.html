@@ -69,7 +69,7 @@
       <div class="field">
         <label>미리보기 사진</label>
         <p>{% if post and post.thumbnail %}{{ post.thumbnail.name }}{% endif %}</p>
-        <input type="file" name="thumbnail">
+        <input type="file" name="thumbnail" accept="image/png,image/jpeg,image/gif">
       </div>
       <div class="field">
         <label>내용</label>
