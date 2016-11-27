@@ -3,16 +3,39 @@
 {% load staticfiles %}
 
 {% block header_title %}
+  {{ year }}년 {{ month }}월 {{ date }}일
 {% endblock %}
 
-{% block header_title %}
+{% block header_content %}
+  <a href="{% url 'schedule' %}" class="ui button inverted basic">일정</a>
 {% endblock %}
 
 {% block head %}
+  <style>
+    a:link, a:visited {
+      color: #000000;
+      cursor: auto;
+    }
+    a:link:active, a:visited:active {
+      color: #000000;
+    }
+  </style>
 {% endblock %}
 
 {% block body %}
   <div class="ui text container">
-
+    {% if events %}
+      {% for event in events %}
+        <i class="{{ event.category.color }} circle icon"></i>
+        <a href="{% url 'event' id=event.pk %}">
+          <p class="title" style="display:inline;">{{ event.title }}</p>
+        </a>
+        <p style="color:rgba(0,0,0,.6);font-size:13px;display: inline;float: right;">{{ event.start_date|date:"h:i a" }} - {{ event.end_date|date:"h:i a" }}</p>
+        <br>
+        <br>
+      {% endfor %}
+    {% else %}
+      <p>일정이 없습니다 ㅠ_ㅠ</p>
+    {% endif %}
   </div>
 {% endblock %}

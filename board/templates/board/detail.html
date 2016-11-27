@@ -31,6 +31,12 @@
         $('.ui.basic.modal')
           .modal('show')
         ;
+      });
+      $('#comment-submit').click(function() {
+        if ( $.trim( $('#comment-content').val() ) == '' ) {
+          alert('input is blank');
+          return false;
+        }
       })
     })
   </script>
@@ -101,9 +107,9 @@
           {% csrf_token %}
           <div class="field">
             <label>댓글달기</label>
-            <textarea name="content" rows="3" required></textarea>
+            <textarea id="comment-content" name="content" rows="3" required></textarea>
           </div>
-          <button class="ui blue labeled submit icon button hidden" type="submit" style="float: right;">
+          <button id="comment-submit" class="ui blue labeled submit icon button hidden" type="submit" style="float: right;">
             <i class="icon edit"></i>저장
           </button>
           <br>

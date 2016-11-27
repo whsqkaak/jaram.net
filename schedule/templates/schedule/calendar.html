@@ -20,11 +20,15 @@
         $(".title").hide();
         $("i.circle.icon").addClass("mini").css({"position": "static"});
         $(".schedule").css({"display": "inline-block", "width": "12px"});
+        $("td").addClass("selectable");
+        loadDailySchedule();
       }
       else {
         $(".title").show();
         $("i.circle.icon").removeClass("mini").css({"position": "absolute"});
         $(".schedule").css({"display": "block", "width": "inherit"});
+        $("td.selectable").removeClass("selectable");
+        loadDailySchedule();
       }
     }
     function createCalendar() {
@@ -35,9 +39,18 @@
           $('#week-list').html(data);
           $('#calendar-info').text(year + "년 " + month + "월");
           setTitleVisibility();
+          loadDailySchedule();
         },
         error: function () {
           alert("error");
+        }
+      });
+    }
+    function loadDailySchedule() {
+      $('td.selectable > div').bind('click', function(){
+        var date = $(this).find('div.date').find('p').text();
+        if(date){
+          window.location.href = "{% url 'daily_schedule' %}?y=" + year + "&m=" + month + "&d=" + date;
         }
       });
     }
@@ -47,7 +60,6 @@
     $(window).on('resize', function () {
       setTitleVisibility();
     });
-    $('.ui.button').onclick
     $(function () {
       $('#next-month').click(function () {
         year = Math.floor(year + month / 12);
@@ -68,6 +80,7 @@
         }
         createCalendar();
       });
+      loadDailySchedule();
     });
   </script>
 {% endblock %}
