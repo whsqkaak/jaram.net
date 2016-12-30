@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.views.generic import View, TemplateView
+from django.db.models.query import EmptyQuerySet
 from main.models import Member, Grade
 from main.util import create_response
 from study.models import Study, StudyReport, Semester
